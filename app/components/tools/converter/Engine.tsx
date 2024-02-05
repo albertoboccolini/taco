@@ -1,13 +1,35 @@
 'use client'
 
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import {NotificationManager} from "@/app/components/public/NotificationManager";
 
 export const Engine = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [conversionType, setConversionType] = useState<string>('PDF');
     const [conversionManager, setConversionManager] = useState<string>('CloudConvert');
-    const [isConverted, setIsConverted] = useState<boolean>(false);
-    let apiKey = '';
+    const [error, setError] = useState('');
+    let isConverted = false;
+    const [apiKey, setApiKey] = useState<String>('');
+    let conversionUrl = "";
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+    const errorNotification = NotificationManager();
+
+    const getBase64 = (file: File) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            let encoded = reader.result!.toString().replace(/^data:(.*,)?/, '');
+            if ((encoded.length % 4) > 0) {
+                encoded += '='.repeat(4 - (encoded.length % 4));
+            }
+            resolve(encoded);
+        };
+        reader.onerror = function (error) {
+            reject('Error: ' + error);
+        };
+    });
+
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
@@ -17,16 +39,16 @@ export const Engine = () => {
 
     const handleApiKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.value !== apiKey) {
-            apiKey = event.target.value;
+            setApiKey(event.target.value);
         }
     };
 
     const downloadConvertedFile = () => {
         if (!isConverted) {
-            console.log("File is not ready for download.");
+            setError("Conversione non ancora effettuata.");
             return;
         }
-        console.log("Downloading the converted file.");
+        return window.location.href = conversionUrl as string;
     };
 
     const handleConversionTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -39,31 +61,41 @@ export const Engine = () => {
 
     const submitFileForConversion = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        conversionUrl = "";
+        isConverted = false;
         if (!selectedFile) {
-            alert('Please select a file.');
+            setError("Perfavore, selezionare un file");
             return;
         }
         if (apiKey == "") {
-            alert('Please enter api key.');
+            setError("API Key mancante");
             return;
         }
+
         const body = {
             "tasks": {
                 "import-1": {
-                    "operation": "import/upload",
-                    "file": selectedFile,
+                    "operation": "import/base64",
+                    "file": await getBase64(selectedFile),
+                    "filename": selectedFile.name
                 },
                 "task-1": {
                     "operation": "convert",
-                    "input_format": selectedFile.type,
+                    "input_format": selectedFile.type.split("/")[1],
                     "output_format": conversionType.toLowerCase(),
                     "input": ["import-1"]
+                },
+                "export-1": {
+                    "operation": "export/url",
+                    "input": [
+                        "task-1"
+                    ],
+                    "inline": false,
+                    "archive_multiple_files": false
                 }
             },
             "tag": "taco"
         };
-        console.log(apiKey);
-        console.log(body);
 
         try {
             const response = await fetch('https://api.cloudconvert.com/v2/jobs', {
@@ -76,21 +108,46 @@ export const Engine = () => {
             });
             if (response.ok) {
                 const result = await response.json();
-                console.log(`File converted successfully: ${result}`);
-                setIsConverted(true);
+                const taskLink = result["data"]["links"]["self"];
+                let status = "";
+                let taskResult;
+                do {
+                    sleep(5000);
+                    const taskResponse = await fetch(taskLink, {
+                        method: 'GET',
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                    });
+                    taskResult = await taskResponse.json();
+                    status = taskResult["data"]["status"];
+                } while (status != "finished");
+                conversionUrl = taskResult["data"]["tasks"][0]["result"]["files"][0]["url"];
+                isConverted = true;
+                // TO-DO: implement notifications
+                alert("Conversion successful, now you can download your file");
             } else {
-                alert('Failed to convert the file.');
+                setError("Conversione fallita, si prega di riprovare");
             }
         } catch (error) {
-            console.error('Error submitting the file for conversion:', error);
-            alert('An error occurred while converting the file.');
+            setError("Errore durante la conversione");
         }
-        alert(`Your file ${selectedFile.name} has been submitted for conversion to ${conversionType}.`);
     };
+
+    // Da qualche parte nel tuo componente o hook, dopo aver chiamato `downloadConvertedFile` o in un effetto
+    useEffect(() => {
+        if (error) {
+            errorNotification(error);
+            setError(''); // Resetta lo stato dell'errore dopo averlo mostrato
+        }
+    }, [error]);
 
     return {
         selectedFile,
         conversionType,
+        conversionManager,
+        conversionUrl,
         isConverted,
         handleFileChange,
         handleApiKeyChange,

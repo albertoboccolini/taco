@@ -13,7 +13,7 @@ const Layout: NextPage = () => {
 
     const {
         conversionType,
-        isConverted,
+        conversionManager,
         handleFileChange,
         handleApiKeyChange,
         handleConversionManagerChange,
@@ -39,7 +39,7 @@ const Layout: NextPage = () => {
                         <input type="text" onChange={handleApiKeyChange} placeholder="Api Key"
                                className="block m-auto py-2 px-4 mt-4 border border-gray-300 rounded-lg w-60"/>
                         <div className="flex gap-10">
-                            <select value={conversionType}
+                            <select value={conversionManager}
                                     onChange={handleConversionManagerChange}
                                     className="block m-auto mt-4 py-2 bg-white h-full border border-gray-300 rounded-lg w-60">
                                 <option value="CloudConvert">CloudConvert</option>
@@ -59,8 +59,7 @@ const Layout: NextPage = () => {
                                 className="bg-black hover:bg-white w-52 m-4 text-white font-bold py-3 px-6 rounded-lg mt-6 transition duration-300 ease-in-out transform hover:scale-125">
                             Convert
                         </button>
-                        <button disabled={!isConverted}
-                                onClick={downloadConvertedFile}
+                        <button type="button" onClick={downloadConvertedFile}
                                 className="bg-black hover:bg-white w-52 m-4 text-white font-bold py-3 px-6 rounded-lg mt-6 transition duration-300 ease-in-out transform hover:scale-125 disabled:opacity-5">
                             Download
                         </button>
