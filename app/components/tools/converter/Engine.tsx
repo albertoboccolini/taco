@@ -2,18 +2,22 @@
 
 import {useEffect, useState} from 'react';
 import {NotificationManager} from "@/app/components/public/NotificationManager";
+import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
+import AbstractDisplayableError from "@/app/components/public/errors/AbstractDisplayableError";
+import CloudConvertConversionError from "@/app/components/public/errors/CloudConvertConversionError";
+import Base64ConvertError from "@/app/components/public/errors/Base64ConvertError";
 
 export const Engine = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [conversionType, setConversionType] = useState<string>('PDF');
     const [conversionManager, setConversionManager] = useState<string>('CloudConvert');
-    const [error, setError] = useState('');
+    const [error, setError] = useState<AbstractDisplayableError | null>(null);
     let isConverted = false;
     const [apiKey, setApiKey] = useState<String>('');
     let conversionUrl = "";
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-    const errorNotification = NotificationManager();
+    const {errorNotification, successNotification} = NotificationManager();
 
     const getBase64 = (file: File) => new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -26,7 +30,8 @@ export const Engine = () => {
             resolve(encoded);
         };
         reader.onerror = function (error) {
-            reject('Error: ' + error);
+            setError(new Base64ConvertError());
+            return;
         };
     });
 
@@ -45,7 +50,6 @@ export const Engine = () => {
 
     const downloadConvertedFile = () => {
         if (!isConverted) {
-            setError("Conversione non ancora effettuata.");
             return;
         }
         return window.location.href = conversionUrl as string;
@@ -64,11 +68,11 @@ export const Engine = () => {
         conversionUrl = "";
         isConverted = false;
         if (!selectedFile) {
-            setError("Perfavore, selezionare un file");
+            setError(new InvalidParameter("File"));
             return;
         }
         if (apiKey == "") {
-            setError("API Key mancante");
+            setError(new InvalidParameter("API Key"));
             return;
         }
 
@@ -125,21 +129,23 @@ export const Engine = () => {
                 } while (status != "finished");
                 conversionUrl = taskResult["data"]["tasks"][0]["result"]["files"][0]["url"];
                 isConverted = true;
-                // TO-DO: implement notifications
-                alert("Conversion successful, now you can download your file");
+                successNotification("Conversione completata, ora puoi scaricare il file.");
             } else {
-                setError("Conversione fallita, si prega di riprovare");
+                setError(new CloudConvertConversionError(response.status));
             }
         } catch (error) {
-            setError("Errore durante la conversione");
+            setError(error);
         }
     };
 
-    // Da qualche parte nel tuo componente o hook, dopo aver chiamato `downloadConvertedFile` o in un effetto
     useEffect(() => {
         if (error) {
-            errorNotification(error);
-            setError(''); // Resetta lo stato dell'errore dopo averlo mostrato
+            if (error instanceof AbstractDisplayableError) {
+                errorNotification(error);
+            } else {
+                errorNotification(new AbstractDisplayableError("Errore generico", "Si prega di contattare il supporto."));
+            }
+            setError(null);
         }
     }, [error]);
 

@@ -1,8 +1,9 @@
 import {toast} from "react-toastify";
+import AbstractDisplayableError from "@/app/components/public/errors/AbstractDisplayableError";
 
 export const NotificationManager = () => {
-    const errorNotification = (error: String) => {
-        toast.error(`Oops! Qualcosa è andato storto: ${error}`, {
+    const errorNotification = (error: AbstractDisplayableError) => {
+        toast.error(`${error.name}: ${error.message}`, {
             position: "top-right",
             autoClose: false,
             hideProgressBar: true,
@@ -13,5 +14,17 @@ export const NotificationManager = () => {
         });
     };
 
-    return errorNotification;
+    const successNotification = (notification: string) => {
+        toast.success(notification, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    };
+
+    return {errorNotification, successNotification};
 }
