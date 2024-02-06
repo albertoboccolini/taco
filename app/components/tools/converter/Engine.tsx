@@ -11,13 +11,12 @@ export const Engine = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [conversionType, setConversionType] = useState<string>('PDF');
     const [conversionManager, setConversionManager] = useState<string>('CloudConvert');
-    const [error, setError] = useState<AbstractDisplayableError | null>(null);
     let isConverted = false;
     const [apiKey, setApiKey] = useState<String>('');
     let conversionUrl = "";
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-    const {errorNotification, successNotification} = NotificationManager();
+    const {errorNotification, successNotification, error, setError} = NotificationManager();
 
     const getBase64 = (file: File) => new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -50,6 +49,7 @@ export const Engine = () => {
 
     const downloadConvertedFile = () => {
         if (!isConverted) {
+            setError(new InvalidParameter("File convertito"));
             return;
         }
         return window.location.href = conversionUrl as string;

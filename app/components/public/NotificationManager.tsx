@@ -1,7 +1,11 @@
 import {toast} from "react-toastify";
 import AbstractDisplayableError from "@/app/components/public/errors/AbstractDisplayableError";
+import {useState} from 'react';
 
 export const NotificationManager = () => {
+
+    const [error, setError] = useState<AbstractDisplayableError | null>(null);
+
     const errorNotification = (error: AbstractDisplayableError) => {
         toast.error(`${error.name}: ${error.message}`, {
             position: "top-right",
@@ -26,5 +30,5 @@ export const NotificationManager = () => {
         });
     };
 
-    return {errorNotification, successNotification};
+    return {errorNotification, successNotification, error, setError};
 }
