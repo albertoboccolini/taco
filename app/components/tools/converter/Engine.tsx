@@ -131,7 +131,7 @@ export const Engine = () => {
             } else {
                 setError(new CloudConvertConversionError(response.status));
             }
-        } catch (error) {
+        } catch (error : any) {
             setError(error);
         }
     };

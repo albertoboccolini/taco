@@ -18,10 +18,10 @@ const Layout: React.FC = () => {
 
             <main className="p-5 m-auto">
                 <div className="text-center p-5 m-auto" id="calcolatori">
-                    <a href="" target="_blank" className="inline-block m-2.5 no-underline text-gray-800">
-                        <Image src={calcLogo} className="" alt="Calcolatore" width={100} height={100}/>
+                    <a href="/tools/calc" className="inline-block m-2.5 no-underline text-gray-800">
+                        <Image src={calcLogo} className="" alt="calc" width={100} height={100}/>
                     </a>
-                    <a href="../../tools/converter"
+                    <a href="/tools/converter"
                        className="inline-block m-2.5 no-underline text-gray-800">
                         <Image src={fileConverterLogo} className="" alt="File Converter" width={100} height={100}/>
                     </a>
