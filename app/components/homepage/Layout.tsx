@@ -1,21 +1,20 @@
 import React from 'react';
 import Image from 'next/image';
-import calcLogo from '../../../public/calcLogo.png';
-import fileConverterLogo from '../../../public/fileConverterLogo.png';
-import youtubeToMp3Logo from '../../../public/youtubeToMp3Logo.png';
-import qrCodeGeneratorLogo from '../../../public/qrCodeGeneratorLogo.png';
-import Footer from "@/app/components/public/Footer";
-import TacoLogo from "@/app/components/public/TacoLogo";
-import NavBar from "@/app/components/homepage/NavBar";
+import calcLogo from '/public/calcLogo.png';
+import fileConverterLogo from '/public/fileConverterLogo.png';
+import youtubeToMp3Logo from '/public/youtubeToMp3Logo.png';
+import qrCodeGeneratorLogo from '/public/qrCodeGeneratorLogo.png';
+import NavigationBar from "@/app/components/homepage/NavigationBar";
+import Header from "@/app/components/public/Header";
 
 const Layout: React.FC = () => {
     return (
-        <>
-            <header className="bg-gray-100 py-2.5 shadow">
-                <title>taco | homepage</title>
-                <TacoLogo></TacoLogo>
-                <NavBar></NavBar>
-            </header>
+        <div className="text-gray-800 bg-white m-0 p-0">
+
+            <div className="shadow">
+                <Header title={"taco | homepage"}/>
+                <NavigationBar></NavigationBar>
+            </div>
 
             <main className="p-5 m-auto">
                 <div className="text-center p-5 m-auto" id="calcolatori">
@@ -36,12 +35,9 @@ const Layout: React.FC = () => {
                     </a>
                     {/* Altri tool nella categoria Calcolatori */}
                 </div>
-
-                {/* Altre sezioni per altre categorie */}
             </main>
 
-            <Footer></Footer>
-        </>
+        </div>
     );
 };
 

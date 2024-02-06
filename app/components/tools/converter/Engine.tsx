@@ -15,7 +15,6 @@ export const Engine = () => {
     const [apiKey, setApiKey] = useState<String>('');
     let conversionUrl = "";
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
     const {errorNotification, successNotification, error, setError} = NotificationManager();
 
     const getBase64 = (file: File) => new Promise((resolve, reject) => {
@@ -33,7 +32,6 @@ export const Engine = () => {
             return;
         };
     });
-
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {

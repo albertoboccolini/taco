@@ -1,6 +1,5 @@
 export class AbstractDisplayableError implements Error {
 
-
     message: string;
     name: string;
 

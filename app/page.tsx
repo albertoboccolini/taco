@@ -6,7 +6,8 @@ export default function Home() {
     return (
         <main className="font-roboto text-gray-800 bg-white m-0 p-0">
             <ErrorBoundary>
-                <Layout></Layout></ErrorBoundary>
+                <Layout></Layout>
+            </ErrorBoundary>
         </main>
     );
 }

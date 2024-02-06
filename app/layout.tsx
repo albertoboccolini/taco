@@ -1,21 +1,23 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type {Metadata} from "next";
+import {Inter} from "next/font/google";
 import "./globals.css";
+import Footer from "@/app/components/public/Footer";
+import React from "react";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({subsets: ["latin"]});
 
 export const metadata: Metadata = {
-  title: "taco",
+    title: "taco",
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
+                                       children,
+                                   }: Readonly<{
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="it">
-    <body className="w-screen bg-white h-screen">{children}</body>
-    </html>
-  );
+    return (
+        <html lang="it">
+        <body className="w-screen font-roboto bg-white h-screen">{children}<Footer/></body>
+        </html>
+    );
 }
