@@ -4,6 +4,7 @@ import AbstractDisplayableError from "@/app/components/public/errors/AbstractDis
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 
 export const Engine = () => {
+
     const [input, setInput] = useState('');
     const [result, setResult] = useState<string | number>('');
     const {errorNotification, successNotification, error, setError} = NotificationManager();

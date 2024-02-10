@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "jspdf": "^2.5.1",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-error-boundary": "^4.0.12",
-    "react-toastify": "^10.0.4"
+    "react-toastify": "^10.0.4",
+    "types": "^0.1.1"
   },
   "devDependencies": {
     "@types/node": "^20",

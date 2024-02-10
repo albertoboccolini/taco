@@ -12,10 +12,7 @@ const Layout: NextPage = () => {
 
     const {
         conversionType,
-        conversionManager,
         handleFileChange,
-        handleApiKeyChange,
-        handleConversionManagerChange,
         handleConversionTypeChange,
         submitFileForConversion,
         downloadConvertedFile
@@ -36,15 +33,7 @@ const Layout: NextPage = () => {
                     <form onSubmit={submitFileForConversion}>
                         <input type="file" onChange={handleFileChange}
                                className="block m-auto py-2 px-4 border border-gray-300 rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"/>
-                        <input type="text" onChange={handleApiKeyChange} placeholder="Api Key"
-                               className="block m-auto py-2 px-4 mt-4 border border-gray-300 rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"/>
                         <div className="block">
-                            <select value={conversionManager}
-                                    onChange={handleConversionManagerChange}
-                                    className="block m-auto mt-4 py-2 bg-white h-full border border-gray-300 rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
-                                <option value="CloudConvert">CloudConvert</option>
-                                {/* Other conversion formats */}
-                            </select>
                             <select value={conversionType}
                                     onChange={handleConversionTypeChange}
                                     className="block m-auto mt-4 py-2 bg-white h-full border border-gray-300 rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
