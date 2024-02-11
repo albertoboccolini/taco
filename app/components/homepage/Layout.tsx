@@ -28,7 +28,7 @@ const Layout: React.FC = () => {
             <main className="text-center p-5 m-auto">
                 <Tool logo={fileConverterLogo} toolLink={"/tools/converter"} category={"converter"}
                       activeSection={activeSection}></Tool>
-                <Tool logo={youtubeToMp3Logo} toolLink={"/tools/youtubemp3"} category={"converter"}
+                <Tool logo={youtubeToMp3Logo} toolLink={"#/tools/youtubemp3"} category={"converter"}
                       activeSection={activeSection}></Tool>
                 <Tool logo={qrCodeGeneratorLogo} toolLink={"#/tools/qrcode"} category={"generator"}
                       activeSection={activeSection}></Tool>
