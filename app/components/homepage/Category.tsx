@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react';
 
 interface CategoryProps {
@@ -11,7 +9,7 @@ const Category: React.FC<CategoryProps> = ({onSectionChange, category}) => {
     return (
         <li className="inline mx-2.5">
             <a className="no-underline text-gray-800" href={"#" + category}
-               onClick={() => onSectionChange(category)}>{category}
+               onClick={() => onSectionChange(category)}>{category.charAt(0).toUpperCase() + category.slice(1)}
             </a>
         </li>
     );

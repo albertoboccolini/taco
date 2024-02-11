@@ -1,6 +1,6 @@
 import {toast} from "react-toastify";
 import AbstractDisplayableError from "@/app/components/public/errors/AbstractDisplayableError";
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 export const NotificationManager = () => {
 
@@ -30,5 +30,16 @@ export const NotificationManager = () => {
         });
     };
 
-    return {errorNotification, successNotification, error, setError};
+    useEffect(() => {
+        if (error) {
+            if (error instanceof AbstractDisplayableError) {
+                errorNotification(error);
+            } else {
+                errorNotification(new AbstractDisplayableError("Errore generico", "Si prega di contattare il supporto."));
+            }
+            setError(null);
+        }
+    }, [error]);
+
+    return {successNotification, setError};
 }

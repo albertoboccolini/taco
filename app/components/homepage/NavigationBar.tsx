@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react';
 import Category from "@/app/components/homepage/Category";
 

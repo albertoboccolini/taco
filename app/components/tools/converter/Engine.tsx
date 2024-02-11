@@ -1,9 +1,8 @@
 'use client'
 
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {NotificationManager} from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
-import AbstractDisplayableError from "@/app/components/public/errors/AbstractDisplayableError";
 import {ConversionManager} from "@/app/components/tools/converter/ConversionManager";
 import ConversionError from "@/app/components/public/errors/ConversionError";
 
@@ -11,7 +10,7 @@ export const Engine = () => {
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [conversionType, setConversionType] = useState<string>('PDF');
-    const {errorNotification, successNotification, error, setError} = NotificationManager();
+    const {successNotification, setError} = NotificationManager();
     const conversionManager = ConversionManager();
 
     const downloadConvertedFile = () => {
@@ -50,7 +49,11 @@ export const Engine = () => {
         try {
             switch (conversionType) {
                 case "PDF":
-                    await conversionManager.toPDF(selectedFile);
+                    const pdfConversion = await conversionManager.toPDF(selectedFile);
+                    if (pdfConversion instanceof ConversionError) {
+                        setError(pdfConversion);
+                        return;
+                    }
                     break;
                 default:
                     setError(new ConversionError("Tipo di conversione non riconosciuto."));
@@ -61,17 +64,6 @@ export const Engine = () => {
             setError(error);
         }
     };
-
-    useEffect(() => {
-        if (error) {
-            if (error instanceof AbstractDisplayableError) {
-                errorNotification(error);
-            } else {
-                errorNotification(new AbstractDisplayableError("Errore generico", "Si prega di contattare il supporto."));
-            }
-            setError(null);
-        }
-    }, [error]);
 
     return {
         selectedFile,

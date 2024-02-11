@@ -7,7 +7,6 @@ import Image from 'next/image';
 import fileConverterImage from '/public/fileConverterLogo.png';
 import Header from "@/app/components/public/Header";
 
-
 const Layout: NextPage = () => {
 
     const {

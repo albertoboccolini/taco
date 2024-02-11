@@ -1,20 +1,18 @@
 import {useEffect, useState} from 'react';
 import {NotificationManager} from "@/app/components/public/NotificationManager";
-import AbstractDisplayableError from "@/app/components/public/errors/AbstractDisplayableError";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 
 export const Engine = () => {
 
     const [input, setInput] = useState('');
     const [result, setResult] = useState<string | number>('');
-    const {errorNotification, successNotification, error, setError} = NotificationManager();
+    const {setError} = NotificationManager();
 
     const handleInputChange = (value: string) => {
         setInput((prevInput) => prevInput + value);
     };
 
     const evaluateExpression = (expression: string) => {
-        console.log(expression);
         try {
             let result = Function('"use strict";return (' + expression + ')')();
             return !isNaN(result) ? result : "Error";
@@ -80,16 +78,6 @@ export const Engine = () => {
         };
     }, [input]);
 
-    useEffect(() => {
-        if (error) {
-            if (error instanceof AbstractDisplayableError) {
-                errorNotification(error);
-            } else {
-                errorNotification(new AbstractDisplayableError("Errore generico", "Si prega di contattare il supporto."));
-            }
-            setError(null);
-        }
-    }, [error]);
 
     return {input, result, setInput, handleInputChange, calculateResult, clearInput, buttons};
 };
