@@ -30,7 +30,7 @@ const Layout: React.FC = () => {
                       activeSection={activeSection}></Tool>
                 <Tool logo={youtubeToMp3Logo} toolLink={"#/tools/youtubemp3"} category={"converter"}
                       activeSection={activeSection}></Tool>
-                <Tool logo={qrCodeGeneratorLogo} toolLink={"#/tools/qrcode"} category={"generator"}
+                <Tool logo={qrCodeGeneratorLogo} toolLink={"/tools/qrcode"} category={"generator"}
                       activeSection={activeSection}></Tool>
                 <Tool logo={calcLogo} toolLink={"/tools/calc"} category={"other"}
                       activeSection={activeSection}></Tool>
