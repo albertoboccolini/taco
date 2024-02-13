@@ -7,12 +7,12 @@ export const Engine = () => {
 
     const {setError} = NotificationManager();
 
-    const generateQRCode = (url: string) => {
-        if (url === "") {
-            setError(new InvalidParameter("url"));
+    const generateQRCode = (string: string) => {
+        if (string === "") {
+            setError(new InvalidParameter("testo"));
             return;
         }
-        return <QRCode value={url} size={256} level={"H"} includeMargin={true}/>;
+        return <QRCode value={string} size={256} level={"H"} includeMargin={true}/>;
     }
 
     return {generateQRCode};
