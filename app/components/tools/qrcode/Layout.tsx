@@ -1,10 +1,23 @@
-import React from 'react';
+'use client'
+
+import React, {ReactNode, useState} from 'react';
 import {NextPage} from "next";
 import Header from "@/app/components/public/Header";
 import qrCodeGeneratorLogo from "/public/qrCodeGeneratorLogo.png";
 import Image from "next/image";
+import {Engine} from "@/app/components/tools/qrcode/Engine";
 
 const Layout: NextPage = () => {
+    const [url, setUrl] = useState('');
+    const [qrCode, setQrCode] = useState<ReactNode>(null);
+
+    const {generateQRCode} = Engine();
+
+    const handleGenerate = () => {
+        const qrCodeComponent = generateQRCode(url);
+        setQrCode(qrCodeComponent);
+    };
+
     return (
         <div className="text-gray-800 bg-white m-0 p-0">
             <div className="shadow">
@@ -20,14 +33,18 @@ const Layout: NextPage = () => {
                     </div>
                     <h1 className="text-2xl font-bold text-black">taco QR</h1>
                     <p className="text-center text-sm text-gray-400">
-                        Enter your url and press &quot;Generate&quot; to create a QR code.
+                        Enter something and press &quot;Generate&quot; to create a QR code.
                     </p>
-                    <input placeholder="Url to encode"
-                           className="mt-4 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md bg-white px-4 py-2 shadow-lg" type="text"/>
-                    <button type="submit"
+                    <input placeholder="Something to encode"
+                           className="mt-4 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md bg-white px-4 py-2 shadow-lg"
+                           type="text"
+                           value={url}
+                           onChange={(e) => setUrl(e.target.value)}/>
+                    <button onClick={handleGenerate}
                             className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-black hover:bg-white text-white hover:text-black font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 mx-2 my-2">
                         Generate
                     </button>
+                    {qrCode}
                 </section>
             </main>
         </div>
