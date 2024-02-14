@@ -4,7 +4,6 @@ import React, {useState} from 'react';
 import fileConverterLogo from '/public/fileConverterLogo.png';
 import calcLogo from '/public/calcLogo.png';
 import qrCodeGeneratorLogo from '/public/qrCodeGeneratorLogo.png';
-import youtubeToMp3Logo from '/public/youtubeToMp3Logo.png';
 import NavigationBar from "@/app/components/homepage/NavigationBar";
 import Header from "@/app/components/public/Header";
 import Tool from "@/app/components/homepage/Tool";
@@ -27,8 +26,6 @@ const Layout: React.FC = () => {
 
             <main className="text-center p-5 m-auto">
                 <Tool logo={fileConverterLogo} toolLink={"/tools/converter"} category={"converter"}
-                      activeSection={activeSection}></Tool>
-                <Tool logo={youtubeToMp3Logo} toolLink={"#/tools/youtubemp3"} category={"converter"}
                       activeSection={activeSection}></Tool>
                 <Tool logo={qrCodeGeneratorLogo} toolLink={"/tools/qrcode"} category={"generator"}
                       activeSection={activeSection}></Tool>
