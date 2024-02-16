@@ -1,6 +1,6 @@
 'use client'
 
-import React, {ReactNode, useState} from 'react';
+import React from 'react';
 import {NextPage} from "next";
 import Header from "@/app/components/public/Header";
 import qrCodeGeneratorLogo from "/public/qrCodeGeneratorLogo.png";
@@ -8,16 +8,9 @@ import Image from "next/image";
 import {Engine} from "@/app/components/tools/qrcode/Engine";
 
 const Layout: NextPage = () => {
-    const [string, setString] = useState('');
-    const [qrCode, setQrCode] = useState<ReactNode>(null);
 
-    const {generateQRCode} = Engine();
-
-    const handleGenerate = () => {
-        const qrCodeComponent = generateQRCode(string);
-        setQrCode(qrCodeComponent);
-    };
-
+    const {string, setString, qrCode, handleGenerate} = Engine();
+    
     return (
         <div className="text-gray-800 bg-white m-0 p-0">
             <div className="shadow">
@@ -43,10 +36,16 @@ const Layout: NextPage = () => {
                                        type="text"
                                        value={string}
                                        onChange={(e) => setString(e.target.value)}/>
-                                <button onClick={handleGenerate}
-                                        className="bg-taco-button-bg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg hover:bg-white text-white hover:text-black font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 mx-2 my-2">
-                                    Generate
-                                </button>
+                                <div className="block text-center mt-4">
+                                    <button type="submit" onClick={handleGenerate}
+                                            className="bg-taco-button-bg hover:bg-white text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 w-full max-w-60 sm:max-w-sm md:max-w-md lg:max-w-lg mx-2 my-2">
+                                        Generate
+                                    </button>
+                                    <button type="button"
+                                            className="bg-taco-button-bg hover:bg-white text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50 w-full max-w-60 sm:max-w-sm md:max-w-md lg:max-w-lg mx-2 my-2">
+                                        Download
+                                    </button>
+                                </div>
                                 {qrCode}
                             </section>
                         </div>
