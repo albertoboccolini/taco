@@ -38,13 +38,13 @@ const Layout: NextPage = () => {
                                 <p className="text-center text-sm text-gray-400">
                                     Enter something and press &quot;Generate&quot; to create a QR code.
                                 </p>
-                                <input placeholder="Something to encode"
+                                <input placeholder="Something..."
                                        className="mt-4 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md bg-white px-4 py-2 shadow-lg"
                                        type="text"
                                        value={string}
                                        onChange={(e) => setString(e.target.value)}/>
                                 <button onClick={handleGenerate}
-                                        className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-black hover:bg-white text-white hover:text-black font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 mx-2 my-2">
+                                        className="bg-taco-button-bg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg hover:bg-white text-white hover:text-black font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 mx-2 my-2">
                                     Generate
                                 </button>
                                 {qrCode}

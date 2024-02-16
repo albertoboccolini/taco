@@ -25,7 +25,10 @@ const config: Config = {
       },
       fontFamily: {
         roboto: ['Roboto', 'sans'],
-      }
+      },
+      colors: {
+        "taco-button-bg": "#163146",
+      },
     },
   },
   plugins: []
