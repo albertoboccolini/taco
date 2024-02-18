@@ -54,5 +54,5 @@ export const Engine = () => {
     }
 
 
-    return {handleEncode, handleDecode, text, setText, encodeType, handleEncodeTypeChange};
+    return {handleEncode, handleDecode, text, setText, encodeType, handleEncodeTypeChange, base64Decoder, base64Encoder};
 };

@@ -3,14 +3,14 @@
 import {NotificationManager} from "@/app/components/public/NotificationManager";
 import {useEffect, useState} from "react";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
+import {Engine as EncodeEngine} from "@/app/components/tools/encoder/Engine";
 
 export const Engine = () => {
     const {setError, successNotification} = NotificationManager();
     const [passwords, setPasswords] = useState<Array<{ website: string, username: string, password: string }>>([]);
-
     const [visiblePasswords, setVisiblePasswords] = useState<boolean[]>(new Array(passwords.length).fill(false));
+    const {base64Encoder, base64Decoder} = EncodeEngine();
 
-    // Toggle password visibility
     const togglePasswordVisibility = (index: number) => {
         const updatedVisibility = [...visiblePasswords];
         updatedVisibility[index] = !updatedVisibility[index];
@@ -18,8 +18,14 @@ export const Engine = () => {
     };
 
     useEffect(() => {
-        const loadedPasswords = JSON.parse(localStorage.getItem('passwords') || '[]');
-        setPasswords(loadedPasswords);
+        const loadedPasswords = JSON.parse(localStorage.getItem('passwords')! || '[]');
+        const decodedPasswords = loadedPasswords.map((password: any) => ({
+            ...password,
+            website: base64Decoder(password.website),
+            username: base64Decoder(password.username),
+            password: base64Decoder(password.password),
+        }));
+        setPasswords(decodedPasswords);
     }, []);
 
     const addPassword = () => {
@@ -45,7 +51,12 @@ export const Engine = () => {
             return setError(new InvalidParameter(parameter));
         }
         try {
-            localStorage.setItem('passwords', JSON.stringify(passwords));
+            const encodedPasswords = passwords.map(password => ({
+                website: base64Encoder(password.website),
+                username: base64Encoder(password.username),
+                password: base64Encoder(password.password),
+            }));
+            localStorage.setItem('passwords', JSON.stringify(encodedPasswords));
             successNotification("Password salvata correttamente.");
         } catch (error: any) {
             setError(error);
@@ -60,8 +71,13 @@ export const Engine = () => {
 
     const deletePassword = (index: number) => {
         const newPasswords = passwords.filter((_, i) => i !== index);
-        setPasswords(newPasswords);
-        localStorage.setItem('passwords', JSON.stringify(newPasswords));
+        const encodedPasswords = newPasswords.map(password => ({
+            website: base64Encoder(password.website),
+            username: base64Encoder(password.username),
+            password: base64Encoder(password.password),
+        }));
+        setPasswords(encodedPasswords);
+        localStorage.setItem('passwords', JSON.stringify(encodedPasswords));
     };
 
     return {
@@ -71,6 +87,6 @@ export const Engine = () => {
         deletePassword,
         passwords,
         visiblePasswords,
-        togglePasswordVisibility
+        togglePasswordVisibility,
     };
 }

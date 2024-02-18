@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React, {useState} from 'react';
 import {NextPage} from "next";
 import Header from "@/app/components/public/Header";
 import Image from "next/image";
@@ -17,8 +17,9 @@ const Layout: NextPage = () => {
         addPassword,
         deletePassword,
         visiblePasswords,
-        togglePasswordVisibility
+        togglePasswordVisibility,
     } = Engine();
+
 
     return (
         <div className="text-gray-800 bg-white m-0 p-0">
