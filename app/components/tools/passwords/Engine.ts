@@ -14,21 +14,23 @@ export const Engine = () => {
     const [visibleMainPassword, setVisibleMainPassword] = useState<boolean>(false);
     const {base64Encoder, base64Decoder} = EncodeEngine();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [mainPasswordLocal, setMainPasswordLocal] = useState<string>("");
+    const [localMainPassword, setLocalMainPassword] = useState<string>("");
 
     const unlockPasswords = () => {
-        setMainPasswordLocal(localStorage.getItem('mainPassword') ?? "");
+        setLocalMainPassword(localStorage.getItem('mainPassword') ?? "");
         if (mainPassword === "") {
             return setError(new InvalidParameter("Main Password"));
         }
-        if (mainPasswordLocal === "") {
-            localStorage.setItem('mainPassword', mainPassword);
-            setMainPasswordLocal(mainPassword);
+        if (localMainPassword === "") {
+            localStorage.setItem('mainPassword', base64Encoder(mainPassword));
+            setLocalMainPassword(mainPassword);
             return setIsAuthenticated(true);
         }
-        if (mainPassword !== mainPasswordLocal) {
+        const decodedLocalMainPassword = base64Decoder(localMainPassword)!;
+        if (mainPassword !== decodedLocalMainPassword) {
             return setError(new InvalidPassword());
         }
+        setLocalMainPassword(decodedLocalMainPassword);
         setIsAuthenticated(true);
         reloadPasswords();
     };
@@ -60,7 +62,7 @@ export const Engine = () => {
             username: base64Decoder(password.username)!.toString().replace(mainPassword, ""),
             password: base64Decoder(password.password)!.toString().replace(mainPassword, ""),
         }));
-        setMainPasswordLocal(localStorage.getItem('mainPassword') ?? "");
+        setLocalMainPassword(localStorage.getItem('mainPassword') ?? "");
         const decodedSplittedPasswords = decodedPasswords.map((password: any) => ({
             ...password,
             website: password.website.toString().replace(".", ""),
