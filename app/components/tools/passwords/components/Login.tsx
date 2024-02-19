@@ -1,11 +1,9 @@
 import React from 'react';
-import Image from "next/image";
-import passwordLogo from "/public/passwordLogo.png";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 
 const Login = ({
-                   visibleMainPassword,
-                   mainPassword,
+                   visibleMainPassword: boolean,
+                   mainPassword: string,
                    updateMainPassword,
                    toggleMainPasswordVisibility,
                    unlockPasswords
