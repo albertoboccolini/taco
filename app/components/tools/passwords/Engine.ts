@@ -4,6 +4,7 @@ import {NotificationManager} from "@/app/components/public/NotificationManager";
 import {useEffect, useState} from "react";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 import {Engine as EncodeEngine} from "@/app/components/tools/encoder/Engine";
+import InvalidPassword from "@/app/components/public/errors/InvalidPassword";
 
 export const Engine = () => {
     const {setError, successNotification} = NotificationManager();
@@ -13,10 +14,20 @@ export const Engine = () => {
     const [visibleMainPassword, setVisibleMainPassword] = useState<boolean>(false);
     const {base64Encoder, base64Decoder} = EncodeEngine();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [mainPasswordLocal, setMainPasswordLocal] = useState<string>("");
 
     const unlockPasswords = () => {
+        setMainPasswordLocal(localStorage.getItem('mainPassword') ?? "");
         if (mainPassword === "") {
             return setError(new InvalidParameter("Main Password"));
+        }
+        if (mainPasswordLocal === "") {
+            localStorage.setItem('mainPassword', mainPassword);
+            setMainPasswordLocal(mainPassword);
+            return setIsAuthenticated(true);
+        }
+        if (mainPassword !== mainPasswordLocal) {
+            return setError(new InvalidPassword());
         }
         setIsAuthenticated(true);
         reloadPasswords();
@@ -34,9 +45,9 @@ export const Engine = () => {
 
     const encodePasswords = () => {
         const encodedPasswords = passwords.map(password => ({
-            website: base64Encoder(password.website + mainPassword),
-            username: base64Encoder(password.username + mainPassword),
-            password: base64Encoder(password.password + mainPassword),
+            website: base64Encoder(password.website + "." + mainPassword),
+            username: base64Encoder(password.username + "." + mainPassword),
+            password: base64Encoder(password.password + "." + mainPassword),
         }));
         return encodedPasswords;
     }
@@ -49,7 +60,14 @@ export const Engine = () => {
             username: base64Decoder(password.username)!.toString().replace(mainPassword, ""),
             password: base64Decoder(password.password)!.toString().replace(mainPassword, ""),
         }));
-        setPasswords(decodedPasswords);
+        setMainPasswordLocal(localStorage.getItem('mainPassword') ?? "");
+        const decodedSplittedPasswords = decodedPasswords.map((password: any) => ({
+            ...password,
+            website: password.website.toString().replace(".", ""),
+            username: password.username.toString().replace(".", ""),
+            password: password.password.toString().replace(".", ""),
+        }));
+        setPasswords(decodedSplittedPasswords);
     }
 
     useEffect(() => {
@@ -103,9 +121,9 @@ export const Engine = () => {
     const deletePassword = (index: number) => {
         const newPasswords = passwords.filter((_, i) => i !== index);
         const encodedPasswords = newPasswords.map(password => ({
-            website: base64Encoder(password.website + mainPassword),
-            username: base64Encoder(password.username + mainPassword),
-            password: base64Encoder(password.password + mainPassword),
+            website: base64Encoder(password.website + "." + mainPassword),
+            username: base64Encoder(password.username + "." + mainPassword),
+            password: base64Encoder(password.password + "." + mainPassword),
         }));
         localStorage.setItem('passwords', JSON.stringify(encodedPasswords));
         reloadPasswords();
