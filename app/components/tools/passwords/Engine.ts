@@ -8,8 +8,19 @@ import {Engine as EncodeEngine} from "@/app/components/tools/encoder/Engine";
 export const Engine = () => {
     const {setError, successNotification} = NotificationManager();
     const [passwords, setPasswords] = useState<Array<{ website: string, username: string, password: string }>>([]);
+    const [mainPassword, setMainPassword] = useState<string>("");
     const [visiblePasswords, setVisiblePasswords] = useState<boolean[]>(new Array(passwords.length).fill(false));
+    const [visibleMainPassword, setVisibleMainPassword] = useState<boolean>(false);
     const {base64Encoder, base64Decoder} = EncodeEngine();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const unlockPasswords = () => {
+        if (mainPassword === "") {
+            return setError(new InvalidParameter("Main Password"));
+        }
+        setIsAuthenticated(true);
+        reloadPasswords();
+    };
 
     const togglePasswordVisibility = (index: number) => {
         const updatedVisibility = [...visiblePasswords];
@@ -17,13 +28,26 @@ export const Engine = () => {
         setVisiblePasswords(updatedVisibility);
     };
 
+    const toggleMainPasswordVisibility = () => {
+        setVisibleMainPassword(!visibleMainPassword);
+    }
+
+    const encodePasswords = () => {
+        const encodedPasswords = passwords.map(password => ({
+            website: base64Encoder(password.website + mainPassword),
+            username: base64Encoder(password.username + mainPassword),
+            password: base64Encoder(password.password + mainPassword),
+        }));
+        return encodedPasswords;
+    }
+
     const reloadPasswords = () => {
         const loadedPasswords = JSON.parse(localStorage.getItem('passwords')! || '[]');
         const decodedPasswords = loadedPasswords.map((password: any) => ({
             ...password,
-            website: base64Decoder(password.website),
-            username: base64Decoder(password.username),
-            password: base64Decoder(password.password),
+            website: base64Decoder(password.website)!.toString().replace(mainPassword, ""),
+            username: base64Decoder(password.username)!.toString().replace(mainPassword, ""),
+            password: base64Decoder(password.password)!.toString().replace(mainPassword, ""),
         }));
         setPasswords(decodedPasswords);
     }
@@ -37,6 +61,9 @@ export const Engine = () => {
     };
 
     const checkParameters = (index: number) => {
+        if (mainPassword === "") {
+            return "Main password";
+        }
         if (passwords[index].website === "") {
             return "Website";
         }
@@ -55,11 +82,7 @@ export const Engine = () => {
             return setError(new InvalidParameter(parameter));
         }
         try {
-            const encodedPasswords = passwords.map(password => ({
-                website: base64Encoder(password.website),
-                username: base64Encoder(password.username),
-                password: base64Encoder(password.password),
-            }));
+            const encodedPasswords = encodePasswords();
             localStorage.setItem('passwords', JSON.stringify(encodedPasswords));
             successNotification("Password salvata correttamente.");
         } catch (error: any) {
@@ -73,14 +96,17 @@ export const Engine = () => {
         setPasswords(newPasswords);
     };
 
+    const updateMainPassword = (value: string) => {
+        setMainPassword(value);
+    };
+
     const deletePassword = (index: number) => {
         const newPasswords = passwords.filter((_, i) => i !== index);
         const encodedPasswords = newPasswords.map(password => ({
-            website: base64Encoder(password.website),
-            username: base64Encoder(password.username),
-            password: base64Encoder(password.password),
+            website: base64Encoder(password.website + mainPassword),
+            username: base64Encoder(password.username + mainPassword),
+            password: base64Encoder(password.password + mainPassword),
         }));
-        setPasswords(encodedPasswords);
         localStorage.setItem('passwords', JSON.stringify(encodedPasswords));
         reloadPasswords();
     };
@@ -93,5 +119,11 @@ export const Engine = () => {
         passwords,
         visiblePasswords,
         togglePasswordVisibility,
+        mainPassword,
+        updateMainPassword,
+        toggleMainPasswordVisibility,
+        visibleMainPassword,
+        unlockPasswords,
+        isAuthenticated
     };
 }
