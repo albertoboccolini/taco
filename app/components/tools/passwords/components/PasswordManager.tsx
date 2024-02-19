@@ -9,7 +9,7 @@ const PasswordManager = ({
                              deletePassword,
                              visiblePasswords,
                              togglePasswordVisibility
-                         }) => {
+                         } : any) => {
     return (
         <>
             <div className="overflow-x-auto">
