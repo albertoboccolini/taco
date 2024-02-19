@@ -23,6 +23,8 @@ export const Engine = () => {
         }
         if (localMainPassword === "") {
             localStorage.setItem('mainPassword', base64Encoder(mainPassword));
+            localStorage.removeItem('passwords');
+            setPasswords([]);
             setLocalMainPassword(mainPassword);
             return setIsAuthenticated(true);
         }
