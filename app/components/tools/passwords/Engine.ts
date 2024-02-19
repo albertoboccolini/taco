@@ -1,5 +1,3 @@
-'use client'
-
 import {NotificationManager} from "@/app/components/public/NotificationManager";
 import {useEffect, useState} from "react";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
