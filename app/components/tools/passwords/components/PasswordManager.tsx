@@ -9,7 +9,7 @@ const PasswordManager = ({
                              deletePassword,
                              visiblePasswords,
                              togglePasswordVisibility
-                         } : any) => {
+                         }: any) => {
     return (
         <>
             <div className="overflow-x-auto">
@@ -24,7 +24,7 @@ const PasswordManager = ({
                     </thead>
                     <tbody>
                     {passwords.length > 0 ? (
-                        passwords.map((password, index) => (
+                        passwords.map((password: any, index: number) => (
                             <tr key={index}
                                 className="border-b last:border-b-0 border-gray-200 dark:border-gray-800">
                                 <td className="p-2">
