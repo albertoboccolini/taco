@@ -60,18 +60,12 @@ export const Engine = () => {
         const loadedPasswords = JSON.parse(localStorage.getItem('passwords')! || '[]');
         const decodedPasswords = loadedPasswords.map((password: any) => ({
             ...password,
-            website: base64Decoder(password.website)!.toString().replace(mainPassword, ""),
-            username: base64Decoder(password.username)!.toString().replace(mainPassword, ""),
-            password: base64Decoder(password.password)!.toString().replace(mainPassword, ""),
+            website: base64Decoder(password.website)!.toString().replace("." + mainPassword, ""),
+            username: base64Decoder(password.username)!.toString().replace("." + mainPassword, ""),
+            password: base64Decoder(password.password)!.toString().replace("." + mainPassword, ""),
         }));
         setLocalMainPassword(localStorage.getItem('mainPassword') ?? "");
-        const decodedSplittedPasswords = decodedPasswords.map((password: any) => ({
-            ...password,
-            website: password.website.toString().replace(".", ""),
-            username: password.username.toString().replace(".", ""),
-            password: password.password.toString().replace(".", ""),
-        }));
-        setPasswords(decodedSplittedPasswords);
+        setPasswords(decodedPasswords);
     }
 
     useEffect(() => {
