@@ -17,7 +17,7 @@ export const Engine = () => {
         setVisiblePasswords(updatedVisibility);
     };
 
-    useEffect(() => {
+    const reloadPasswords = () => {
         const loadedPasswords = JSON.parse(localStorage.getItem('passwords')! || '[]');
         const decodedPasswords = loadedPasswords.map((password: any) => ({
             ...password,
@@ -26,6 +26,10 @@ export const Engine = () => {
             password: base64Decoder(password.password),
         }));
         setPasswords(decodedPasswords);
+    }
+
+    useEffect(() => {
+        reloadPasswords();
     }, []);
 
     const addPassword = () => {
@@ -78,6 +82,7 @@ export const Engine = () => {
         }));
         setPasswords(encodedPasswords);
         localStorage.setItem('passwords', JSON.stringify(encodedPasswords));
+        reloadPasswords();
     };
 
     return {
