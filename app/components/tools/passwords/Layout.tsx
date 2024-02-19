@@ -54,7 +54,7 @@ const Layout: NextPage = () => {
                                 </div>
                                 <div className="mt-4 text-center">
                                     <button type="submit" onClick={unlockPasswords}
-                                            className="mx-2 my-2 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-taco-button-bg hover:bg-white text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                                            className=" my-2 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-taco-button-bg hover:bg-white text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
                                         Unlock
                                     </button>
                                 </div>
