@@ -1,8 +1,7 @@
-import QRCode from "qrcode.react";
+import {QRCode} from "react-qrcode-logo";
 import {NotificationManager} from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 import {ReactNode, useState} from "react";
-
 
 export const Engine = () => {
 
@@ -20,8 +19,12 @@ export const Engine = () => {
             setError(new InvalidParameter("testo"));
             return;
         }
-        return <QRCode value={string} size={256} level={"H"} includeMargin={true}/>;
-    }
+        return <QRCode value={string} size={200} qrStyle="squares"/>
+    };
 
-    return {string, setString, qrCode, handleGenerate};
+    const downloadQRCode = () => {
+
+    };
+
+    return {string, setString, qrCode, handleGenerate, downloadQRCode};
 }
