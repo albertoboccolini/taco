@@ -19,11 +19,20 @@ export const Engine = () => {
             setError(new InvalidParameter("testo"));
             return;
         }
-        return <QRCode value={string} size={200} qrStyle="squares"/>
+        return <QRCode value={string} id="qrCode" size={200} qrStyle="squares"/>
     };
 
     const downloadQRCode = () => {
-
+        const canvas: any = document.getElementById("qrCode");
+        if (canvas) {
+            const pngUrl = canvas
+                .toDataURL("image/png")
+                .replace("image/png", "image/octet-stream");
+            let downloadLink = document.createElement("a");
+            downloadLink.href = pngUrl
+            downloadLink.download = `generated.png`;
+            downloadLink.click();
+        }
     };
 
     return {string, setString, qrCode, handleGenerate, downloadQRCode};
