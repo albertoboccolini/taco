@@ -9,7 +9,7 @@ import {Engine} from "@/app/components/tools/qrcode/Engine";
 
 const Layout: NextPage = () => {
 
-    const {string, setString, qrCode, handleGenerate} = Engine();
+    const {string, setString, qrCode, handleGenerate, downloadQRCode} = Engine();
     
     return (
         <div className="text-gray-800 bg-white m-0 p-0">
@@ -41,7 +41,7 @@ const Layout: NextPage = () => {
                                             className="bg-taco-button-bg hover:bg-white text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 w-full max-w-60 sm:max-w-sm md:max-w-md lg:max-w-lg mx-2 my-2">
                                         Generate
                                     </button>
-                                    <button type="button"
+                                    <button type="button" onClick={downloadQRCode}
                                             className="bg-taco-button-bg hover:bg-white text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50 w-full max-w-60 sm:max-w-sm md:max-w-md lg:max-w-lg mx-2 my-2">
                                         Download
                                     </button>
