@@ -1,5 +1,7 @@
 import React from 'react';
 import {FaEye, FaEyeSlash} from "react-icons/fa";
+import TacoButton from "@/app/components/public/TacoButton";
+import ActionButton from "@/app/components/tools/passwords/components/ActionButton";
 
 const PasswordManager = ({
                              passwords,
@@ -51,14 +53,8 @@ const PasswordManager = ({
                                     </td>
                                     <td className="p-2">
                                         <div className="flex items-center justify-start space-x-2">
-                                            <button type="button"
-                                                    onClick={() => savePasswords(index)}
-                                                    className="bg-taco-button-bg hover:bg-white text-white font-bold py-2 px-4 rounded-lg">Save
-                                            </button>
-                                            <button type="button"
-                                                    onClick={() => deletePassword(index)}
-                                                    className="bg-taco-button-bg hover:bg-white text-white font-bold py-2 px-4 rounded-lg">Delete
-                                            </button>
+                                            <ActionButton onClick={() => savePasswords(index)} text={"Save"} />
+                                            <ActionButton onClick={() => deletePassword(index)} text={"Delete"} />
                                         </div>
                                     </td>
                                 </tr>
@@ -76,10 +72,7 @@ const PasswordManager = ({
                 </div>
             </div>
             <div className="block text-center mt-4">
-                <button type="submit" onClick={addPassword}
-                        className="bg-taco-button-bg hover:bg-white text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
-                    Add Password
-                </button>
+                <TacoButton type={"button"} onClick={addPassword} text={"Add Password"}/>
             </div>
         </>
     )

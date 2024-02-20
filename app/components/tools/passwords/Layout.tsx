@@ -38,7 +38,7 @@ const Layout: NextPage = () => {
                         <div className="rounded-xl bg-white px-8 py-6 shadow-xl">
                             <Image src={passwordLogo}
                                    className="font-bold text-2xl text-center m-auto"
-                                   alt="taco converter"
+                                   alt="taco passwords"
                                    width={100} height={100}/>
                             <h1 className="font-bold text-2xl text-center mb-6">taco passwords</h1>
                             <p className="text-center text-sm mb-8 text-gray-400">

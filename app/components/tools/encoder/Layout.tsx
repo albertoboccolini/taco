@@ -6,6 +6,7 @@ import Header from "@/app/components/public/Header";
 import Image from "next/image";
 import encoderLogo from '/public/encoderLogo.png';
 import {Engine} from "@/app/components/tools/encoder/Engine";
+import TacoButton from "@/app/components/public/TacoButton";
 
 const Layout: NextPage = () => {
 
@@ -43,14 +44,8 @@ const Layout: NextPage = () => {
                                     </select>
                                 </div>
                                 <div className="block text-center mt-4">
-                                    <button type="submit" onClick={handleEncode}
-                                            className="bg-taco-button-bg hover:bg-white text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 w-full max-w-60 sm:max-w-sm md:max-w-md lg:max-w-lg mx-2 my-2">
-                                        Encode
-                                    </button>
-                                    <button type="button" onClick={handleDecode}
-                                            className="bg-taco-button-bg hover:bg-white text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50 w-full max-w-60 sm:max-w-sm md:max-w-md lg:max-w-lg mx-2 my-2">
-                                        Decode
-                                    </button>
+                                    <TacoButton type={"button"} onClick={handleEncode} text={"Encode"}/>
+                                    <TacoButton type={"button"} onClick={handleDecode} text={"Decode"}/>
                                 </div>
                             </div>
                         </div>

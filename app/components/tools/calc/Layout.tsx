@@ -4,6 +4,7 @@ import React from 'react';
 import {NextPage} from "next";
 import {Engine} from "@/app/components/tools/calc/Engine";
 import Header from "@/app/components/public/Header";
+import CalcButtons from "@/app/components/tools/calc/components/CalcButtons";
 
 const Layout: NextPage = () => {
 
@@ -30,19 +31,8 @@ const Layout: NextPage = () => {
                                 className="text-lg font-semibold text-gray-700 bg-gray-100 w-full h-16 rounded-md p-4 shadow">{result.toString()}</div>
                         </div>
                         <div className="grid grid-cols-4 gap-2 mt-4">
-                            {buttons.map((button, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => {
-                                        if (button === 'C') clearInput();
-                                        else if (button === '=') calculateResult();
-                                        else handleInputChange(button);
-                                    }}
-                                    className="bg-taco-button-bg hover:bg-amber-600 text-white font-bold h-12 rounded-full shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
-                                >
-                                    {button}
-                                </button>
-                            ))}
+                            <CalcButtons buttons={buttons} handleInputChange={handleInputChange} clearInput={clearInput}
+                                         calculateResult={calculateResult}/>
                         </div>
                     </div>
                 </div>
