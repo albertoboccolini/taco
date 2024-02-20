@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import fileConverterLogo from '/public/fileConverterLogo.png';
 import calcLogo from '/public/calcLogo.png';
 import encoderLogo from '/public/encoderLogo.png';
+import passwordLogo from '/public/passwordLogo.png';
 import qrCodeGeneratorLogo from '/public/qrCodeGeneratorLogo.png';
 import NavigationBar from "@/app/components/homepage/NavigationBar";
 import Header from "@/app/components/public/Header";
@@ -30,9 +31,12 @@ const Layout: React.FC = () => {
                       activeSection={activeSection}></Tool>
                 <Tool logo={qrCodeGeneratorLogo} toolLink={"/tools/qrcode"} category={"generator"}
                       activeSection={activeSection}></Tool>
-                <Tool logo={calcLogo} toolLink={"/tools/calc"} category={"other"}
+                <Tool logo={passwordLogo} toolLink={"/tools/passwords"} category={"other"}
                       activeSection={activeSection}></Tool>
                 <Tool logo={encoderLogo} toolLink={"/tools/encoder"} category={"converter"}
+                      activeSection={activeSection}></Tool>
+                <Tool logo={calcLogo} toolLink={"/tools/calc"}
+                      category={"other"}
                       activeSection={activeSection}></Tool>
             </main>
         </div>
