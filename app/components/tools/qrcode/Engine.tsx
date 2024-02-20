@@ -19,7 +19,7 @@ export const Engine = () => {
             setError(new InvalidParameter("testo"));
             return;
         }
-        return <QRCode value={string} id="qrCode" size={200} qrStyle="squares" eyeRadius={5}/>
+        return <QRCode value={string} id="qrCode" size={200} qrStyle="squares" eyeRadius={2}/>
     };
 
     const downloadQRCode = () => {
