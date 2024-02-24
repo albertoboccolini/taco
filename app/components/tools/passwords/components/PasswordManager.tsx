@@ -18,7 +18,7 @@ const PasswordManager = ({
                 <div className="min-w-[600px] sm:min-w-0">
                     <table className="w-full text-sm">
                         <thead>
-                        <tr className="border-b border-gray-200 dark:border-gray-800">
+                        <tr className="border-b border-gray-200">
                             <th className="p-2 text-left">Website</th>
                             <th className="p-2 text-left">Username</th>
                             <th className="p-2 text-left">Password</th>
@@ -29,7 +29,7 @@ const PasswordManager = ({
                         {passwords.length > 0 ? (
                             passwords.map((password: any, index: number) => (
                                 <tr key={index}
-                                    className="border-b last:border-b-0 border-gray-200 dark:border-gray-800">
+                                    className="border-b last:border-b-0 border-gray-200">
                                     <td className="p-2">
                                         <input type="text"
                                                className="shadow-md border h-8 font-normal rounded-lg w-full"
