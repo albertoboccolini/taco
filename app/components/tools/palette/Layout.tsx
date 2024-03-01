@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from 'react'; // Importa useState da React
+import React from 'react';
 import {NextPage} from "next";
 import Header from "@/app/components/public/Header";
 import TacoButton from "@/app/components/public/TacoButton";
@@ -10,7 +10,7 @@ import {Engine} from "@/app/components/tools/palette/Engine";
 
 const Layout: NextPage = () => {
 
-    const {selectedColor, setSelectedColor, generatedColors, handleGenerateColors, isLight} = Engine();
+    const {selectedColor, setSelectedColor, generatedColors, handleGenerateColors, isLight, downloadPalette} = Engine();
 
     return (
         <div className="text-gray-800 bg-white m-0 p-0">
@@ -27,16 +27,18 @@ const Layout: NextPage = () => {
                                    width={100} height={100}/>
                             <h1 className="font-bold text-2xl mb-6">taco palette</h1>
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                                {/* Selettore di colore modificabile */}
                                 <div
-                                    className="flex flex-col items-center justify-center p-4 rounded-md border border-gray-200 dark:border-gray-800">
+                                    className="relative flex flex-col items-center justify-center p-4 rounded-md border border-gray-200"
+                                    style={{backgroundColor: selectedColor}}>
                                     <input type="color" value={selectedColor}
                                            onChange={(e) => setSelectedColor(e.target.value)}
-                                           className="w-16 h-16 rounded border border-gray-300 dark:border-gray-700 cursor-pointer"/>
-                                    <span className="mt-2 text-sm text-gray-500">Select Color</span>
+                                           className="w-full h-16 cursor-pointer opacity-0 absolute"/>
+                                    <div className="w-fit h-16 rounded border-none"/>
+                                    <span className="mt-2 text-sm text-gray-500"
+                                          style={{color: isLight(selectedColor) ? '#000000' : '#FFFFFF'}}>{selectedColor.toUpperCase()}</span>
                                 </div>
-                                {/* Colori generati non modificabili */}
-                                {generatedColors.map((color, index) => (
+                                {/* Skip the first generated color if it's the same as the selectedColor */}
+                                {generatedColors.slice(1).map((color, index) => (
                                     <div
                                         key={index}
                                         className="flex flex-col items-center justify-center p-4 rounded-md border border-gray-200 dark:border-gray-800"
@@ -48,7 +50,7 @@ const Layout: NextPage = () => {
                                 ))}
                             </div>
                             <TacoButton type={"button"} text={"Generate"} onClick={handleGenerateColors}/>
-                            <TacoButton type={"button"} text={"Download"}/>
+                            <TacoButton type={"button"} text={"Download"} onClick={downloadPalette}/>
                         </div>
                     </div>
                 </div>
@@ -58,6 +60,7 @@ const Layout: NextPage = () => {
 };
 
 export default Layout;
+
 
 
 

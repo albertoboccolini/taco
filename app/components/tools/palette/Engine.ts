@@ -1,7 +1,6 @@
 import {useState} from 'react';
-import {NotificationManager} from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
-import ConversionError from "@/app/components/public/errors/ConversionError";
+import {NotificationManager} from "@/app/components/public/NotificationManager";
 
 type Color = {
     r: number;
@@ -10,28 +9,38 @@ type Color = {
 }
 
 export const Engine = () => {
-
-    const [selectedColor, setSelectedColor] = useState("#ffffff");
+    // State for storing the selected color
+    const [selectedColor, setSelectedColor] = useState("#163146");
+    // State for storing the array of generated colors
     const [generatedColors, setGeneratedColors] = useState<string[]>([]);
+    const {setError} = NotificationManager();
 
+    const downloadPalette = () => {
+        if (generatedColors.length === 0) {
+            return setError(new InvalidParameter("Palette"));
+        }
+    };
+
+    // Function to check if the color is light or dark
     const isLight = (color: any) => {
         const hex = color.replace('#', '');
-        const c_r = parseInt(hex.substr(0, 2), 16);
-        const c_g = parseInt(hex.substr(2, 2), 16);
-        const c_b = parseInt(hex.substr(4, 2), 16);
+        const c_r = parseInt(hex.slice(0, 2), 16);
+        const c_g = parseInt(hex.slice(2, 4), 16);
+        const c_b = parseInt(hex.slice(4, 6), 16);
         const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
         return brightness > 155;
     };
 
+    // Function to convert HEX color to RGB format
     const hexToRgb = (hex: string): Color => {
         let r: number = 0, g: number = 0, b: number = 0;
-        // 3 digits
+        // Handling 3 digit HEX color
         if (hex.length === 4) {
             r = parseInt(hex[1] + hex[1], 16);
             g = parseInt(hex[2] + hex[2], 16);
             b = parseInt(hex[3] + hex[3], 16);
         }
-        // 6 digits
+        // Handling 6 digit HEX color
         else if (hex.length === 7) {
             r = parseInt(hex[1] + hex[2], 16);
             g = parseInt(hex[3] + hex[4], 16);
@@ -40,27 +49,27 @@ export const Engine = () => {
         return {r, g, b};
     }
 
+    // Function to convert RGB color to HEX format
     const rgbToHex = (r: number, g: number, b: number): string => {
         return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
     }
 
+    // Function to adjust hue with a given degree
     const adjustHue = (h: number, degrees: number): number => {
         return (h + degrees) % 360;
     }
 
+    // Function to generate a color palette from a base color
     const generatePaletteFromColor = (hexColor: string, n: number = 5, spread: number = 30): string[] => {
         const baseColor = hexToRgb(hexColor);
         const hslBase = rgbToHsl(baseColor.r, baseColor.g, baseColor.b);
         let palette: string[] = [];
-
-        // Calcola l'angolo di spostamento per ogni colore nella palette
+        palette.push(rgbToHex(baseColor.r, baseColor.g, baseColor.b));
         const step = spread / (n - 1);
 
         for (let i = 0; i < n; i++) {
-            // Calcola il nuovo hue aggiustando l'angolo basato sulla posizione
-            // del colore nella palette e sulla diffusione desiderata
             let h = (hslBase.h! + (i * step) - (spread / 2)) % 360;
-            h = h < 0 ? 360 + h : h; // Corregge valori negativi di hue
+            h = h < 0 ? 360 + h : h;
 
             const adjustedColor = hslToRgb(h, hslBase.s, hslBase.l);
             palette.push(rgbToHex(adjustedColor.r, adjustedColor.g, adjustedColor.b));
@@ -69,7 +78,7 @@ export const Engine = () => {
         return palette;
     }
 
-
+    // Function to convert RGB color to HSL format
     const rgbToHsl = (r: number, g: number, b: number) => {
         r /= 255, g /= 255, b /= 255;
         const max = Math.max(r, g, b), min = Math.min(r, g, b);
@@ -98,6 +107,7 @@ export const Engine = () => {
         return {h, s, l};
     }
 
+    // Function to convert HSL color to RGB format
     const hslToRgb = (h: number, s: number, l: number): Color => {
         let r, g, b;
 
@@ -123,13 +133,49 @@ export const Engine = () => {
         return {r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255)};
     }
 
+    // Function to generate a palette for white color
+    const generateWhitePalette = (hexColor: string, n: number) => {
+        const baseColor = hexToRgb(hexColor);
+        let palette: string[] = [];
+        palette.push(rgbToHex(baseColor.r, baseColor.g, baseColor.b));
+        for (let i = 0; i < n; i++) {
+            const h = Math.floor(Math.random() * 360);
+            const s = Math.random() * 0.5;
+            const l = 0.75 + Math.random() * 0.25;
+            const color = hslToRgb(h, s, l);
+            palette.push(rgbToHex(color.r, color.g, color.b));
+        }
+        return palette;
+    };
+
+    // Function to generate a palette for black color
+    const generateBlackPalette = (hexColor: string, n: number) => {
+        const baseColor = hexToRgb(hexColor);
+        let palette: string[] = [];
+        palette.push(rgbToHex(baseColor.r, baseColor.g, baseColor.b));
+        for (let i = 0; i < n; i++) {
+            const l = Math.random() * 0.5;
+            const color = hslToRgb(0, 0, l);
+            palette.push(rgbToHex(color.r, color.g, color.b));
+        }
+        return palette;
+    };
+
+    // Function to handle the generation of new colors based on the selected color
     const handleGenerateColors = () => {
-        const newColors = generatePaletteFromColor(selectedColor, 4);
-        console.log(newColors);
+        let newColors = [];
+        if (selectedColor.toUpperCase() === "#FFFFFF") {
+            newColors = generateWhitePalette(selectedColor, 3);
+        } else if (selectedColor.toUpperCase() === "#000000") {
+            newColors = generateBlackPalette(selectedColor, 3);
+        } else {
+            newColors = generatePaletteFromColor(selectedColor, 3);
+        }
+        console.log(newColors)
         setGeneratedColors(newColors);
     };
 
     return {
-        selectedColor, setSelectedColor, generatedColors, handleGenerateColors, isLight
+        selectedColor, setSelectedColor, generatedColors, handleGenerateColors, isLight, downloadPalette
     }
 };
