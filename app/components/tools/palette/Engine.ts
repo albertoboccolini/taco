@@ -19,6 +19,30 @@ export const Engine = () => {
         if (generatedColors.length === 0) {
             return setError(new InvalidParameter("Palette"));
         }
+
+        const width = 250; // Width of each color in the palette
+        const height = 250; // Height of each color in the palette
+        const canvas = document.createElement('canvas');
+        canvas.width = width * generatedColors.length; // Total width based on the number of colors
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+
+        generatedColors.forEach((color, index) => {
+            ctx!.fillStyle = color;
+            ctx!.fillRect(index * width, 0, width, height);
+        });
+
+        // Convert the canvas into a PNG image URL
+        canvas.toBlob((blob) => {
+            const url = URL.createObjectURL(blob!);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'palette.png'; // Name of the file to download
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url); // Cleans up the URL to free resources
+        }, 'image/png');
     };
 
     // Function to check if the color is light or dark
@@ -54,24 +78,28 @@ export const Engine = () => {
         return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
     }
 
-    // Function to adjust hue with a given degree
-    const adjustHue = (h: number, degrees: number): number => {
-        return (h + degrees) % 360;
-    }
-
     // Function to generate a color palette from a base color
     const generatePaletteFromColor = (hexColor: string, n: number = 5, spread: number = 30): string[] => {
         const baseColor = hexToRgb(hexColor);
         const hslBase = rgbToHsl(baseColor.r, baseColor.g, baseColor.b);
         let palette: string[] = [];
-        palette.push(rgbToHex(baseColor.r, baseColor.g, baseColor.b));
+        palette.push(rgbToHex(baseColor.r, baseColor.g, baseColor.b)); // Adds the base color to the palette
         const step = spread / (n - 1);
 
-        for (let i = 0; i < n; i++) {
-            let h = (hslBase.h! + (i * step) - (spread / 2)) % 360;
-            h = h < 0 ? 360 + h : h;
+        for (let i = 1; i <= n; i++) {
+            // Generates a random variation for hue, saturation, and lightness
+            const hueVariation = Math.random() * spread - (spread / 2); // Varies the hue within a range centered on the base color
+            const saturationVariation = Math.random() * 0.2 - 0.1; // Varies the saturation by ±10%
+            const lightnessVariation = Math.random() * 0.2 - 0.1; // Varies the lightness by ±10%
 
-            const adjustedColor = hslToRgb(h, hslBase.s, hslBase.l);
+            let h = (hslBase.h! + hueVariation) % 360;
+            h = h < 0 ? 360 + h : h;
+            let s = hslBase.s + saturationVariation;
+            s = s < 0 ? 0 : s > 1 ? 1 : s; // Ensures that saturation is between 0 and 1
+            let l = hslBase.l + lightnessVariation;
+            l = l < 0 ? 0 : l > 1 ? 1 : l; // Ensures that lightness is between 0 and 1
+
+            const adjustedColor = hslToRgb(h, s, l);
             palette.push(rgbToHex(adjustedColor.r, adjustedColor.g, adjustedColor.b));
         }
 
@@ -90,15 +118,9 @@ export const Engine = () => {
             const d = max - min;
             s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
             switch (max) {
-                case r:
-                    h = (g - b) / d + (g < b ? 6 : 0);
-                    break;
-                case g:
-                    h = (b - r) / d + 2;
-                    break;
-                case b:
-                    h = (r - g) / d + 4;
-                    break;
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
             }
             h! *= 60;
             if (h! < 0) h! += 360;
