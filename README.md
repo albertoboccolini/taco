@@ -48,5 +48,7 @@ range of digital tasks without the need to rely on external services.
    ````
 5. Spin a container using the new build and verify that taco works properly.
 6. Push the docker image just built to docker hub with `docker push albertoboccolini/taco:x.y.z` **(Coming Soon...)**
+## Work with us
+- See [Contributing Guidelines](CONTRIBUTING.md) and start contribute to taco.
 
 **created by [albertoboccolini](https://github.com/albertoboccolini).**
