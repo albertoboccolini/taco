@@ -63,9 +63,6 @@ const Layout: NextPage = () => {
                                                 onChange={handleConversionTypeChange}
                                                 className="block m-auto mt-4 py-2 bg-white h-full border border-gray-300 rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
                                             <option value="PDF">PDF</option>
-                                            <option value="DOCX">DOCX</option>
-                                            <option value="PNG">PNG</option>
-                                            <option value="JPG">JPG</option>
                                             {/* Other conversion formats */}
                                         </select>
                                     </div>
