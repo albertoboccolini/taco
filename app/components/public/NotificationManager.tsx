@@ -32,11 +32,7 @@ export const NotificationManager = () => {
 
     useEffect(() => {
         if (error) {
-            if (error instanceof AbstractDisplayableError) {
-                errorNotification(error);
-            } else {
-                errorNotification(new AbstractDisplayableError("Errore generico", "Si prega di contattare il supporto."));
-            }
+            errorNotification(error);
             setError(null);
         }
     }, [error]);

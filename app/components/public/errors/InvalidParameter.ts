@@ -3,7 +3,7 @@ import AbstractDisplayableError from "@/app/components/public/errors/AbstractDis
 export class InvalidParameter extends AbstractDisplayableError {
 
     constructor(parameterName: String) {
-        super("Parametri non validi", parameterName + " mancante.");
+        super("Invalid parameters", parameterName + " is missing.");
     }
 }
 

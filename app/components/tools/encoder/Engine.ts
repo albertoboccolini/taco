@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {NotificationManager} from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 import ConversionError from "@/app/components/public/errors/ConversionError";
@@ -15,7 +15,7 @@ export const Engine = () => {
 
     const handleEncode = () => {
         if (text === '') {
-            return setError(new InvalidParameter("testo"));
+            return setError(new InvalidParameter("text"));
         }
         switch (encodeType) {
             case "BASE64":
@@ -23,13 +23,13 @@ export const Engine = () => {
                 setText(encodedText);
                 break;
             default:
-                return setError(new ConversionError("Tipo non riconosciuto."));
+                return setError(new ConversionError("Unrecognized type."));
         }
     };
 
     const handleDecode = () => {
         if (text === '') {
-            return setError(new InvalidParameter("testo"));
+            return setError(new InvalidParameter("text"));
         }
         switch (encodeType) {
             case "BASE64":
@@ -37,7 +37,7 @@ export const Engine = () => {
                 setText(decodedText!);
                 break;
             default:
-                return setError(new ConversionError("Tipo non riconosciuto."));
+                return setError(new ConversionError("Unrecognized type."));
         }
     };
 
@@ -49,7 +49,7 @@ export const Engine = () => {
         try {
             return atob(base64);
         } catch (e: any) {
-            return setError(new ConversionError("Il testo inserito non è ulteriormente decodificabile."));
+            return setError(new ConversionError("The inserted text cannot be further decoded."));
         }
     }
 

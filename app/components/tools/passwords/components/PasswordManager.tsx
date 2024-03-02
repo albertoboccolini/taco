@@ -53,8 +53,8 @@ const PasswordManager = ({
                                     </td>
                                     <td className="p-2">
                                         <div className="flex items-center justify-start space-x-2">
-                                            <ActionButton onClick={() => savePasswords(index)} text={"Save"} />
-                                            <ActionButton onClick={() => deletePassword(index)} text={"Delete"} />
+                                            <ActionButton onClick={() => savePasswords(index)} text={"Save"}/>
+                                            <ActionButton onClick={() => deletePassword(index)} text={"Delete"}/>
                                         </div>
                                     </td>
                                 </tr>

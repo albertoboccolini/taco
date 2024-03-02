@@ -24,7 +24,7 @@ export const Engine = () => {
     const calculateResult = () => {
         try {
             if (input === "") {
-                setError(new InvalidParameter("operazione"));
+                setError(new InvalidParameter("operation"));
                 return;
             }
             let formattedInput = input

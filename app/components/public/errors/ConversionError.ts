@@ -3,7 +3,7 @@ import AbstractDisplayableError from "@/app/components/public/errors/AbstractDis
 export class ConversionError extends AbstractDisplayableError {
 
     constructor(message: string) {
-        super("Errore durante la conversione", message);
+        super("Error during conversion", message);
     }
 }
 

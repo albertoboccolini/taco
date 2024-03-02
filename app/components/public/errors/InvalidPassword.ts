@@ -3,7 +3,7 @@ import AbstractDisplayableError from "@/app/components/public/errors/AbstractDis
 export class InvalidPassword extends AbstractDisplayableError {
 
     constructor() {
-        super("Errore durante l'accesso", "Controlla la password e riprovare.");
+        super("Error logging in", "Please check your password and try again.");
     }
 }
 

@@ -12,7 +12,7 @@ export const ConversionManager = () => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject("Controllare il file e riprovare.");
+            reader.onerror = error => reject("Please check the file and try again.");
         });
     };
 
@@ -35,7 +35,7 @@ export const ConversionManager = () => {
                 };
 
                 img.onerror = () => {
-                    return new ConversionError("Errore durante il caricamento dell'immagine.");
+                    return new ConversionError("Error loading image.");
                 };
 
                 img.src = imgData as string;
@@ -44,7 +44,7 @@ export const ConversionManager = () => {
                 doc.text(text, 10, 10);
                 setConversionUrl(URL.createObjectURL(doc.output('blob')));
             } else {
-                return new ConversionError("Tipo del file non riconosciuto.");
+                return new ConversionError("Unrecognized file type.");
             }
             return setIsConverted(true);
         } catch (error: any) {

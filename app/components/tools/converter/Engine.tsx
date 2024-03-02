@@ -37,16 +37,16 @@ export const Engine = () => {
 
     const downloadConvertedFile = () => {
         if (!conversionManager.isConverted || !conversionManager.conversionUrl) {
-            setError(new InvalidParameter("File convertito"));
+            setError(new InvalidParameter("Converted File"));
             return;
         }
         const link = document.createElement('a');
         link.href = conversionManager.conversionUrl;
         const fileName = selectedFile?.name.split(".")[0];
-        link.setAttribute('download', fileName + '.pdf'); // Imposta il nome del file per il download
-        document.body.appendChild(link); // Aggiungi l'elemento al DOM per rendere possibile il click
+        link.setAttribute('download', fileName + '.pdf'); // Set the file name for download
+        document.body.appendChild(link); // Add the element to the DOM to make clicking possible
         link.click();
-        document.body.removeChild(link); // Rimuovi l'elemento dal DOM dopo il click
+        document.body.removeChild(link); // Remove element from DOM after click
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,10 +78,10 @@ export const Engine = () => {
                     }
                     break;
                 default:
-                    setError(new ConversionError("Tipo di conversione non riconosciuto."));
+                    setError(new ConversionError("Conversion type not recognized."));
                     return;
             }
-            successNotification("Conversione completata, ora puoi scaricare il file.");
+            successNotification("Conversion completed, you can now download the file.");
         } catch (error: any) {
             setError(error);
         }

@@ -46,12 +46,11 @@ export const Engine = () => {
     }
 
     const encodePasswords = (passwordsToBeEncoded: Array<{ website: string, username: string, password: string }>) => {
-        const encodedPasswords = passwordsToBeEncoded.map((password) => ({
+        return passwordsToBeEncoded.map((password) => ({
             website: base64Encoder(password.website + "." + mainPassword),
             username: base64Encoder(password.username + "." + mainPassword),
             password: base64Encoder(password.password + "." + mainPassword),
         }));
-        return encodedPasswords;
     }
 
     const reloadPasswords = () => {
@@ -98,7 +97,7 @@ export const Engine = () => {
         try {
             const encodedPasswords = encodePasswords(passwords);
             localStorage.setItem('passwords', JSON.stringify(encodedPasswords));
-            successNotification("Password salvata correttamente.");
+            successNotification("Password saved successfully.");
         } catch (error: any) {
             setError(error);
         }

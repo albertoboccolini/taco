@@ -16,7 +16,7 @@ export const Engine = () => {
 
     const generateQRCode = (string: string) => {
         if (string === "") {
-            setError(new InvalidParameter("testo"));
+            setError(new InvalidParameter("text"));
             return;
         }
         return <QRCode value={string} id="qrCode" size={200} qrStyle="squares" eyeRadius={2}/>
