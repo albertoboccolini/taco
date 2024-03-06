@@ -29,7 +29,7 @@ range of digital tasks without the need to rely on external services.
 ## Self-host taco using Docker (Coming Soon...)
 
 ````bash
-   $ docker run -it albertoboccolini/taco:latest
+   $ docker run -d -p 4000:4000 albertoboccolini/taco:latest
 ````
 ## Build taco Docker image (for develop purposes)
 
