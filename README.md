@@ -26,7 +26,7 @@ range of digital tasks without the need to rely on external services.
    ````
 
 4. Open [http://localhost:4000](http://localhost:4000) with your browser to use taco.
-## Self-host taco using Docker (Coming Soon...)
+## Self-host taco using Docker
 
 ````bash
    $ docker run -d -p 4000:4000 albertoboccolini/taco:latest
@@ -47,7 +47,7 @@ range of digital tasks without the need to rely on external services.
    $ docker build -t albertoboccolini/taco:x.y.z .
    ````
 5. Spin a container using the new build and verify that taco works properly.
-6. Push the docker image just built to docker hub with `docker push albertoboccolini/taco:x.y.z` **(Coming Soon...)**
+6. Push the docker image just built to docker hub with `docker push albertoboccolini/taco:x.y.z`
 ## Work with us
 - See [Contributing Guidelines](CONTRIBUTING.md) and start contribute to taco.
 
