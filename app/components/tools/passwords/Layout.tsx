@@ -29,9 +29,7 @@ const Layout: NextPage = () => {
 
     return (
         <div className="bg-white text-gray-800 m-0 p-0">
-            <div className="shadow">
-                <Header title={"taco | passwords"}/>
-            </div>
+            <Header title={"taco | passwords"}/>
             <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
                 <div className="text-left p-5 m-auto">
                     <div className="mx-auto max-w-4xl space-y-8">

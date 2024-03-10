@@ -2,9 +2,9 @@ import type {Metadata} from "next";
 import "./globals.css";
 import Footer from "@/app/components/public/Footer";
 import React from "react";
-import {Roboto} from 'next/font/google'
+import {Inter} from 'next/font/google'
 
-const roboto = Roboto({
+const inter = Inter({
     weight: '400',
     subsets: ['latin'],
     style: "normal"
@@ -19,7 +19,7 @@ export default function RootLayout({children}: Readonly<{
 }>) {
     return (
         <html lang="it">
-        <body className={roboto.className}>{children}<Footer/></body>
+        <body className={inter.className}>{children}<Footer/></body>
         </html>
     );
 }

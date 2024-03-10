@@ -14,9 +14,7 @@ const Layout: NextPage = () => {
 
     return (
         <div className="text-gray-800 bg-white m-0 p-0">
-            <div className="shadow">
-                <Header title={"taco | palette"}/>
-            </div>
+            <Header title={"taco | palette"}/>
             <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
                 <div className="text-center p-5 m-auto">
                     <div className="mx-auto max-w-md space-y-8">
@@ -26,9 +24,9 @@ const Layout: NextPage = () => {
                                    alt="taco palette"
                                    width={100} height={100}/>
                             <h1 className="font-bold text-2xl mb-6">taco palette</h1>
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                            <div className="grid grid-cols-1 gap-4 mb-6">
                                 <div
-                                    className="relative flex flex-col items-center justify-center p-4 rounded-md border border-gray-200"
+                                    className="relative flex flex-col items-center justify-center p-4 rounded-md border-none"
                                     style={{backgroundColor: selectedColor}}>
                                     <input type="color" value={selectedColor}
                                            onChange={(e) => setSelectedColor(e.target.value)}
@@ -41,7 +39,7 @@ const Layout: NextPage = () => {
                                 {generatedColors.slice(1).map((color, index) => (
                                     <div
                                         key={index}
-                                        className="flex flex-col items-center justify-center p-4 rounded-md border border-gray-200 dark:border-gray-800"
+                                        className="flex flex-col items-center justify-center p-4 rounded-md border-none"
                                         style={{backgroundColor: color}}>
                                         <div className="w-16 h-16 rounded"/>
                                         <span className="mt-2 text-sm"

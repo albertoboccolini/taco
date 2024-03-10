@@ -22,11 +22,7 @@ const Layout: NextPage = () => {
 
     return (
         <div className="text-gray-800 bg-white m-0 p-0">
-
-            <div className="shadow">
-                <Header title={"taco | converter"}/>
-            </div>
-
+            <Header title={"taco | converter"}/>
             <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
                 <div className="text-center p-5 m-auto">
                     <form onSubmit={submitFileForConversion}>
@@ -48,7 +44,8 @@ const Layout: NextPage = () => {
                                                         className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                                                         htmlFor="file-upload"
                                                     >
-                                                        <span className="text-black">{selectedFile?.name ? selectedFile.name : "Select a file"}</span>
+                                                        <span
+                                                            className="text-black">{selectedFile?.name ? selectedFile.name : "Select a file"}</span>
                                                         <input className="sr-only" id="file-upload" name="file-upload"
                                                                onChange={handleFileChange}
                                                                type="file"/>

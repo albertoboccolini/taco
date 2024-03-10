@@ -1,10 +1,12 @@
 import React from 'react';
 import TacoLogo from "@/app/components/public/TacoLogo";
+import SearchBar from "@/app/components/homepage/SearchBar";
 
 const Header: React.FunctionComponent<{ title: string }> = ({title}) => (
-    <header className="bg-gray-100 py-2.5">
+    <header className="bg-white py-2.5 flex justify-between items-center w-full">
         <title>{title}</title>
-        <TacoLogo></TacoLogo>
+        <TacoLogo/>
+        <SearchBar/>
     </header>
 );
 
