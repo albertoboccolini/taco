@@ -3,6 +3,10 @@ import "./globals.css";
 import Footer from "@/app/components/public/Footer";
 import React from "react";
 import {Inter} from 'next/font/google'
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import {config} from "@fortawesome/fontawesome-svg-core";
+
+config.autoAddCss = false;
 
 const inter = Inter({
     weight: '400',

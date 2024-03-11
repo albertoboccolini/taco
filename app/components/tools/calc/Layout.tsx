@@ -11,11 +11,9 @@ const Layout: NextPage = () => {
 
     const {input, result, setInput, handleInputChange, calculateResult, clearInput, buttons} = Engine();
 
-    const {setSearchValue} = SearchEngine([]);
-
     return (
         <div className="text-gray-800 bg-white m-0 p-0">
-            <Header title={"taco | calc"} onSearchChange={setSearchValue}/>
+            <Header title={"taco | calc"} onSearchChange={null}/>
             <main className="p-4 m-auto max-w-4xl sm:p-10">
                 <div className="text-center p-5 m-auto">
                     <div className="m-auto">

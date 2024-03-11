@@ -8,7 +8,6 @@ import passwordLogo from "/public/passwordLogo.png";
 import {Engine} from "@/app/components/tools/passwords/Engine";
 import Login from "@/app/components/tools/passwords/components/Login";
 import PasswordManager from "@/app/components/tools/passwords/components/PasswordManager";
-import SearchEngine from "@/app/components/homepage/SearchEngine";
 
 const Layout: NextPage = () => {
 
@@ -27,11 +26,10 @@ const Layout: NextPage = () => {
         visiblePasswords,
         togglePasswordVisibility
     } = Engine();
-    const {setSearchValue} = SearchEngine([]);
 
     return (
         <div className="bg-white text-gray-800 m-0 p-0">
-            <Header title={"taco | passwords"} onSearchChange={setSearchValue}/>
+            <Header title={"taco | passwords"} onSearchChange={null}/>
             <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
                 <div className="text-left p-5 m-auto">
                     <div className="mx-auto max-w-4xl space-y-8">

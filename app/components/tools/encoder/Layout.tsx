@@ -7,16 +7,14 @@ import Image from "next/image";
 import encoderLogo from '/public/encoderLogo.png';
 import {Engine} from "@/app/components/tools/encoder/Engine";
 import TacoButton from "@/app/components/public/TacoButton";
-import SearchEngine from "@/app/components/homepage/SearchEngine";
 
 const Layout: NextPage = () => {
 
     const {handleEncode, handleDecode, text, setText, handleEncodeTypeChange, encodeType} = Engine();
-    const {setSearchValue} = SearchEngine([]);
 
     return (
         <div className="text-gray-800 bg-white m-0 p-0">
-            <Header title={"taco | encoder"} onSearchChange={setSearchValue}/>
+            <Header title={"taco | encoder"} onSearchChange={null}/>
             <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
                 <div className="text-center p-5 m-auto">
                     <div className="mx-auto max-w-md space-y-8">
