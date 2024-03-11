@@ -7,14 +7,16 @@ import qrCodeGeneratorLogo from "/public/qrCodeGeneratorLogo.png";
 import Image from "next/image";
 import {Engine} from "@/app/components/tools/qrcode/Engine";
 import TacoButton from "@/app/components/public/TacoButton";
+import SearchEngine from "@/app/components/homepage/SearchEngine";
 
 const Layout: NextPage = () => {
 
     const {string, setString, qrCode, handleGenerate, downloadQRCode} = Engine();
+    const {setSearchValue} = SearchEngine([]);
 
     return (
         <div className="text-gray-800 bg-white m-0 p-0">
-            <Header title={"taco | qrcode"}/>
+            <Header title={"taco | qrcode"} onSearchChange={setSearchValue}/>
             <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
                 <div className="text-center p-5 m-auto">
                     <div className="mx-auto max-w-md space-y-8">
