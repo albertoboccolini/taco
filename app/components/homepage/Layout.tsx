@@ -16,7 +16,7 @@ const Layout: React.FC = () => {
     const tools = [
         {logo: fileConverterLogo, toolLink: "/tools/converter", toolName: "taco converter", category: "converter"},
         {logo: qrCodeGeneratorLogo, toolLink: "/tools/qrcode", toolName: "taco qr code", category: "generator"},
-        {logo: encoderLogo, toolLink: "/tools/qrcode", toolName: "taco encoder", category: "converter"},
+        {logo: encoderLogo, toolLink: "/tools/encoder", toolName: "taco encoder", category: "converter"},
         {logo: passwordLogo, toolLink: "/tools/passwords", toolName: "taco passwords", category: "other"},
         {logo: paletteLogo, toolLink: "/tools/palette", toolName: "taco palette", category: "generator"},
         {logo: calcLogo, toolLink: "/tools/calc", toolName: "taco calc", category: "other"}
