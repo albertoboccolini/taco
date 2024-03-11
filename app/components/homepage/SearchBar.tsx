@@ -1,13 +1,16 @@
 import React from "react";
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<{ onSearchChange: (value: string) => void }> = ({onSearchChange}) => {
     return (
         <div className="flex items-center rounded-lg bg-white px-4 mr-8 ml-0 shrink-0">
             <input
-                className="w-48 px-6 py-2 rounded-xl shrink-0 border-2 shadow"
+                className="w-48 px-6 py-2 rounded-xl shrink-0 font-semibold placeholder:font-normal border-2 shadow"
                 placeholder="Search..."
-                type="search"/>
-            <SearchIcon className="w-4 h-4 ml-4 shrink-0 hover:scale-125 duration-300"/>
+                maxLength={30}
+                type="search"
+                onChange={(e) => onSearchChange(e.target.value)}
+            />
+            <SearchIcon className="w-4 h-4 ml-4 shrink-0"/>
         </div>
     )
 }

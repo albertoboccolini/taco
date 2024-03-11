@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from 'react';
+import React from 'react';
 import fileConverterLogo from '/public/fileConverterLogo.png';
 import calcLogo from '/public/calcLogo.png';
 import encoderLogo from '/public/encoderLogo.png';
@@ -9,19 +9,28 @@ import qrCodeGeneratorLogo from '/public/qrCodeGeneratorLogo.png';
 import paletteLogo from '/public/paletteLogo.png';
 import Header from "@/app/components/public/Header";
 import Tool from "@/app/components/homepage/Tool";
+import SearchEngine from "@/app/components/homepage/SearchEngine";
 
 const Layout: React.FC = () => {
 
+    const tools = [
+        {logo: fileConverterLogo, toolLink: "/tools/converter", toolName: "taco converter", category: "converter"},
+        {logo: qrCodeGeneratorLogo, toolLink: "/tools/qrcode", toolName: "taco qr code", category: "generator"},
+        {logo: encoderLogo, toolLink: "/tools/qrcode", toolName: "taco encoder", category: "converter"},
+        {logo: passwordLogo, toolLink: "/tools/passwords", toolName: "taco passwords", category: "other"},
+        {logo: paletteLogo, toolLink: "/tools/palette", toolName: "taco palette", category: "generator"},
+        {logo: calcLogo, toolLink: "/tools/calc", toolName: "taco calc", category: "other"}
+    ];
+
+    const {filteredTools, setSearchValue} = SearchEngine(tools);
+
     return (
         <div className="text-gray-800 bg-white m-0 p-0">
-            <Header title={"taco | homepage"}/>
+            <Header title={"taco | homepage"} onSearchChange={setSearchValue}/>
             <main className="text-center p-5 m-auto">
-                <Tool logo={fileConverterLogo} toolLink={"/tools/converter"}></Tool>
-                <Tool logo={qrCodeGeneratorLogo} toolLink={"/tools/qrcode"}></Tool>
-                <Tool logo={passwordLogo} toolLink={"/tools/passwords"}></Tool>
-                <Tool logo={encoderLogo} toolLink={"/tools/encoder"}></Tool>
-                <Tool logo={paletteLogo} toolLink={"/tools/palette"}></Tool>
-                <Tool logo={calcLogo} toolLink={"/tools/calc"}></Tool>
+                {filteredTools.map((tool: any, index: any) => (
+                    <Tool key={index} logo={tool.logo} toolLink={tool.toolLink}></Tool>
+                ))}
             </main>
         </div>
     );
