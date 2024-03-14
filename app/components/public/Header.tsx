@@ -3,6 +3,7 @@ import TacoLogo from "@/app/components/public/TacoLogo";
 import SearchBar from "@/app/components/homepage/SearchBar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
+import {faGear} from "@fortawesome/free-solid-svg-icons";
 
 const Header: React.FunctionComponent<{ title: string, onSearchChange: ((value: string) => void) | null }> = ({
                                                                                                                   title,
@@ -16,6 +17,8 @@ const Header: React.FunctionComponent<{ title: string, onSearchChange: ((value: 
                 <SearchBar onSearchChange={onSearchChange}/></div>
             <FontAwesomeIcon className="mr-8 lg:mr-10 hover:scale-125 text-black duration-300"
                              icon={faUserAstronaut} size="xl"/>
+            <FontAwesomeIcon className="mr-8 lg:mr-10 hover:scale-125 text-black duration-300"
+                             icon={faGear} size="xl"/>
         </div>
     </header>
 );
