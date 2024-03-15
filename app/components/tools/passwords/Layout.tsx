@@ -8,6 +8,7 @@ import passwordLogo from "/public/passwordLogo.png";
 import {Engine} from "@/app/components/tools/passwords/Engine";
 import Login from "@/app/components/tools/passwords/components/Login";
 import PasswordManager from "@/app/components/tools/passwords/components/PasswordManager";
+import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
 const Layout: NextPage = () => {
 
@@ -26,14 +27,16 @@ const Layout: NextPage = () => {
         visiblePasswords,
         togglePasswordVisibility
     } = Engine();
+    const {darkMode} = DarkModeEngine();
 
     return (
-        <div className="bg-white text-gray-800 m-0 p-0">
+        <div className={`${darkMode ? 'bg-taco-background-dark' : 'bg-white'} text-gray-800 m-0 p-0`}>
             <Header title={"taco | passwords"} onSearchChange={null}/>
             <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
                 <div className="text-left p-5 m-auto">
                     <div className="mx-auto max-w-4xl space-y-8">
-                        <div className="rounded-xl bg-white px-8 py-6 shadow-xl">
+                        <div
+                            className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
                             <Image src={passwordLogo}
                                    className="font-bold text-2xl text-center m-auto"
                                    alt="taco passwords"

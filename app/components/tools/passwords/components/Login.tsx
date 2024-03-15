@@ -1,6 +1,7 @@
 import React from 'react';
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import TacoButton from "@/app/components/public/TacoButton";
+import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
 const Login = ({
                    visibleMainPassword,
@@ -9,6 +10,7 @@ const Login = ({
                    toggleMainPasswordVisibility,
                    unlockPasswords
                }: any) => {
+    const {darkMode} = DarkModeEngine();
     return (
         <>
             <div
@@ -16,7 +18,7 @@ const Login = ({
                 <input type={visibleMainPassword ? 'text' : 'password'}
                        value={mainPassword}
                        onChange={(e) => updateMainPassword(e.target.value)}
-                       className="border shadow-md rounded-lg py-2 px-4 font-normal w-full max-w-xs"/>
+                       className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} shadow-md rounded-lg py-2 px-4 font-normal w-full max-w-xs`}/>
                 <button onClick={toggleMainPasswordVisibility}
                         className="text-gray-500 flex-shrink-0">
                     {visibleMainPassword ? <FaEyeSlash width={200} height={200}/> : <FaEye/>}

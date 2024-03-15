@@ -25,11 +25,12 @@ const Layout: React.FC = () => {
     const {filteredTools, setSearchValue} = SearchEngine(tools);
 
     return (
-        <div className="text-gray-800 bg-white m-0 p-0">
-            <Header title={"taco | homepage"} onSearchChange={setSearchValue}/>
+        <div className="text-gray-200 m-0 p-0">
+            <Header title={"taco | homepage"}
+                    onSearchChange={setSearchValue}/>
             <main className="text-center p-5 m-auto">
                 {filteredTools.map((tool: any, index: any) => (
-                    <Tool key={index} logo={tool.logo} toolLink={tool.toolLink}></Tool>
+                    <Tool key={index} logo={tool.logo} toolLink={tool.toolLink} toolName={tool.toolName}></Tool>
                 ))}
             </main>
         </div>
