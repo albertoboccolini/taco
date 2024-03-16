@@ -9,12 +9,12 @@ const SearchBar: React.FC<{ onSearchChange: ((value: string) => void) | null }> 
 
     return (
         <div
-            className={`${darkMode ? 'text-white bg-taco-background-dark' : 'text-black bg-white'} flex items-center rounded-lg mr-4 px-4 shrink-0 w-full sm:w-auto`}>
+            className={`${darkMode ? 'text-white bg-taco-dark-primary' : 'text-black bg-white'} flex items-center rounded-lg mr-4 px-4 shrink-0 w-full sm:w-auto`}>
             <div className="relative flex items-center w-full">
                 <SearchIcon
-                    className={`${darkMode ? 'fill-taco-background-dark text-taco-dark-secondary' : 'fill-white text-gray-200'} absolute w-6 h-6 sm:w-auto sm:h-auto left-4 z-10`}/>
+                    className={`${darkMode ? 'fill-taco-dark-primary text-taco-dark-secondary' : 'fill-white text-gray-200'} absolute w-6 h-6 sm:w-auto sm:h-auto left-4 z-10`}/>
                 <input
-                    className={`${darkMode ? 'bg-taco-background-dark border-taco-dark-secondary text-white' : 'bg-white border-gray-200 text-black'} w-full pl-12 pr-6 py-2 rounded-xl font-semibold placeholder:font-normal border-2 shadow sm:w-auto`}
+                    className={`${darkMode ? 'bg-taco-dark-primary border-taco-dark-secondary text-white' : 'bg-white border-gray-200 text-black'} w-full pl-12 pr-6 py-2 rounded-xl font-semibold placeholder:font-normal border-2 shadow sm:w-auto`}
                     placeholder="Search..."
                     maxLength={30}
                     type="search"

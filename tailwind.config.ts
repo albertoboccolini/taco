@@ -8,7 +8,7 @@ const config: Config = {
         extend: {
             colors: {
                 "taco-button-bg": "#163146",
-                "taco-background-dark": "#212121",
+                "taco-dark-primary": "#212121",
                 "taco-dark-secondary": "#393939",
                 "taco-dark-button": "#15435A"
             },

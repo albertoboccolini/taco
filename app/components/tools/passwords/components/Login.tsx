@@ -18,7 +18,7 @@ const Login = ({
                 <input type={visibleMainPassword ? 'text' : 'password'}
                        value={mainPassword}
                        onChange={(e) => updateMainPassword(e.target.value)}
-                       className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'} shadow-md rounded-lg py-2 px-4 font-normal w-full max-w-xs`}/>
+                       className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} shadow-md rounded-lg py-2 px-4 font-normal w-full max-w-xs`}/>
                 <button onClick={toggleMainPasswordVisibility}
                         className="text-gray-500 flex-shrink-0">
                     {visibleMainPassword ? <FaEyeSlash width={200} height={200}/> : <FaEye/>}

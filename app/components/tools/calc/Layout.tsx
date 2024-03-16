@@ -14,7 +14,7 @@ const Layout: NextPage = () => {
     const {darkMode} = DarkModeEngine();
 
     return (
-        <div className={`${darkMode ? 'bg-taco-background-dark' : 'bg-white'} text-gray-800 m-0 p-0`}>
+        <div className={`${darkMode ? 'bg-taco-dark-primary' : 'bg-white'} text-gray-800 m-0 p-0`}>
             <Header title={"taco | calc"} onSearchChange={null}/>
             <main className="p-4 m-auto max-w-4xl sm:p-10">
                 <div className="text-center p-5 m-auto">

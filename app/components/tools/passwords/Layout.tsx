@@ -30,7 +30,7 @@ const Layout: NextPage = () => {
     const {darkMode} = DarkModeEngine();
 
     return (
-        <div className={`${darkMode ? 'bg-taco-background-dark' : 'bg-white'} text-gray-800 m-0 p-0`}>
+        <div className={`${darkMode ? 'bg-taco-dark-primary' : 'bg-white'} text-gray-800 m-0 p-0`}>
             <Header title={"taco | passwords"} onSearchChange={null}/>
             <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
                 <div className="text-left p-5 m-auto">

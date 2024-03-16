@@ -26,7 +26,7 @@ export default function RootLayout({children}: Readonly<{
     return (
         <html lang="it">
         <body
-            className={(darkMode ? 'text-white bg-taco-background-dark' : 'text-black bg-white') + " " + inter.className}>{children}<Footer/>
+            className={(darkMode ? 'text-white bg-taco-dark-primary' : 'text-black bg-white') + " " + inter.className}>{children}<Footer/>
         </body>
         </html>
     );
