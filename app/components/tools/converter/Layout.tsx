@@ -31,7 +31,7 @@ const Layout: NextPage = () => {
                     <form onSubmit={submitFileForConversion}>
                         <div className="mx-auto max-w-md space-y-8">
                             <div
-                                className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
+                                className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
                                 <Image src={fileConverterImage}
                                        className="font-bold text-2xl text-center m-auto"
                                        alt="taco converter"
@@ -49,7 +49,7 @@ const Layout: NextPage = () => {
                                                         htmlFor="file-upload"
                                                     >
                                                         <span
-                                                            className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'}`}>{selectedFile?.name ? selectedFile.name : "Select a file"}</span>
+                                                            className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'}`}>{selectedFile?.name ? selectedFile.name : "Select a file"}</span>
                                                         <input className="sr-only" id="file-upload" name="file-upload"
                                                                onChange={handleFileChange}
                                                                type="file"/>
@@ -62,7 +62,7 @@ const Layout: NextPage = () => {
                                     <div className="block">
                                         <select value={conversionType}
                                                 onChange={handleConversionTypeChange}
-                                                className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-gray-200 text-black'} block m-auto mt-4 py-2 h-full rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg`}>
+                                                className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-gray-200 text-black'} p-2 block m-auto mt-4 py-2 h-full rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg`}>
                                             <option value="PDF">PDF</option>
                                             {/* Other conversion formats */}
                                         </select>

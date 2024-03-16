@@ -22,7 +22,7 @@ const Layout: NextPage = () => {
                 <div className="text-center p-5 m-auto">
                     <div className="mx-auto max-w-md space-y-8">
                         <div
-                            className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
+                            className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
                             <Image src={paletteLogo}
                                    className="font-bold text-2xl text-center m-auto"
                                    alt="taco palette"

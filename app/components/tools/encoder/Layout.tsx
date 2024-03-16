@@ -21,7 +21,7 @@ const Layout: NextPage = () => {
                 <div className="text-center p-5 m-auto">
                     <div className="mx-auto max-w-md space-y-8">
                         <div
-                            className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
+                            className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
                             <Image src={encoderLogo}
                                    className="font-bold text-2xl text-center m-auto"
                                    alt="taco encoder"
@@ -31,7 +31,7 @@ const Layout: NextPage = () => {
                                 <div className="flex flex-col gap-1.5">
                                         <textarea value={text}
                                                   onChange={(e) => setText(e.target.value)}
-                                                  className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} mt-4 w-full max-w-xl sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md px-4 py-2 shadow-lg`}
+                                                  className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'} mt-4 w-full max-w-xl sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md px-4 py-2 shadow-lg`}
                                                   id="output" placeholder="Something..."/>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@ const Layout: NextPage = () => {
                                 <div className="block rounded-lg">
                                     <select value={encodeType}
                                             onChange={handleEncodeTypeChange}
-                                            className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-gray-200 text-black'} block m-auto mt-4 py-2 h-full rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg`}>
+                                            className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-gray-200 text-black'} p-2 block m-auto mt-4 py-2 h-full rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg`}>
                                         <option value="BASE64">Base64</option>
                                     </select>
                                 </div>

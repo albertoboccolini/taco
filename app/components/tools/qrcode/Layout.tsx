@@ -21,7 +21,7 @@ const Layout: NextPage = () => {
                 <div className="text-center p-5 m-auto">
                     <div className="mx-auto max-w-md space-y-8">
                         <div
-                            className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
+                            className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
                             <section className="flex w-full flex-col items-center gap-4">
                                 <div className="mb-4 flex w-full justify-center">
                                     <Image src={qrCodeGeneratorLogo}
@@ -34,7 +34,7 @@ const Layout: NextPage = () => {
                                     Enter something and press &quot;Generate&quot; to create a QR code.
                                 </p>
                                 <input placeholder="Something..."
-                                       className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} mt-4 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md px-4 py-2 shadow-lg`}
+                                       className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'} mt-4 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md px-4 py-2 shadow-lg`}
                                        type="text"
                                        value={string}
                                        onChange={(e) => setString(e.target.value)}/>

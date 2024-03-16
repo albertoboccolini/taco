@@ -34,20 +34,20 @@ const PasswordManager = ({
                                     className="border-b last:border-b-0 border-gray-200">
                                     <td className="p-2">
                                         <input type="text"
-                                               className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} shadow-md h-8 font-normal rounded-lg w-full`}
+                                               className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'} p-2 shadow-md h-8 font-normal rounded-lg w-full`}
                                                value={password.website}
                                                onChange={(e) => updatePassword(index, 'website', e.target.value)}/>
                                     </td>
                                     <td className="p-2">
                                         <input type="text" value={password.username}
-                                               className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} shadow-md h-8 font-normal rounded-lg w-full`}
+                                               className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'} p-2 shadow-md h-8 font-normal rounded-lg w-full`}
                                                onChange={(e) => updatePassword(index, 'username', e.target.value)}/>
                                     </td>
                                     <td className="p-2 flex items-center">
                                         <input type={visiblePasswords[index] ? 'text' : 'password'}
                                                value={password.password}
                                                onChange={(e) => updatePassword(index, 'password', e.target.value)}
-                                               className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} shadow-md h-8 font-normal rounded-lg w-full`}
+                                               className={`${darkMode ? 'bg-taco-background-dark text-white' : 'bg-white text-black'} p-2 shadow-md h-8 font-normal rounded-lg w-full`}
                                         />
                                         <button onClick={() => togglePasswordVisibility(index)}
                                                 className="text-gray-500 ml-2">
