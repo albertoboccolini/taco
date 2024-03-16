@@ -11,7 +11,7 @@ const TacoLogo: React.FC = () => {
     return (
         <div className="w-40">
             <a href="/" className="w-20">
-                <Image src={darkMode ? tacoLogoWhite : tacoLogo} alt="Logo Taco"
+                <Image src={darkMode ? tacoLogoWhite : tacoLogo} alt="Logo Taco" title="taco | homepage"
                        className="font-bold text-2xl text-center m-auto"
                        width={100}
                        height={100} priority={true}/>
