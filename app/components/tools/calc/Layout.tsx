@@ -5,17 +5,17 @@ import {NextPage} from "next";
 import {Engine} from "@/app/components/tools/calc/Engine";
 import Header from "@/app/components/public/Header";
 import CalcButtons from "@/app/components/tools/calc/components/CalcButtons";
+import SearchEngine from "@/app/components/homepage/SearchEngine";
+import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
 const Layout: NextPage = () => {
 
     const {input, result, setInput, handleInputChange, calculateResult, clearInput, buttons} = Engine();
+    const {darkMode} = DarkModeEngine();
 
     return (
-        <div className="text-gray-800 bg-white m-0 p-0">
-            <div className="shadow">
-                <Header title={"taco | calc"}/>
-            </div>
-
+        <div className={`${darkMode ? 'bg-taco-dark-primary' : 'bg-white'} text-gray-800 m-0 p-0`}>
+            <Header title={"taco | calc"} onSearchChange={null}/>
             <main className="p-4 m-auto max-w-4xl sm:p-10">
                 <div className="text-center p-5 m-auto">
                     <div className="m-auto">

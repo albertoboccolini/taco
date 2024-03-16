@@ -1,47 +1,37 @@
 'use client'
 
-import React, {useState} from 'react';
+import React from 'react';
 import fileConverterLogo from '/public/fileConverterLogo.png';
 import calcLogo from '/public/calcLogo.png';
 import encoderLogo from '/public/encoderLogo.png';
 import passwordLogo from '/public/passwordLogo.png';
 import qrCodeGeneratorLogo from '/public/qrCodeGeneratorLogo.png';
 import paletteLogo from '/public/paletteLogo.png';
-import NavigationBar from "@/app/components/homepage/NavigationBar";
 import Header from "@/app/components/public/Header";
 import Tool from "@/app/components/homepage/Tool";
+import SearchEngine from "@/app/components/homepage/SearchEngine";
 
 const Layout: React.FC = () => {
 
-    const [activeSection, setActiveSection] = useState('all');
+    const tools = [
+        {logo: fileConverterLogo, toolLink: "/tools/converter", toolName: "taco Converter", category: "converter"},
+        {logo: qrCodeGeneratorLogo, toolLink: "/tools/qrcode", toolName: "taco Qr", category: "generator"},
+        {logo: encoderLogo, toolLink: "/tools/encoder", toolName: "taco Encoder", category: "converter"},
+        {logo: passwordLogo, toolLink: "/tools/passwords", toolName: "taco Passwords", category: "other"},
+        {logo: paletteLogo, toolLink: "/tools/palette", toolName: "taco Palette", category: "generator"},
+        {logo: calcLogo, toolLink: "/tools/calc", toolName: "taco Calc", category: "other"}
+    ];
 
-    const handleSectionChange = (section: string) => {
-        setActiveSection(section);
-    };
-
+    const {filteredTools, setSearchValue} = SearchEngine(tools);
 
     return (
-        <div className="text-gray-800 bg-white m-0 p-0">
-            <div className="shadow">
-                <Header title={"taco | homepage"}/>
-                <NavigationBar onSectionChange={handleSectionChange}></NavigationBar>
-            </div>
-
+        <div className="text-gray-200 m-0 p-0">
+            <Header title={"taco | homepage"}
+                    onSearchChange={setSearchValue}/>
             <main className="text-center p-5 m-auto">
-                <Tool logo={fileConverterLogo} toolLink={"/tools/converter"} category={"converter"}
-                      activeSection={activeSection}></Tool>
-                <Tool logo={qrCodeGeneratorLogo} toolLink={"/tools/qrcode"} category={"generator"}
-                      activeSection={activeSection}></Tool>
-                <Tool logo={passwordLogo} toolLink={"/tools/passwords"} category={"other"}
-                      activeSection={activeSection}></Tool>
-                <Tool logo={encoderLogo} toolLink={"/tools/encoder"} category={"converter"}
-                      activeSection={activeSection}></Tool>
-                <Tool logo={paletteLogo} toolLink={"/tools/palette"}
-                      category={"generator"}
-                      activeSection={activeSection}></Tool>
-                <Tool logo={calcLogo} toolLink={"/tools/calc"}
-                      category={"other"}
-                      activeSection={activeSection}></Tool>
+                {filteredTools.map((tool: any, index: any) => (
+                    <Tool key={index} logo={tool.logo} toolLink={tool.toolLink} toolName={tool.toolName}></Tool>
+                ))}
             </main>
         </div>
     );
