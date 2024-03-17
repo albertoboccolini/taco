@@ -14,12 +14,12 @@ import SearchEngine from "@/app/components/homepage/SearchEngine";
 const Layout: React.FC = () => {
 
     const tools = [
-        {logo: fileConverterLogo, toolLink: "/tools/converter", toolName: "taco Converter", category: "converter"},
-        {logo: qrCodeGeneratorLogo, toolLink: "/tools/qrcode", toolName: "taco Qr", category: "generator"},
-        {logo: encoderLogo, toolLink: "/tools/encoder", toolName: "taco Encoder", category: "converter"},
-        {logo: passwordLogo, toolLink: "/tools/passwords", toolName: "taco Passwords", category: "other"},
-        {logo: paletteLogo, toolLink: "/tools/palette", toolName: "taco Palette", category: "generator"},
-        {logo: calcLogo, toolLink: "/tools/calc", toolName: "taco Calc", category: "other"}
+        {logo: fileConverterLogo, toolLink: "/tools/converter", toolName: "taco converter", category: "converter"},
+        {logo: qrCodeGeneratorLogo, toolLink: "/tools/qrcode", toolName: "taco QR", category: "generator"},
+        {logo: encoderLogo, toolLink: "/tools/encoder", toolName: "taco encoder", category: "converter"},
+        {logo: passwordLogo, toolLink: "/tools/passwords", toolName: "taco passwords", category: "other"},
+        {logo: paletteLogo, toolLink: "/tools/palette", toolName: "taco palette", category: "generator"},
+        {logo: calcLogo, toolLink: "/tools/calc", toolName: "taco calc", category: "other"}
     ];
 
     const {filteredTools, setSearchValue} = SearchEngine(tools);
