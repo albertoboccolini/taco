@@ -72,6 +72,10 @@ export const Engine = () => {
         handleFileChange,
         handleConversionTypeChange,
         submitFileForConversion,
+<<<<<<< HEAD
         downloadConvertedFile
+=======
+        downloadConvertedFile,
+>>>>>>> 58822a9 (Add taco drop engine)
     };
 };
