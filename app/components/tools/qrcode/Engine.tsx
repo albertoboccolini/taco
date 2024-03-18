@@ -36,5 +36,5 @@ export const Engine = () => {
         downloadLink.click();
     };
 
-    return {string, setString, qrCode, handleGenerate, downloadQRCode};
+    return {string, setString, qrCode, handleGenerate, downloadQRCode, generateQRCode, setQrCode};
 }

@@ -60,4 +60,8 @@ const TacoFileUploader: React.FunctionComponent<{
     );
 };
 
+<<<<<<< HEAD
 export default TacoFileUploader;
+=======
+export default TacoFileUploader;
+>>>>>>> 58822a9 (Add taco drop engine)
