@@ -17,7 +17,7 @@ const Layout: NextPage = () => {
 
     return (
         <div className={`${darkMode ? 'bg-taco-dark-primary' : 'bg-white'} text-gray-800 m-0 p-0`}>
-            <Header title={"taco | encoder"} onSearchChange={null}/>
+            <Header title={"taco | drop"} onSearchChange={null}/>
             <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
                 <div className="text-center p-5 m-auto">
                     <div className="mx-auto max-w-md space-y-8">
