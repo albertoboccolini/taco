@@ -4,7 +4,7 @@ import React from 'react';
 import {NextPage} from "next";
 import Header from "@/app/components/public/Header";
 import Image from "next/image";
-import passwordLogo from "/public/passwordLogo.png";
+import tacoPasswordsLogo from "@/public/tacoPasswordsLogo.png";
 import {Engine} from "@/app/components/tools/passwords/Engine";
 import Login from "@/app/components/tools/passwords/components/Login";
 import PasswordManager from "@/app/components/tools/passwords/components/PasswordManager";
@@ -37,7 +37,7 @@ const Layout: NextPage = () => {
                     <div className="mx-auto max-w-4xl space-y-8">
                         <div
                             className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
-                            <Image src={passwordLogo}
+                            <Image src={tacoPasswordsLogo}
                                    className="font-bold text-2xl text-center m-auto"
                                    alt="taco passwords"
                                    width={100} height={100}/>

@@ -4,7 +4,7 @@ import React from 'react';
 import {NextPage} from "next";
 import Header from "@/app/components/public/Header";
 import Image from "next/image";
-import encoderLogo from '/public/encoderLogo.png';
+import tacoEncoderLogo from '@/public/tacoEncoderLogo.png';
 import {Engine} from "@/app/components/tools/encoder/Engine";
 import TacoButton from "@/app/components/public/TacoButton";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
@@ -22,7 +22,7 @@ const Layout: NextPage = () => {
                     <div className="mx-auto max-w-md space-y-8">
                         <div
                             className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
-                            <Image src={encoderLogo}
+                            <Image src={tacoEncoderLogo}
                                    className="font-bold text-2xl text-center m-auto"
                                    alt="taco encoder"
                                    width={100} height={100}/>

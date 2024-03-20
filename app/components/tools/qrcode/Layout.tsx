@@ -3,7 +3,7 @@
 import React from 'react';
 import {NextPage} from "next";
 import Header from "@/app/components/public/Header";
-import qrCodeGeneratorLogo from "/public/qrCodeGeneratorLogo.png";
+import tacoQRLogo from "@/public/tacoQRLogo.png";
 import Image from "next/image";
 import {Engine} from "@/app/components/tools/qrcode/Engine";
 import TacoButton from "@/app/components/public/TacoButton";
@@ -24,7 +24,7 @@ const Layout: NextPage = () => {
                             className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
                             <section className="flex w-full flex-col items-center gap-4">
                                 <div className="mb-4 flex w-full justify-center">
-                                    <Image src={qrCodeGeneratorLogo}
+                                    <Image src={tacoQRLogo}
                                            alt="taco QR"
                                            width={100} height={100}
                                            className="m-auto"/>

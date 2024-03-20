@@ -5,7 +5,6 @@ import {NextPage} from "next";
 import {Engine} from "@/app/components/tools/calc/Engine";
 import Header from "@/app/components/public/Header";
 import CalcButtons from "@/app/components/tools/calc/components/CalcButtons";
-import SearchEngine from "@/app/components/homepage/SearchEngine";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
 const Layout: NextPage = () => {

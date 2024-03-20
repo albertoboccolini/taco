@@ -4,10 +4,11 @@ import React from 'react';
 import {NextPage} from "next";
 import {Engine} from "@/app/components/tools/converter/Engine";
 import Image from 'next/image';
-import fileConverterImage from '/public/fileConverterLogo.png';
+import tacoConverterLogo from '@/public/tacoConverterLogo.png';
 import Header from "@/app/components/public/Header";
 import TacoButton from "@/app/components/public/TacoButton";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import TacoFileUploader from "@/app/components/public/TacoFileUploader";
 
 const Layout: NextPage = () => {
 
@@ -18,7 +19,6 @@ const Layout: NextPage = () => {
         handleConversionTypeChange,
         submitFileForConversion,
         downloadConvertedFile,
-        UploadCloudIcon
     } = Engine();
 
     const {darkMode} = DarkModeEngine();
@@ -32,33 +32,13 @@ const Layout: NextPage = () => {
                         <div className="mx-auto max-w-md space-y-8">
                             <div
                                 className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
-                                <Image src={fileConverterImage}
+                                <Image src={tacoConverterLogo}
                                        className="font-bold text-2xl text-center m-auto"
                                        alt="taco converter"
                                        width={100} height={100}/>
                                 <h1 className="font-bold text-2xl mb-6">taco converter</h1>
                                 <div className="space-y-6">
-                                    <div>
-                                        <div
-                                            className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                                            <div className="space-y-1 text-center">
-                                                <UploadCloudIcon className="mx-auto h-12 w-12 text-gray-400"/>
-                                                <div className="flex text-sm text-black">
-                                                    <label
-                                                        className="relative cursor-pointer rounded-md font-medium focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
-                                                        htmlFor="file-upload"
-                                                    >
-                                                        <span
-                                                            className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'}`}>{selectedFile?.name ? selectedFile.name : "Select a file"}</span>
-                                                        <input className="sr-only" id="file-upload" name="file-upload"
-                                                               onChange={handleFileChange}
-                                                               type="file"/>
-                                                    </label>
-                                                    <p className="pl-1"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <TacoFileUploader selectedFile={selectedFile} handleFileChange={handleFileChange}/>
                                     <div className="block">
                                         <select value={conversionType}
                                                 onChange={handleConversionTypeChange}
