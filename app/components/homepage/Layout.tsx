@@ -19,42 +19,42 @@ const Layout: React.FC = () => {
             toolLink: "/tools/converter",
             toolName: "taco converter",
             category: "converter",
-            tags: ["taco", "file", "image", "format"]
+            tags: ["taco", "file", "image", "format", "document converter", "pdf converter"]
         },
         {
             logo: tacoQRLogo,
             toolLink: "/tools/qrcode",
             toolName: "taco QR",
             category: "generator",
-            tags: ["taco", "QR code", "security", "scan"]
+            tags: ["taco", "QR code", "security", "scan", "mobile marketing", "contactless information sharing"]
         },
         {
             logo: tacoEncoderLogo,
             toolLink: "/tools/encoder",
             toolName: "taco encoder",
             category: "converter",
-            tags: ["taco", "data encoding", "security", "code obfuscation"]
+            tags: ["taco", "data encoding", "security", "code obfuscation", "encryption", "text obfuscation"]
         },
         {
             logo: tacoPasswords,
             toolLink: "/tools/passwords",
             toolName: "taco passwords",
             category: "other",
-            tags: ["taco", "password generator", "security", "strong passwords"]
+            tags: ["taco", "password generator", "security", "strong passwords", "account security", "password manager"]
         },
         {
             logo: tacoPaletteLogo,
             toolLink: "/tools/palette",
             toolName: "taco palette",
             category: "generator",
-            tags: ["taco", "color scheme", "design tool", "palette generator"]
+            tags: ["taco", "color scheme", "design tool", "palette generator", "web design", "interior design inspiration"]
         },
         {
             logo: tacoCalcLogo,
             toolLink: "/tools/calc",
             toolName: "taco calc",
             category: "other",
-            tags: ["calculator", "math tool", "computation"]
+            tags: ["calculator", "math tool", "computation", "financial calculations", "educational tool"]
         },
     ];
 
