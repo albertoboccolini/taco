@@ -14,13 +14,50 @@ import SearchEngine from "@/app/components/homepage/SearchEngine";
 const Layout: React.FC = () => {
 
     const tools = [
-        {logo: tacoConverterLogo, toolLink: "/tools/converter", toolName: "taco converter", category: "converter"},
-        {logo: tacoQRLogo, toolLink: "/tools/qrcode", toolName: "taco QR", category: "generator"},
-        {logo: tacoEncoderLogo, toolLink: "/tools/encoder", toolName: "taco encoder", category: "converter"},
-        {logo: tacoPasswords, toolLink: "/tools/passwords", toolName: "taco passwords", category: "other"},
-        {logo: tacoPaletteLogo, toolLink: "/tools/palette", toolName: "taco palette", category: "generator"},
-        {logo: tacoCalcLogo, toolLink: "/tools/calc", toolName: "taco calc", category: "other"}
+        {
+            logo: tacoConverterLogo,
+            toolLink: "/tools/converter",
+            toolName: "taco converter",
+            category: "converter",
+            tags: ["taco", "file", "image", "format"]
+        },
+        {
+            logo: tacoQRLogo,
+            toolLink: "/tools/qrcode",
+            toolName: "taco QR",
+            category: "generator",
+            tags: ["taco", "QR code", "security", "scan"]
+        },
+        {
+            logo: tacoEncoderLogo,
+            toolLink: "/tools/encoder",
+            toolName: "taco encoder",
+            category: "converter",
+            tags: ["taco", "data encoding", "security", "code obfuscation"]
+        },
+        {
+            logo: tacoPasswords,
+            toolLink: "/tools/passwords",
+            toolName: "taco passwords",
+            category: "other",
+            tags: ["taco", "password generator", "security", "strong passwords"]
+        },
+        {
+            logo: tacoPaletteLogo,
+            toolLink: "/tools/palette",
+            toolName: "taco palette",
+            category: "generator",
+            tags: ["taco", "color scheme", "design tool", "palette generator"]
+        },
+        {
+            logo: tacoCalcLogo,
+            toolLink: "/tools/calc",
+            toolName: "taco calc",
+            category: "other",
+            tags: ["calculator", "math tool", "computation"]
+        },
     ];
+
 
     const {filteredTools, setSearchValue} = SearchEngine(tools);
 
