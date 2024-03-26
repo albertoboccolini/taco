@@ -6,7 +6,7 @@ import Header from "@/app/components/public/Header";
 import Image from "next/image";
 import tacoPasswordsLogo from "@/public/tacoPasswordsLogo.png";
 import {Engine} from "@/app/components/tools/passwords/Engine";
-import Login from "@/app/components/tools/passwords/components/Login";
+import AccountManager from "@/app/components/tools/passwords/components/AccountManager";
 import PasswordManager from "@/app/components/tools/passwords/components/PasswordManager";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
@@ -25,7 +25,9 @@ const Layout: NextPage = () => {
         addPassword,
         deletePassword,
         visiblePasswords,
-        togglePasswordVisibility
+        togglePasswordVisibility,
+        isRegistered,
+        clearStorage
     } = Engine();
     const {darkMode} = DarkModeEngine();
 
@@ -42,17 +44,19 @@ const Layout: NextPage = () => {
                                    alt="taco passwords"
                                    width={100} height={100}/>
                             <h1 className="font-bold text-2xl text-center mb-6">taco passwords</h1>
-                            <p className="text-center text-sm mb-8 text-gray-400">
-                                Passwords stored in local storage may be easily decrypted in a data breach, use taco
+                            <p className="text-center w-full text-sm mb-8 text-gray-400">
+                                Passwords stored in the browser local storage may be easily decrypted in a data breach,
+                                we&#39;re currently working to improve the security of this tool, use taco
                                 passwords at your own risk.
                             </p>
                             {!isAuthenticated ? (
-                                <Login
+                                <AccountManager
                                     visibleMainPassword={visibleMainPassword}
                                     toggleMainPasswordVisibility={toggleMainPasswordVisibility}
                                     mainPassword={mainPassword}
                                     unlockPasswords={unlockPasswords}
-                                    updateMainPassword={updateMainPassword}/>
+                                    updateMainPassword={updateMainPassword} isRegistered={isRegistered}
+                                    clearStorage={clearStorage}/>
                             ) : (
                                 <PasswordManager
                                     passwords={passwords}

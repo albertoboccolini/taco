@@ -3,20 +3,24 @@ import {FaEye, FaEyeSlash} from "react-icons/fa";
 import TacoButton from "@/app/components/public/TacoButton";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
-const Login = ({
+const AccountManager = ({
                    visibleMainPassword,
                    mainPassword,
                    updateMainPassword,
                    toggleMainPasswordVisibility,
-                   unlockPasswords
+                   unlockPasswords,
+                   isRegistered,
+                   clearStorage
                }: any) => {
     const {darkMode} = DarkModeEngine();
+
     return (
         <>
             <div
                 className="text-center mb-6 mx-auto flex justify-center items-center space-x-2">
                 <input type={visibleMainPassword ? 'text' : 'password'}
                        value={mainPassword}
+                       placeholder={isRegistered ? "Insert main password" : "Create a main password"}
                        onChange={(e) => updateMainPassword(e.target.value)}
                        className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} shadow-md rounded-lg py-2 px-4 font-normal w-full max-w-xs`}/>
                 <button onClick={toggleMainPasswordVisibility}
@@ -25,10 +29,18 @@ const Login = ({
                 </button>
             </div>
             <div className="mt-4 text-center">
-                <TacoButton type={"button"} onClick={unlockPasswords} text={"Unlock"}/>
+                <TacoButton type={"button"} onClick={unlockPasswords} text={isRegistered ? "Unlock" : "Register"}/>
             </div>
+            {isRegistered ?
+                <div className="flex items-center justify-center gap-1 text-sm mt-4"><p className="text-gray-400">forgot
+                    main password?</p>
+                    <button className="text-blue-400 underline" title={"this action removes all saved passwords."}
+                            onClick={clearStorage}>clear
+                        storage
+                    </button>
+                </div> : <></>}
         </>
     );
 };
 
-export default Login;
+export default AccountManager;

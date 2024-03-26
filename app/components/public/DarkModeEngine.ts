@@ -21,7 +21,7 @@ export const DarkModeEngine = () => {
     }, []); // Empty dependency array means this effect runs once on mount
 
     // useState hook to manage and render darkMode state within this component
-    const [darkMode, setDarkMode] = useState(darkModeState);
+    const [darkMode, setDarkMode] = useState(darkModeState || false);
 
     // useEffect hook to register and clean up a listener for darkModeState changes
     useEffect(() => {

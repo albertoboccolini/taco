@@ -13,6 +13,7 @@ export const Engine = () => {
     const {base64Encoder, base64Decoder} = EncodeEngine();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [localMainPassword, setLocalMainPassword] = useState<string>("");
+    const [isRegistered, setIsRegistered] = useState<boolean>(false);
 
     const unlockPasswords = () => {
         setLocalMainPassword(localStorage.getItem('mainPassword') ?? "");
@@ -22,6 +23,7 @@ export const Engine = () => {
         if (localMainPassword === "") {
             localStorage.setItem('mainPassword', base64Encoder(mainPassword));
             localStorage.removeItem('passwords');
+            setIsRegistered(true);
             setPasswords([]);
             setLocalMainPassword(mainPassword);
             return setIsAuthenticated(true);
@@ -34,6 +36,14 @@ export const Engine = () => {
         setIsAuthenticated(true);
         reloadPasswords();
     };
+
+    const clearStorage = () => {
+        localStorage.removeItem("passwords");
+        localStorage.removeItem("mainPassword");
+        setIsRegistered(false);
+        setLocalMainPassword("");
+        setMainPassword("");
+    }
 
     const togglePasswordVisibility = (index: number) => {
         const updatedVisibility = [...visiblePasswords];
@@ -66,6 +76,7 @@ export const Engine = () => {
     }
 
     useEffect(() => {
+        setIsRegistered(localStorage.getItem('mainPassword') !== null);
         reloadPasswords();
     }, []);
 
@@ -133,6 +144,8 @@ export const Engine = () => {
         toggleMainPasswordVisibility,
         visibleMainPassword,
         unlockPasswords,
-        isAuthenticated
+        isAuthenticated,
+        isRegistered,
+        clearStorage
     };
 }
