@@ -19,7 +19,7 @@ export const Engine = () => {
             setError(new InvalidParameter("text"));
             return;
         }
-        return <QRCode value={string} id="qrCode" size={200} qrStyle="squares" eyeRadius={2}/>
+        return <QRCode value={string} id="qrCode" size={200} qrStyle="squares" ecLevel={"H"} eyeRadius={2}/>
     };
 
     const downloadQRCode = () => {
@@ -36,5 +36,5 @@ export const Engine = () => {
         downloadLink.click();
     };
 
-    return {string, setString, qrCode, handleGenerate, downloadQRCode};
+    return {string, setString, qrCode, handleGenerate, downloadQRCode, generateQRCode, setQrCode};
 }

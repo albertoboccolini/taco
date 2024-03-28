@@ -72,6 +72,6 @@ export const Engine = () => {
         handleFileChange,
         handleConversionTypeChange,
         submitFileForConversion,
-        downloadConvertedFile
+        downloadConvertedFile,
     };
 };
