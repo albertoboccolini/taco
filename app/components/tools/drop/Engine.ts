@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {NotificationManager} from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 import {Engine as QRCodeEngine} from "@/app/components/tools/qrcode/Engine";
+import GetFileResponseDTO from "@/app/components/dtos/drop/GetFileResponseDTO";
+import UploadFileResponseDTO from "@/app/components/dtos/drop/UploadFileResponseDTO";
 
 export const Engine = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -17,7 +19,7 @@ export const Engine = () => {
 
     const uploadFile = async () => {
         if (!selectedFile) {
-            setError(new InvalidParameter("File non selezionato"));
+            setError(new InvalidParameter("File"));
             return;
         }
 
@@ -25,7 +27,7 @@ export const Engine = () => {
         formData.append('file', selectedFile);
 
         try {
-            const response = await fetch('https://taco-api-nine.vercel.app/api/upload-file', {
+            const uploadFileResponse = await fetch('https://taco-api-nine.vercel.app/api/upload-file', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -35,10 +37,10 @@ export const Engine = () => {
                 body: formData
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                setRoomId(data.roomID);
-                const roomUrl = `https://${window.location.host}/tools/drop/room/?roomId=${data.roomID}`;
+            if (uploadFileResponse.ok) {
+                const uploadFileResult: UploadFileResponseDTO = await uploadFileResponse.json();
+                setRoomId(uploadFileResult.roomID);
+                const roomUrl = `https://${window.location.host}/tools/drop/room/?roomId=${uploadFileResult.roomID}`;
                 const qrCodeComponent = generateQRCode(roomUrl);
                 setQrCode(qrCodeComponent);
             } else {

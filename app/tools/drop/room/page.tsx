@@ -9,6 +9,7 @@ import tacoDropLogo from "@/public/tacoDropLogo.png";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import {NotificationManager} from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
+import GetFileResponseDTO from "@/app/components/dtos/drop/GetFileResponseDTO";
 
 const RoomPage = () => {
     return (
@@ -45,7 +46,7 @@ const RoomContent = () => {
     const deleteRoom = async () => {
         if (roomId) {
             try {
-                const response = await fetch(`https://taco-api-nine.vercel.app/api/delete-room?roomID=${roomId}`, {
+                const deleteRoomResult = await fetch(`https://taco-api-nine.vercel.app/api/delete-room?roomID=${roomId}`, {
                     method: 'GET',
                     mode: "cors",
                     headers: {
@@ -53,11 +54,11 @@ const RoomContent = () => {
                         'Access-Control-Request-Headers': 'Content-Type, Authorization',
                     },
                 });
-                if (!response.ok) {
-                    console.error('Error deleting room');
+                if (!deleteRoomResult.ok) {
+                    setError(new Error("Failed to delete room, please contact support."));
                 }
             } catch (error) {
-                console.error('Error deleting room:', error);
+                setError(new Error("Failed to delete room, please contact support."));
             }
         }
     }
@@ -67,7 +68,7 @@ const RoomContent = () => {
 
         const fetchFile = async () => {
             try {
-                const response = await fetch(`https://taco-api-nine.vercel.app/api/get-file?roomID=${roomId}`, {
+                const getFileResponse = await fetch(`https://taco-api-nine.vercel.app/api/get-file?roomID=${roomId}`, {
                     method: 'GET',
                     mode: "cors",
                     headers: {
@@ -75,12 +76,12 @@ const RoomContent = () => {
                         'Access-Control-Request-Headers': 'Content-Type, Authorization',
                     },
                 });
-                if (response.status == 404) {
+                if (getFileResponse.status == 404) {
                     return setError(new InvalidParameter("file"));
                 } else {
-                    const result = await response.json();
-                    setFileURL(result["fileData"]["url"]);
-                    setFileName(result["fileData"]["file_name"]);
+                    const getFileResult: GetFileResponseDTO = await getFileResponse.json();
+                    setFileURL(getFileResult.fileData.url);
+                    setFileName(getFileResult.fileData.file_name);
                 }
 
             } catch (error) {
