@@ -8,8 +8,8 @@ import Image from "next/image";
 import tacoDropLogo from "@/public/tacoDropLogo.png";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import {NotificationManager} from "@/app/components/public/NotificationManager";
-import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 import GetFileResponseDTO from "@/app/components/dtos/drop/GetFileResponseDTO";
+import ErrorBoundary from "@/app/components/public/ErrorBoundary";
 
 const RoomPage = () => {
     return (
@@ -26,40 +26,49 @@ const RoomContent = () => {
     const [fileURL, setFileURL] = useState<string | null>(null);
     const [fileName, setFileName] = useState<string | null>(null);
 
-    const {setError} = NotificationManager();
+    const {setError, successNotification} = NotificationManager();
 
     const handleDownload = async () => {
-        const response = await fetch(fileURL!);
-        const blob = await response.blob();
-        const downloadUrl = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = fileName!;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(downloadUrl);
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+        if (isIOS && fileURL) {
+            // Open the file URL directly for iOS devices
+            window.open(fileURL, '_blank');
+        } else {
+            // Proceed with the original download logic for non-iOS devices
+            const response = await fetch(fileURL!);
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = fileName!;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(downloadUrl);
+        }
         await deleteRoom();
     };
 
 
     const deleteRoom = async () => {
-        if (roomId) {
-            try {
-                const deleteRoomResult = await fetch(`https://taco-api-nine.vercel.app/api/delete-room?roomID=${roomId}`, {
-                    method: 'GET',
-                    mode: "cors",
-                    headers: {
-                        'Authorization': 'Bearer 55f02c20-d662-46ef-aa12-b98de0a04dff',
-                        'Access-Control-Request-Headers': 'Content-Type, Authorization',
-                    },
-                });
-                if (!deleteRoomResult.ok) {
-                    setError(new Error("Failed to delete room, please contact support."));
-                }
-            } catch (error) {
-                setError(new Error("Failed to delete room, please contact support."));
+        if (!roomId) return;
+
+        try {
+            const deleteRoomResult = await fetch(`https://taco-api-nine.vercel.app/api/delete-room?roomID=${roomId}`, {
+                method: 'POST',
+                mode: "cors",
+                headers: {
+                    'Authorization': 'Bearer 55f02c20-d662-46ef-aa12-b98de0a04dff',
+                },
+            });
+
+            if (!deleteRoomResult.ok) {
+                setError(new Error(`Failed to download file.`));
             }
+            successNotification("File downloaded successfully.");
+        } catch (error: any) {
+            setError(error);
         }
     }
 
@@ -73,18 +82,15 @@ const RoomContent = () => {
                     mode: "cors",
                     headers: {
                         'Authorization': 'Bearer 55f02c20-d662-46ef-aa12-b98de0a04dff',
-                        'Access-Control-Request-Headers': 'Content-Type, Authorization',
                     },
                 });
-                if (getFileResponse.status == 404) {
-                    return setError(new InvalidParameter("file"));
-                } else {
+                if (getFileResponse.status !== 404) {
                     const getFileResult: GetFileResponseDTO = await getFileResponse.json();
                     setFileURL(getFileResult.fileData.url);
                     setFileName(getFileResult.fileData.file_name);
                 }
-
             } catch (error) {
+                setError(new Error("Failed to get File."))
             }
         };
 
@@ -93,7 +99,7 @@ const RoomContent = () => {
     }, [roomId, setError]);
 
     return (
-        <>
+        <ErrorBoundary>
             <div className={`${darkMode ? 'bg-taco-dark-primary' : 'bg-white'} text-gray-800 m-0 p-0`}>
                 <Header title={"taco | drop"} onSearchChange={null}/>
                 <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
@@ -114,7 +120,7 @@ const RoomContent = () => {
                     </div>
                 </main>
             </div>
-        </>
+        </ErrorBoundary>
     );
 };
 

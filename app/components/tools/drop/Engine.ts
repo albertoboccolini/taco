@@ -32,7 +32,6 @@ export const Engine = () => {
                 mode: 'cors',
                 headers: {
                     'Authorization': 'Bearer 55f02c20-d662-46ef-aa12-b98de0a04dff',
-                    'Access-Control-Request-Headers': 'Content-Type, Authorization',
                 },
                 body: formData
             });
