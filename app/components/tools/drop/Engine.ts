@@ -2,12 +2,11 @@ import React, {useState} from 'react';
 import {NotificationManager} from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 import {Engine as QRCodeEngine} from "@/app/components/tools/qrcode/Engine";
-import GetFileResponseDTO from "@/app/components/dtos/drop/GetFileResponseDTO";
 import UploadFileResponseDTO from "@/app/components/dtos/drop/UploadFileResponseDTO";
 
 export const Engine = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [roomId, setRoomId] = useState<string | null>(null);
+    const [roomID, setRoomID] = useState<string | null>(null);
     const {setError} = NotificationManager();
     const {generateQRCode, setQrCode, qrCode} = QRCodeEngine();
 
@@ -17,10 +16,36 @@ export const Engine = () => {
         }
     };
 
+    // If roomID is already set calls delete-room endpoint to delete previous uploaded file
+    async function deleteRoom(roomID: string) {
+        try {
+            const deleteRoomURL = `https://taco-api-nine.vercel.app/api/delete-room?roomID=${roomID}`;
+            const deleteRoomResult = await fetch(deleteRoomURL, {
+                method: 'POST',
+                mode: "cors",
+                headers: {
+                    'Authorization': 'Bearer 55f02c20-d662-46ef-aa12-b98de0a04dff',
+                },
+            });
+        } catch (error: any) {
+            setError(error);
+        }
+    }
+
     const uploadFile = async () => {
         if (!selectedFile) {
             setError(new InvalidParameter("File"));
             return;
+        }
+
+        const roomIDFromStorage = localStorage.getItem("roomID");
+
+        if (roomID && roomID !== roomIDFromStorage) {
+            await deleteRoom(roomID);
+        }
+
+        if (roomIDFromStorage) {
+            await deleteRoom(roomIDFromStorage);
         }
 
         const formData = new FormData();
@@ -38,8 +63,9 @@ export const Engine = () => {
 
             if (uploadFileResponse.ok) {
                 const uploadFileResult: UploadFileResponseDTO = await uploadFileResponse.json();
-                setRoomId(uploadFileResult.roomID);
-                const roomUrl = `https://${window.location.host}/tools/drop/room/?roomId=${uploadFileResult.roomID}`;
+                setRoomID(uploadFileResult.roomID);
+                localStorage.setItem("roomID", uploadFileResult.roomID);
+                const roomUrl = `https://${window.location.host}/tools/drop/room/?roomID=${uploadFileResult.roomID}`;
                 const qrCodeComponent = generateQRCode(roomUrl);
                 setQrCode(qrCodeComponent);
             } else {
@@ -55,6 +81,5 @@ export const Engine = () => {
         handleFileChange,
         uploadFile,
         qrCode,
-        roomId
     };
 };
