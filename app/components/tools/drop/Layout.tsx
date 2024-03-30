@@ -13,7 +13,7 @@ import TacoButton from "@/app/components/public/TacoButton";
 const Layout: NextPage = () => {
 
     const {darkMode} = DarkModeEngine();
-    const {selectedFile, handleFileChange, uploadFile, qrCode} = Engine();
+    const {selectedFile, handleFileChange, uploadFile, qrCode, roomURL} = Engine();
 
     return (
         <div className={`${darkMode ? 'bg-taco-dark-primary' : 'bg-white'} text-gray-800 m-0 p-0`}>
@@ -33,8 +33,14 @@ const Layout: NextPage = () => {
                             <div className="block text-center mt-4">
                                 <TacoButton type={"button"} onClick={uploadFile} text={"Generate QR"}/>
                             </div>
-                            <div className="flex justify-center items-center">
+                            <div className="flex justify-center items-center mt-4">
                                 {qrCode}</div>
+                            {roomURL ? (<input placeholder="Something..."
+                                               className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} mt-4 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md px-4 py-2 shadow-lg`}
+                                               type="text"
+                                               readOnly
+                                               value={roomURL}
+                            />) : null}
                         </div>
                     </div>
                 </div>

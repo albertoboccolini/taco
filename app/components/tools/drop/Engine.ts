@@ -7,6 +7,7 @@ import UploadFileResponseDTO from "@/app/components/dtos/drop/UploadFileResponse
 export const Engine = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [roomID, setRoomID] = useState<string | null>(null);
+    const [roomURL, setRoomURL] = useState<string | null>(null);
     const {setError} = NotificationManager();
     const {generateQRCode, setQrCode, qrCode} = QRCodeEngine();
 
@@ -20,7 +21,7 @@ export const Engine = () => {
     async function deleteRoom(roomID: string) {
         try {
             const deleteRoomURL = `https://taco-api-nine.vercel.app/api/delete-room?roomID=${roomID}`;
-            const deleteRoomResult = await fetch(deleteRoomURL, {
+            await fetch(deleteRoomURL, {
                 method: 'POST',
                 mode: "cors",
                 headers: {
@@ -66,7 +67,8 @@ export const Engine = () => {
                 setRoomID(uploadFileResult.roomID);
                 localStorage.setItem("roomID", uploadFileResult.roomID);
                 const roomUrl = `https://${window.location.host}/tools/drop/room/?roomID=${uploadFileResult.roomID}`;
-                const qrCodeComponent = generateQRCode(roomUrl);
+                setRoomURL(roomUrl);
+                const qrCodeComponent = generateQRCode(roomUrl!);
                 setQrCode(qrCodeComponent);
             } else {
                 setError(new Error('Error during file upload.'));
@@ -81,5 +83,6 @@ export const Engine = () => {
         handleFileChange,
         uploadFile,
         qrCode,
+        roomURL
     };
 };

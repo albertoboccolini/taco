@@ -1,5 +1,4 @@
 import {useSearchParams} from "next/navigation";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import {useEffect, useState} from "react";
 import {NotificationManager} from "@/app/components/public/NotificationManager";
 import GetFileResponseDTO from "@/app/components/dtos/drop/GetFileResponseDTO";
@@ -8,7 +7,6 @@ import GetFileResponseDTO from "@/app/components/dtos/drop/GetFileResponseDTO";
 export const Engine = () => {
     const searchParams = useSearchParams();
     const roomId = searchParams.get('roomID');
-    const {darkMode} = DarkModeEngine();
     const [fileURL, setFileURL] = useState<string | null>(null);
     const [fileName, setFileName] = useState<string | null>(null);
 

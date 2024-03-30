@@ -32,8 +32,15 @@ const TacoFileUploader: React.FunctionComponent<{
     }
 
     return (
-        <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-            <div className="space-y-1 text-center">
+        <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 relative">
+            <input
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                id="file-upload"
+                name="file-upload"
+                onChange={handleFileChange}
+                type="file"
+            />
+            <div className="space-y-1 text-center" style={{zIndex: 0}}>
                 <UploadCloudIcon className="mx-auto h-12 w-12 text-gray-400"/>
                 <div className="flex text-sm text-black">
                     <label
@@ -45,13 +52,6 @@ const TacoFileUploader: React.FunctionComponent<{
             >
               {selectedFile ? selectedFile.name : "Select a file"}
             </span>
-                        <input
-                            className="sr-only"
-                            id="file-upload"
-                            name="file-upload"
-                            onChange={handleFileChange}
-                            type="file"
-                        />
                     </label>
                     <p className="pl-1"></p>
                 </div>
@@ -59,6 +59,5 @@ const TacoFileUploader: React.FunctionComponent<{
         </div>
     );
 };
-
 
 export default TacoFileUploader;
