@@ -7,6 +7,7 @@ import tacoEncoderLogo from '@/public/tacoEncoderLogo.png';
 import tacoPasswords from '@/public/tacoPasswordsLogo.png';
 import tacoQRLogo from '@/public/tacoQRLogo.png';
 import tacoPaletteLogo from '@/public/tacoPaletteLogo.png';
+import tacoDropLogo from '@/public/tacoDropLogo.png';
 import Header from "@/app/components/public/Header";
 import Tool from "@/app/components/homepage/Tool";
 import SearchEngine from "@/app/components/homepage/SearchEngine";
@@ -50,11 +51,18 @@ const Layout: React.FC = () => {
             tags: ["taco", "color scheme", "design tool", "palette generator", "web design", "interior design inspiration"]
         },
         {
+            logo: tacoDropLogo,
+            toolLink: "/tools/drop",
+            toolName: "taco drop",
+            category: "generator",
+            tags: ["taco", "air drop", "sharing tool", "link", "qr code", "file"],
+        },
+        {
             logo: tacoCalcLogo,
             toolLink: "/tools/calc",
             toolName: "taco calc",
             category: "other",
-            tags: ["calculator", "math tool", "computation", "financial calculations", "educational tool"]
+            tags: ["taco", "calculator", "math tool", "computation", "financial calculations", "educational tool"]
         },
     ];
 
