@@ -20,7 +20,7 @@ export const Engine = () => {
     // If roomID is already set calls delete-room endpoint to delete previous uploaded file
     async function deleteRoom(roomID: string) {
         try {
-            const deleteRoomURL = `https://taco-api-nine.vercel.app/api/delete-room?roomID=${roomID}`;
+            const deleteRoomURL = `https://api.tacotools.dev/api/delete-room?roomID=${roomID}`;
             await fetch(deleteRoomURL, {
                 method: 'POST',
                 mode: "cors",
@@ -53,7 +53,7 @@ export const Engine = () => {
         formData.append('file', selectedFile);
 
         try {
-            const uploadFileResponse = await fetch('https://taco-api-nine.vercel.app/api/upload-file', {
+            const uploadFileResponse = await fetch('https://api.tacotools.dev/api/upload-file', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

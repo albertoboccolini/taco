@@ -1,6 +1,5 @@
 'use client'
 
-import type {Metadata} from "next";
 import "./globals.css";
 import Footer from "@/app/components/public/Footer";
 import React from "react";
