@@ -11,7 +11,7 @@ export const Engine = () => {
     const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
     const [password, setPassword] = useState<string>("");
     const [email, setEmail] = useState<string>("");
-    const {setError, successNotification} = NotificationManager();
+    const {setError} = NotificationManager();
 
     const togglePasswordVisibility = () => {
         setVisiblePassword(!visiblePassword);
@@ -54,7 +54,7 @@ export const Engine = () => {
             if (signInResponse.ok) {
                 const signInResult: SignInResponseDTO = await signInResponse.json();
                 localStorage.setItem("user-api-key", signInResult.apiKey);
-                successNotification("User is correctly authenticated.");
+                window.location.href = "/"
             } else {
                 const signInResult: SignInResponseDTO = await signInResponse.json();
                 setError(new SignInError(signInResult.error))

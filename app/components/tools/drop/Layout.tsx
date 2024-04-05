@@ -8,18 +8,21 @@ import tacoDropLogo from '@/public/tacoDropLogo.png';
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import TacoFileUploader from "@/app/components/public/TacoFileUploader";
 import {Engine} from "@/app/components/tools/drop/Engine";
+import AccountEngine from "@/app/components/account/Engine"
 import TacoButton from "@/app/components/public/TacoButton";
+import UnauthenticatedUserWarning from "@/app/components/public/UnauthenticatedUserWarning";
 
 const Layout: NextPage = () => {
 
     const {darkMode} = DarkModeEngine();
     const {selectedFile, handleFileChange, uploadFile, qrCode, roomURL} = Engine();
+    const {isAuthenticated} = AccountEngine();
 
     return (
         <div className={`${darkMode ? 'bg-taco-dark-primary' : 'bg-white'} text-gray-800 m-0 p-0`}>
             <Header title={"taco | drop"} onSearchChange={null}/>
             <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
-                <div className="text-center p-5 m-auto">
+                {isAuthenticated ? <div className="text-center p-5 m-auto">
                     <div className="mx-auto max-w-md space-y-8">
                         <div
                             className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl items-center`}>
@@ -43,7 +46,8 @@ const Layout: NextPage = () => {
                             />) : null}
                         </div>
                     </div>
-                </div>
+                </div> : <UnauthenticatedUserWarning/>}
+
             </main>
 
 
