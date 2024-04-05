@@ -2,6 +2,7 @@ import {useSearchParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import {NotificationManager} from "@/app/components/public/NotificationManager";
 import GetFileResponseDTO from "@/app/components/dtos/drop/GetFileResponseDTO";
+import UnauthorizedUser from "@/app/components/public/errors/UnauthorizedUser";
 
 
 export const Engine = () => {
@@ -39,11 +40,15 @@ export const Engine = () => {
         if (!roomId) return;
 
         try {
-            const deleteRoomResult = await fetch(`https://api.tacotools.dev/api/delete-room?roomID=${roomId}`, {
+            const userApiKey = localStorage.getItem("user-api-key") ?? "";
+            if (userApiKey === "") {
+                return setError(new UnauthorizedUser());
+            }
+            const deleteRoomResult = await fetch(`https://taco-api-git-users-endpoints-albertoboccolinis-projects.vercel.app/api/delete-room?roomID=${roomId}`, {
                 method: 'POST',
                 mode: "cors",
                 headers: {
-                    'Authorization': 'Bearer 55f02c20-d662-46ef-aa12-b98de0a04dff',
+                    'Authorization': `Bearer ${userApiKey}`,
                 },
             });
 
@@ -61,11 +66,15 @@ export const Engine = () => {
 
         const fetchFile = async () => {
             try {
-                const getFileResponse = await fetch(`https://api.tacotools.dev/api/get-file?roomID=${roomId}`, {
+                const userApiKey = localStorage.getItem("user-api-key") ?? "";
+                if (userApiKey === "") {
+                    return setError(new UnauthorizedUser());
+                }
+                const getFileResponse = await fetch(`https://taco-api-git-users-endpoints-albertoboccolinis-projects.vercel.app/api/get-file?roomID=${roomId}`, {
                     method: 'GET',
                     mode: "cors",
                     headers: {
-                        'Authorization': 'Bearer 55f02c20-d662-46ef-aa12-b98de0a04dff',
+                        'Authorization': `Bearer ${userApiKey}`,
                     },
                 });
                 if (getFileResponse.status !== 404) {

@@ -3,6 +3,7 @@ import {NotificationManager} from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 import {Engine as QRCodeEngine} from "@/app/components/tools/qrcode/Engine";
 import UploadFileResponseDTO from "@/app/components/dtos/drop/UploadFileResponseDTO";
+import UnauthorizedUser from "@/app/components/public/errors/UnauthorizedUser";
 
 export const Engine = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -20,12 +21,16 @@ export const Engine = () => {
     // If roomID is already set calls delete-room endpoint to delete previous uploaded file
     async function deleteRoom(roomID: string) {
         try {
-            const deleteRoomURL = `https://api.tacotools.dev/api/delete-room?roomID=${roomID}`;
+            const userApiKey = localStorage.getItem("user-api-key") ?? "";
+            if (userApiKey === "") {
+                return
+            }
+            const deleteRoomURL = `https://taco-api-git-users-endpoints-albertoboccolinis-projects.vercel.app/api/delete-room?roomID=${roomID}`;
             await fetch(deleteRoomURL, {
                 method: 'POST',
                 mode: "cors",
                 headers: {
-                    'Authorization': 'Bearer 55f02c20-d662-46ef-aa12-b98de0a04dff',
+                    'Authorization': `Bearer ${userApiKey}`,
                 },
             });
         } catch (error: any) {
@@ -53,11 +58,15 @@ export const Engine = () => {
         formData.append('file', selectedFile);
 
         try {
-            const uploadFileResponse = await fetch('https://api.tacotools.dev/api/upload-file', {
+            const userApiKey = localStorage.getItem("user-api-key") ?? "";
+            if (userApiKey === "") {
+                return setError(new UnauthorizedUser());
+            }
+            const uploadFileResponse = await fetch('https://taco-api-git-users-endpoints-albertoboccolinis-projects.vercel.app/api/upload-file', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
-                    'Authorization': 'Bearer 55f02c20-d662-46ef-aa12-b98de0a04dff',
+                    'Authorization': `Bearer ${userApiKey}`,
                 },
                 body: formData
             });
