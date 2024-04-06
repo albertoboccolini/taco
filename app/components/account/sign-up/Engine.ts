@@ -8,6 +8,8 @@ import AuthenticationError from "@/app/components/public/errors/AuthenticationEr
 export const Engine = () => {
 
     const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
+    const [name, setName] = useState<string>("");
+    const [surname, setSurname] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const {setError} = NotificationManager();
@@ -15,6 +17,14 @@ export const Engine = () => {
     const togglePasswordVisibility = () => {
         setVisiblePassword(!visiblePassword);
     }
+
+    const updateName = (value: string) => {
+        setName(value);
+    };
+
+    const updateSurname = (value: string) => {
+        setSurname(value);
+    };
 
     const updatePassword = (value: string) => {
         setPassword(value);
@@ -24,8 +34,14 @@ export const Engine = () => {
         setEmail(value);
     };
 
-    const authenticate = async () => {
+    const signUp = async () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (name === "") {
+            return setError(new InvalidParameter("Name"))
+        }
+        if (surname === "") {
+            return setError(new InvalidParameter("Surname"))
+        }
         if (email === "") {
             return setError(new InvalidParameter("E-Mail"))
         }
@@ -36,11 +52,13 @@ export const Engine = () => {
             return setError(new InvalidEmail())
         }
         const body = {
+            "name": name,
+            "surname": surname,
             "email": email.toLowerCase(),
             "password": password
         }
         try {
-            const signInResponse = await fetch('https://taco-api-git-users-endpoints-albertoboccolinis-projects.vercel.app/api/sign-in', {
+            const signUpResponse = await fetch('https://taco-api-git-users-endpoints-albertoboccolinis-projects.vercel.app/api/sign-up', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -49,13 +67,12 @@ export const Engine = () => {
                 },
                 body: JSON.stringify(body)
             });
-
-            if (signInResponse.ok) {
-                const signInResult: AuthenticationResponseDTO = await signInResponse.json();
+            if (signUpResponse.ok) {
+                const signInResult: AuthenticationResponseDTO = await signUpResponse.json();
                 localStorage.setItem("user-api-key", signInResult.apiKey);
                 window.location.href = "/"
             } else {
-                const signInResult: AuthenticationResponseDTO = await signInResponse.json();
+                const signInResult: AuthenticationResponseDTO = await signUpResponse.json();
                 setError(new AuthenticationError(signInResult.error))
             }
         } catch (error: any) {
@@ -65,11 +82,15 @@ export const Engine = () => {
 
     return {
         updateEmail,
+        updateName,
+        name,
+        updateSurname,
+        surname,
         email,
         visiblePassword,
         password,
         updatePassword,
         togglePasswordVisibility,
-        authenticate
+        signUp
     };
 }

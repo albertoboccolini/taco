@@ -1,7 +1,6 @@
 'use client'
-import React, {useState} from 'react';
+import React from 'react';
 import {NextPage} from "next";
-import Header from "@/app/components/public/Header";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import TacoButton from "@/app/components/public/TacoButton";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
@@ -57,7 +56,7 @@ const Layout: NextPage = () => {
                     <div className="flex items-center justify-center gap-1 text-sm mt-4"><p
                         className="text-gray-400">Are you new around there?</p>
                         <button className="text-blue-400 underline" title={"account | sign-up"}
-                                onClick={() => {}}>sign-up
+                                onClick={() => window.location.href = "/account/sign-up"}>sign-up
                         </button>
                     </div>
                 </div>
