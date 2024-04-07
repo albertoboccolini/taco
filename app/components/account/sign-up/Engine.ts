@@ -58,7 +58,7 @@ export const Engine = () => {
             "password": password
         }
         try {
-            const signUpResponse = await fetch('https://taco-api-git-users-endpoints-albertoboccolinis-projects.vercel.app/api/sign-up', {
+            const signUpResponse = await fetch('https://api.tacotools.dev/api/sign-up', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
