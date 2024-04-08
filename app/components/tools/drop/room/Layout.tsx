@@ -8,17 +8,20 @@ import TacoButton from "@/app/components/public/TacoButton";
 import React from "react";
 import Engine from "@/app/components/tools/drop/room/Engine";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import AccountEngine from "@/app/components/account/Engine";
+import UnauthenticatedUserWarning from "@/app/components/public/UnauthenticatedUserWarning";
 
 const Layout: NextPage = () => {
 
     const {fileName, fileURL, handleDownload} = Engine();
     const {darkMode} = DarkModeEngine();
+    const {isAuthenticated} = AccountEngine();
 
     return (
         <div className={`${darkMode ? 'bg-taco-dark-primary' : 'bg-white'} text-gray-800 m-0 p-0`}>
             <Header title={"taco | drop"} onSearchChange={null}/>
             <main className="px-4 py-10 m-auto max-w-4xl sm:p-10">
-                <div className="text-center p-5 m-auto">
+                {isAuthenticated ? <div className="text-center p-5 m-auto">
                     <div className="mx-auto max-w-md space-y-8">
                         <div
                             className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl items-center`}>
@@ -31,7 +34,7 @@ const Layout: NextPage = () => {
                                 <TacoButton type={"button"} text={"Download"} onClick={handleDownload}/>) : null}
                         </div>
                     </div>
-                </div>
+                </div> : <UnauthenticatedUserWarning/>}
             </main>
         </div>
     )
