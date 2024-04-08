@@ -1,9 +1,11 @@
 import React from 'react';
 import TacoLogo from "@/app/components/public/TacoLogo";
 import SearchBar from "@/app/components/homepage/SearchBar";
-/*import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faUserAstronaut} from "@fortawesome/free-solid-svg-icons";*/
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faUser, faUserCheck} from "@fortawesome/free-solid-svg-icons";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
+import Engine from "@/app/components/account/Engine";
 
 const Header: React.FunctionComponent<{
     title: string,
@@ -13,6 +15,7 @@ const Header: React.FunctionComponent<{
           onSearchChange,
       }) => {
 
+    const {isAuthenticated} = Engine();
     const {darkMode, toggleDarkMode} = DarkModeEngine();
 
     return (
@@ -24,9 +27,13 @@ const Header: React.FunctionComponent<{
                 <div className={`${onSearchChange ? 'visible' : 'invisible'} flex-grow lg:flex-grow-0`}>
                     <SearchBar onSearchChange={onSearchChange}/>
                 </div>
-                {/*<FontAwesomeIcon
+                <FontAwesomeIcon
                     className={`${darkMode ? 'text-white' : 'text-black'} bg-transparent mr-8 ml-4 lg:mr-10 hover:scale-125 duration-300`}
-                    icon={faUserAstronaut} size="xl"/>*/}
+                    icon={isAuthenticated ? faUserCheck as IconProp : faUser as IconProp}
+                    onClick={() => window.location.href = "/account"}
+                    size="xl"
+                    title={isAuthenticated ? "account | see details" : "account | sign-in"}
+                />
                 <label className="inline-flex items-center cursor-pointer">
                     <input type="checkbox" checked={darkMode} onChange={toggleDarkMode} className="sr-only peer"/>
                     <div
