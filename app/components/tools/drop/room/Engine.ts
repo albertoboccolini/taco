@@ -66,22 +66,22 @@ export const Engine = () => {
 
         const fetchFile = async () => {
             try {
-                const userApiKey = localStorage.getItem("user-api-key") ?? "";
-                if (userApiKey === "") {
-                    return setError(new UnauthorizedUser());
+                const userApiKey = localStorage.getItem("user-api-key");
+                if (userApiKey != null) {
+                    const getFileResponse = await fetch(`https://taco-api-git-users-endpoints-albertoboccolinis-projects.vercel.app/api/get-file?roomID=${roomId}`, {
+                        method: 'GET',
+                        mode: "cors",
+                        headers: {
+                            'Authorization': `Bearer ${userApiKey}`,
+                        },
+                    });
+                    if (getFileResponse.status !== 404) {
+                        const getFileResult: GetFileResponseDTO = await getFileResponse.json();
+                        setFileURL(getFileResult.fileData.url);
+                        setFileName(getFileResult.fileData.file_name);
+                    }
                 }
-                const getFileResponse = await fetch(`https://taco-api-git-users-endpoints-albertoboccolinis-projects.vercel.app/api/get-file?roomID=${roomId}`, {
-                    method: 'GET',
-                    mode: "cors",
-                    headers: {
-                        'Authorization': `Bearer ${userApiKey}`,
-                    },
-                });
-                if (getFileResponse.status !== 404) {
-                    const getFileResult: GetFileResponseDTO = await getFileResponse.json();
-                    setFileURL(getFileResult.fileData.url);
-                    setFileName(getFileResult.fileData.file_name);
-                }
+
             } catch (error) {
                 setError(new Error("Failed to get File."))
             }
