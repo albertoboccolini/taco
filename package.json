@@ -1,6 +1,6 @@
 {
   "name": "taco",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "scripts": {
     "taco": "next dev -p 4000",

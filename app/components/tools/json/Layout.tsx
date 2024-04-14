@@ -36,7 +36,7 @@ const Layout: NextPage = () => {
                             <div className="block text-center mt-4">
                                 <TacoButton type="button" onClick={formatAndValidateJSON}
                                             text="Validate & Format"/>
-                                <TacoButton type="button" onClick={copyToClipboard} text="Copy"/>
+                                <TacoButton type="button" onClick={copyToClipboard} text="Copy to clipboard"/>
                             </div>
                         </div>
                     </div>
