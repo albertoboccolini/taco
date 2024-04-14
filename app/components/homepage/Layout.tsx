@@ -8,6 +8,7 @@ import tacoPasswords from '@/public/tacoPasswordsLogo.png';
 import tacoQRLogo from '@/public/tacoQRLogo.png';
 import tacoPaletteLogo from '@/public/tacoPaletteLogo.png';
 import tacoDropLogo from '@/public/tacoDropLogo.png';
+import tacoTomatoLogo from '@/public/tacoTomatoLogo.png';
 import tacoJsonLogo from '@/public/tacoJsonLogo.png';
 import Header from "@/app/components/public/Header";
 import Tool from "@/app/components/homepage/Tool";
@@ -43,6 +44,13 @@ const Layout: React.FC = () => {
             toolName: "taco encoder",
             category: "converter",
             tags: ["taco", "data encoding", "security", "code obfuscation", "encryption", "text obfuscation"]
+        },
+        {
+            logo: tacoTomatoLogo,
+            toolLink: "/tools/tomato",
+            toolName: "taco tomato",
+            category: "other",
+            tags: ["taco", "tomato technique", "tomato", "timer app", "study", "educational"]
         },
         {
             logo: tacoPasswords,

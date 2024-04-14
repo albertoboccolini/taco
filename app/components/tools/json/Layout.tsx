@@ -24,7 +24,7 @@ const Layout: NextPage = () => {
                             className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
                             <Image src={tacoJsonLogo}
                                    className="font-bold text-2xl text-center m-auto"
-                                   alt="taco converter"
+                                   alt="taco json"
                                    width={100} height={100}/>
                             <h1 className="font-bold text-2xl mb-6">taco json</h1>
                             <textarea
