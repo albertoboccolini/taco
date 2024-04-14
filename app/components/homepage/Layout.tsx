@@ -7,8 +7,12 @@ import tacoEncoderLogo from '@/public/tacoEncoderLogo.png';
 import tacoPasswords from '@/public/tacoPasswordsLogo.png';
 import tacoQRLogo from '@/public/tacoQRLogo.png';
 import tacoPaletteLogo from '@/public/tacoPaletteLogo.png';
+import tacoRemoverLogo from '@/public/tacoRemoverLogo.png';
+import tacoCompareLogo from '@/public/tacoCompareLogo.png';
 import tacoDropLogo from '@/public/tacoDropLogo.png';
+import tacoTomatoLogo from '@/public/tacoTomatoLogo.png';
 import tacoJsonLogo from '@/public/tacoJsonLogo.png';
+import tacoIPLogo from '@/public/tacoIPLogo.png';
 import Header from "@/app/components/public/Header";
 import Tool from "@/app/components/homepage/Tool";
 import SearchEngine from "@/app/components/homepage/SearchEngine";
@@ -35,7 +39,7 @@ const Layout: React.FC = () => {
             toolLink: "/tools/drop",
             toolName: "taco drop",
             category: "generator",
-            tags: ["taco", "air drop", "sharing tool", "link", "qr code", "file"],
+            tags: ["taco", "air drop", "sharing tool", "link", "qr code", "file"]
         },
         {
             logo: tacoEncoderLogo,
@@ -43,6 +47,34 @@ const Layout: React.FC = () => {
             toolName: "taco encoder",
             category: "converter",
             tags: ["taco", "data encoding", "security", "code obfuscation", "encryption", "text obfuscation"]
+        },
+        {
+            logo: tacoCompareLogo,
+            toolLink: "/tools/compare",
+            toolName: "taco compare",
+            category: "other",
+            tags: ["taco", "text compare", "comparator", "diff", "github", "version control"]
+        },
+        {
+            logo: tacoIPLogo,
+            toolLink: "/tools/public-ip",
+            toolName: "taco IP",
+            category: "generator",
+            tags: ["public ip", "network details", "my ip", "personal address", "network security", "internet connectivity"]
+        },
+        {
+            logo: tacoRemoverLogo,
+            toolLink: "/tools/remover",
+            toolName: "taco remover",
+            category: "converter",
+            tags: ["taco", "background remover", "modify image", "photo manipulation", "digital retouching", "clipping path"]
+        },
+        {
+            logo: tacoTomatoLogo,
+            toolLink: "/tools/tomato",
+            toolName: "taco tomato",
+            category: "other",
+            tags: ["taco", "tomato technique", "tomato", "timer app", "study", "educational"]
         },
         {
             logo: tacoPasswords,
@@ -54,8 +86,8 @@ const Layout: React.FC = () => {
         {
             logo: tacoJsonLogo,
             toolLink: "/tools/json",
-            toolName: "taco json",
-            category: "other",
+            toolName: "taco JSON",
+            category: "formatter",
             tags: ["taco", "json validator", "json formatter", "code review", "api tools", "body"]
         },
         {
@@ -74,11 +106,10 @@ const Layout: React.FC = () => {
         },
     ];
 
-
     const {filteredTools, setSearchValue} = SearchEngine(tools);
 
     return (
-        <div className="text-gray-200 m-0 p-0">
+        <div>
             <Header title={"taco | homepage"}
                     onSearchChange={setSearchValue}/>
             <main className="text-center p-5 m-auto">

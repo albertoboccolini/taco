@@ -6,7 +6,7 @@ import ConversionError from "@/app/components/public/errors/ConversionError";
 export const Engine = () => {
 
     const [text, setText] = useState('');
-    const [encodeType, setEncodeType] = useState<string>('BASE64');
+    const [encodeType, setEncodeType] = useState<string>('Base64');
     const {setError} = NotificationManager();
 
     const handleEncodeTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -18,7 +18,7 @@ export const Engine = () => {
             return setError(new InvalidParameter("text"));
         }
         switch (encodeType) {
-            case "BASE64":
+            case "Base64":
                 const encodedText = base64Encoder(text);
                 setText(encodedText);
                 break;
@@ -32,7 +32,7 @@ export const Engine = () => {
             return setError(new InvalidParameter("text"));
         }
         switch (encodeType) {
-            case "BASE64":
+            case "Base64":
                 const decodedText = base64Decoder(text);
                 setText(decodedText!);
                 break;

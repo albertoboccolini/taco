@@ -52,10 +52,9 @@ export const Engine = () => {
                 },
             });
 
-            if (!deleteRoomResult.ok) {
-                setError(new Error(`Failed to download file.`));
+            if (deleteRoomResult.ok) {
+                successNotification("File downloaded successfully.");
             }
-            successNotification("File downloaded successfully.");
         } catch (error: any) {
             setError(error);
         }

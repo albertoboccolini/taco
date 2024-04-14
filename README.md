@@ -12,43 +12,56 @@ range of digital tasks without the need to rely on external services.
 
 1. Clone this repository.
    ````bash
-   $ git clone https://www.github.com/albertoboccolini/taco
+   git clone https://www.github.com/albertoboccolini/taco
     ````
 2. Go to the repo folder.
    ````bash
-   $ cd taco
+   cd taco
    ````
 
 3. Start taco with npm in detached mode on port 4000:
 
    ````bash
-   $ npm run taco
+   npm run taco
    ````
 
 4. Open [http://localhost:4000](http://localhost:4000) with your browser to use taco.
 ## Self-host taco using Docker
 
 ````bash
-   $ docker run -d -p 4000:4000 albertoboccolini/taco:latest
+   docker run -d -p 4000:4000 albertoboccolini/taco:latest
 ````
 ## Build taco Docker image (for develop purposes)
 
 1. Clone this repository.
    ````bash
-   $ git clone https://www.github.com/albertoboccolini/taco
+   git clone https://www.github.com/albertoboccolini/taco
     ````
 2. Go to the repo folder.
    ````bash
-   $ cd taco
+   cd taco
    ````
 3. Make some changes.
 4. Run the following command (where x.y.z should match the taco version in the package.json).
    ````bash
-   $ docker build -t albertoboccolini/taco:x.y.z .
+   docker build -t albertoboccolini/taco:x.y.z .
    ````
 5. Spin a container using the new build and verify that taco works properly.
 6. Push the docker image just built to docker hub with `docker push albertoboccolini/taco:x.y.z`
 ## Work with us
 - See [Contributing Guidelines](CONTRIBUTING.md) and start contribute to taco.
+## Test taco using Cypress
+1. Clone this repository.
+   ````bash
+   git clone https://www.github.com/albertoboccolini/taco
+    ````
+2. Go to the repo folder.
+   ````bash
+   cd taco
+   ````
+3. Run Cypress and do some tests.
+   ````bash
+   npm run cypress:open
+   ````
 
 **created by [albertoboccolini](https://github.com/albertoboccolini).**

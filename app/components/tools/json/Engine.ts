@@ -7,7 +7,6 @@ import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 export const Engine = () => {
     const [input, setInput] = useState('');
 
-    const {darkMode} = DarkModeEngine();
     const {setError, successNotification} = NotificationManager();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
