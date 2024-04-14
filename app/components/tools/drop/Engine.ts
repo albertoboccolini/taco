@@ -7,7 +7,6 @@ import UnauthorizedUser from "@/app/components/public/errors/UnauthorizedUser";
 
 export const Engine = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [roomID, setRoomID] = useState<string | null>(null);
     const [roomURL, setRoomURL] = useState<string | null>(null);
     const {setError} = NotificationManager();
     const {generateQRCode, setQrCode, qrCode} = QRCodeEngine();
@@ -18,14 +17,14 @@ export const Engine = () => {
         }
     };
 
-    // If roomID is already set calls delete-room endpoint to delete previous uploaded file
-    async function deleteRoom(roomID: string) {
+    // Calls delete-rooms endpoint to delete previous uploaded file for an user_api_key
+    async function deleteRooms() {
         try {
             const userApiKey = localStorage.getItem("user-api-key") ?? "";
             if (userApiKey === "") {
                 return
             }
-            const deleteRoomURL = `https://api.tacotools.dev/api/delete-room?roomID=${roomID}`;
+            const deleteRoomURL = `https://api.tacotools.dev/api/delete-rooms`;
             await fetch(deleteRoomURL, {
                 method: 'POST',
                 mode: "cors",
@@ -43,16 +42,7 @@ export const Engine = () => {
             setError(new InvalidParameter("File"));
             return;
         }
-
-        const roomIDFromStorage = localStorage.getItem("roomID");
-
-        if (roomID && roomID !== roomIDFromStorage) {
-            await deleteRoom(roomID);
-        }
-
-        if (roomIDFromStorage) {
-            await deleteRoom(roomIDFromStorage);
-        }
+        await deleteRooms();
 
         const formData = new FormData();
         formData.append('file', selectedFile);
@@ -73,8 +63,6 @@ export const Engine = () => {
 
             if (uploadFileResponse.ok) {
                 const uploadFileResult: UploadFileResponseDTO = await uploadFileResponse.json();
-                setRoomID(uploadFileResult.roomID);
-                localStorage.setItem("roomID", uploadFileResult.roomID);
                 const roomUrl = `https://${window.location.host}/tools/drop/room/?roomID=${uploadFileResult.roomID}`;
                 setRoomURL(roomUrl);
                 const qrCodeComponent = generateQRCode(roomUrl!);

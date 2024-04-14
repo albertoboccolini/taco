@@ -8,6 +8,7 @@ import tacoPasswords from '@/public/tacoPasswordsLogo.png';
 import tacoQRLogo from '@/public/tacoQRLogo.png';
 import tacoPaletteLogo from '@/public/tacoPaletteLogo.png';
 import tacoDropLogo from '@/public/tacoDropLogo.png';
+import tacoJsonLogo from '@/public/tacoJsonLogo.png';
 import Header from "@/app/components/public/Header";
 import Tool from "@/app/components/homepage/Tool";
 import SearchEngine from "@/app/components/homepage/SearchEngine";
@@ -30,6 +31,13 @@ const Layout: React.FC = () => {
             tags: ["taco", "QR code", "security", "scan", "mobile marketing", "contactless information sharing"]
         },
         {
+            logo: tacoDropLogo,
+            toolLink: "/tools/drop",
+            toolName: "taco drop",
+            category: "generator",
+            tags: ["taco", "air drop", "sharing tool", "link", "qr code", "file"],
+        },
+        {
             logo: tacoEncoderLogo,
             toolLink: "/tools/encoder",
             toolName: "taco encoder",
@@ -44,18 +52,18 @@ const Layout: React.FC = () => {
             tags: ["taco", "password generator", "security", "strong passwords", "account security", "password manager"]
         },
         {
+            logo: tacoJsonLogo,
+            toolLink: "/tools/json",
+            toolName: "taco json",
+            category: "other",
+            tags: ["taco", "json validator", "json formatter", "code review", "api tools", "body"]
+        },
+        {
             logo: tacoPaletteLogo,
             toolLink: "/tools/palette",
             toolName: "taco palette",
             category: "generator",
             tags: ["taco", "color scheme", "design tool", "palette generator", "web design", "interior design inspiration"]
-        },
-        {
-            logo: tacoDropLogo,
-            toolLink: "/tools/drop",
-            toolName: "taco drop",
-            category: "generator",
-            tags: ["taco", "air drop", "sharing tool", "link", "qr code", "file"],
         },
         {
             logo: tacoCalcLogo,

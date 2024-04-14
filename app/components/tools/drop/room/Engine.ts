@@ -44,7 +44,7 @@ export const Engine = () => {
             if (userApiKey === "") {
                 return setError(new UnauthorizedUser());
             }
-            const deleteRoomResult = await fetch(`https://api.tacotools.dev/api/delete-room?roomID=${roomId}`, {
+            const deleteRoomResult = await fetch(`https://api.tacotools.dev/api/delete-rooms`, {
                 method: 'POST',
                 mode: "cors",
                 headers: {
@@ -68,7 +68,7 @@ export const Engine = () => {
             try {
                 const userApiKey = localStorage.getItem("user-api-key");
                 if (userApiKey != null) {
-                    const getFileResponse = await fetch(`https://taco-api-git-users-endpoints-albertoboccolinis-projects.vercel.app/api/get-file?roomID=${roomId}`, {
+                    const getFileResponse = await fetch(`https://api.tacotools.dev/api/get-file?roomID=${roomId}`, {
                         method: 'GET',
                         mode: "cors",
                         headers: {
