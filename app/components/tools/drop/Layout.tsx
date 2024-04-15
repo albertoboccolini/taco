@@ -29,7 +29,7 @@ const Layout: NextPage = () => {
 
                             <Image src={tacoDropLogo}
                                    className="font-bold text-2xl text-center m-auto"
-                                   alt="taco encoder"
+                                   alt="taco drop"
                                    width={100} height={100}/>
                             <h1 className="font-bold text-2xl mb-6">taco drop</h1>
                             <TacoFileUploader selectedFile={selectedFile} handleFileChange={handleFileChange}/>
