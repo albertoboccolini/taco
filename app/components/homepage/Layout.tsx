@@ -86,7 +86,7 @@ const Layout: React.FC = () => {
     const {filteredTools, setSearchValue} = SearchEngine(tools);
 
     return (
-        <div className="text-gray-200 m-0 p-0">
+        <div className="m-0 p-0">
             <Header title={"taco | homepage"}
                     onSearchChange={setSearchValue}/>
             <main className="text-center p-5 m-auto">

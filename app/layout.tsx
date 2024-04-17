@@ -7,6 +7,7 @@ import {Inter} from 'next/font/google'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import {config} from "@fortawesome/fontawesome-svg-core";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import {Analytics} from "@vercel/analytics/react"
 
 config.autoAddCss = false;
 
@@ -25,7 +26,10 @@ export default function RootLayout({children}: Readonly<{
     return (
         <html lang="it">
         <body
-            className={(darkMode ? 'text-white bg-taco-dark-primary' : 'text-black bg-white') + " " + inter.className}>{children}<Footer/>
+            className={(darkMode ? 'text-white bg-taco-dark-primary' : 'text-black bg-white') + " " + inter.className}>
+        <Analytics/>
+        {children}
+        <Footer/>
         </body>
         </html>
     );
