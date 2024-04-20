@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import {NextPage} from "next";;
+import {NextPage} from "next";
 import TacoButton from "@/app/components/public/TacoButton";
 import tacoJsonLogo from "@/public/tacoJsonLogo.png";
 import Engine from "@/app/components/tools/json/Engine";
