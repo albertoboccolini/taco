@@ -24,11 +24,11 @@ const Layout: NextPage = () => {
                     try disabling AD Block and refreshing the page.
                 </p>
                 <div
-                    className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} rounded-xl py-8 mx-6 mt-4 shadow-xl`}>
+                    className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} rounded-xl py-8 mx-0 lg:mx-6 mt-4 shadow-xl`}>
                     {ipDetails ? (
                         Object.entries(ipDetails).filter(([key, _]) => key.toLowerCase() !== 'readme').map(([key, value]) => (
                             <p key={key}
-                               className="capitalize font-semibold">{`${key.toLowerCase()}: ${value}`}</p>
+                               className="capitalize font-semibold">{`${ key === "ip" ? key.toUpperCase() : key.toLowerCase()}: ${value}`}</p>
                         ))
                     ) : (
                         <p className="text-gray-700 capitalize font-semibold">Loading...</p>
