@@ -17,7 +17,7 @@ const Layout: NextPage = () => {
     const {darkMode} = DarkModeEngine();
 
     return (
-        <TacoPage title={""}>
+        <TacoPage title={"taco | public-ip"}>
             <TacoCard logo={tacoIPLogo} toolName={"taco IP"}>
                 <p className="text-center text-sm text-gray-400">
                     If you don&#39;t see the information correctly, <br/>

@@ -70,7 +70,7 @@ const Layout: React.FC = () => {
         {
             logo: tacoJsonLogo,
             toolLink: "/tools/json",
-            toolName: "taco json",
+            toolName: "taco JSON",
             category: "formatter",
             tags: ["taco", "json validator", "json formatter", "code review", "api tools", "body"]
         },
