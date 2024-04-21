@@ -10,6 +10,7 @@ import tacoPaletteLogo from '@/public/tacoPaletteLogo.png';
 import tacoDropLogo from '@/public/tacoDropLogo.png';
 import tacoTomatoLogo from '@/public/tacoTomatoLogo.png';
 import tacoJsonLogo from '@/public/tacoJsonLogo.png';
+import tacoIPLogo from '@/public/tacoIPLogo.png';
 import Header from "@/app/components/public/Header";
 import Tool from "@/app/components/homepage/Tool";
 import SearchEngine from "@/app/components/homepage/SearchEngine";
@@ -46,6 +47,13 @@ const Layout: React.FC = () => {
             tags: ["taco", "data encoding", "security", "code obfuscation", "encryption", "text obfuscation"]
         },
         {
+            logo: tacoIPLogo,
+            toolLink: "/tools/public-ip",
+            toolName: "taco IP",
+            category: "generator",
+            tags: ["public ip", "network details", "my ip", "personal address", "network security", "internet connectivity"]
+        },
+        {
             logo: tacoTomatoLogo,
             toolLink: "/tools/tomato",
             toolName: "taco tomato",
@@ -63,7 +71,7 @@ const Layout: React.FC = () => {
             logo: tacoJsonLogo,
             toolLink: "/tools/json",
             toolName: "taco json",
-            category: "other",
+            category: "formatter",
             tags: ["taco", "json validator", "json formatter", "code review", "api tools", "body"]
         },
         {
