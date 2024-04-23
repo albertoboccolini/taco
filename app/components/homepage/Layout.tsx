@@ -7,6 +7,7 @@ import tacoEncoderLogo from '@/public/tacoEncoderLogo.png';
 import tacoPasswords from '@/public/tacoPasswordsLogo.png';
 import tacoQRLogo from '@/public/tacoQRLogo.png';
 import tacoPaletteLogo from '@/public/tacoPaletteLogo.png';
+import tacoRemoverLogo from '@/public/tacoRemoverLogo.png';
 import tacoDropLogo from '@/public/tacoDropLogo.png';
 import tacoTomatoLogo from '@/public/tacoTomatoLogo.png';
 import tacoJsonLogo from '@/public/tacoJsonLogo.png';
@@ -52,6 +53,13 @@ const Layout: React.FC = () => {
             toolName: "taco IP",
             category: "generator",
             tags: ["public ip", "network details", "my ip", "personal address", "network security", "internet connectivity"]
+        },
+        {
+            logo: tacoRemoverLogo,
+            toolLink: "/tools/remover",
+            toolName: "taco remover",
+            category: "converter",
+            tags: ["taco", "background remover", "modify image", "photo manipulation", "digital retouching", "clipping path"]
         },
         {
             logo: tacoTomatoLogo,

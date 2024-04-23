@@ -26,7 +26,7 @@ const Layout: NextPage = () => {
             <TacoCard logo={tacoConverterLogo} toolName={"taco converter"}>
                 <form onSubmit={submitFileForConversion}>
                     <div className="space-y-6">
-                        <TacoFileUploader selectedFile={selectedFile} handleFileChange={handleFileChange}/>
+                        <TacoFileUploader accept={null} selectedFile={selectedFile} handleFileChange={handleFileChange}/>
                         <div className="flex justify-center mt-4">
                             <TacoSelect onChange={handleConversionTypeChange} value={conversionType}
                                         values={["PDF"]}/>

@@ -1,9 +1,12 @@
+import {v4 as uuidv4} from 'uuid';
+
 let tools = [
     {"link": "converter", "name": "converter"},
     {"link": "qrcode", "name": "QR"},
     {"link": "drop", "name": "drop"},
     {"link": "encoder", "name": "encoder"},
     {"link": "public-ip", "name": "IP"},
+    {"link": "remover", "name": "remover"},
     {"link": "tomato", "name": "tomato"},
     {"link": "passwords", "name": "passwords"},
     {"link": "json", "name": "JSON"},
@@ -54,10 +57,12 @@ describe('titles check', () => {
     });
     it('tools', () => {
         cy.visit('http://localhost:4000')
+        const userApiKey = uuidv4(); // Mocked user-api-key to access taco drop
+        window.localStorage.setItem("user-api-key", userApiKey);
         tools.forEach(tool => {
             cy.get(`a[href*="tools/${tool.link}"]`).click()
             cy.title().should('eq', `taco | ${tool.link}`)
-            if (tool.link != "drop" && tool.link != "calc") {
+            if (tool.link != "calc") {
                 cy.get('div > main > div > div > div > h1').contains(`taco ${tool.name}`)
                 cy.get('div > main > div > div > div > img')
                     .should('exist')
@@ -65,6 +70,7 @@ describe('titles check', () => {
             }
             cy.visit('http://localhost:4000')
         });
+        cy.clearLocalStorage()
     });
 });
 
