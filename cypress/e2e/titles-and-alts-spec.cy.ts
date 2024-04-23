@@ -4,6 +4,7 @@ let tools = [
     {"link": "drop", "name": "drop"},
     {"link": "encoder", "name": "encoder"},
     {"link": "public-ip", "name": "IP"},
+    {"link": "remover", "name": "remover"},
     {"link": "tomato", "name": "tomato"},
     {"link": "passwords", "name": "passwords"},
     {"link": "json", "name": "JSON"},

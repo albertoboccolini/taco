@@ -4,9 +4,11 @@ import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 const TacoFileUploader: React.FunctionComponent<{
     selectedFile: any | null,
     handleFileChange: any | null
+    accept: any | null
 }> = ({
           selectedFile,
           handleFileChange,
+          accept,
       }) => {
     const {darkMode} = DarkModeEngine();
 
@@ -32,10 +34,12 @@ const TacoFileUploader: React.FunctionComponent<{
     }
 
     return (
-        <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 relative">
+        <div
+            className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 relative">
             <input
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 id="file-upload"
+                accept={accept}
                 name="file-upload"
                 onChange={handleFileChange}
                 type="file"
