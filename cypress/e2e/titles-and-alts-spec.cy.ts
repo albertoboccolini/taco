@@ -5,6 +5,7 @@ let tools = [
     {"link": "qrcode", "name": "QR"},
     {"link": "drop", "name": "drop"},
     {"link": "encoder", "name": "encoder"},
+    {"link": "compare", "name": "compare"},
     {"link": "public-ip", "name": "IP"},
     {"link": "remover", "name": "remover"},
     {"link": "tomato", "name": "tomato"},

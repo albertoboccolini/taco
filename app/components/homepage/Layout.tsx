@@ -8,6 +8,7 @@ import tacoPasswords from '@/public/tacoPasswordsLogo.png';
 import tacoQRLogo from '@/public/tacoQRLogo.png';
 import tacoPaletteLogo from '@/public/tacoPaletteLogo.png';
 import tacoRemoverLogo from '@/public/tacoRemoverLogo.png';
+import tacoCompareLogo from '@/public/tacoCompareLogo.png';
 import tacoDropLogo from '@/public/tacoDropLogo.png';
 import tacoTomatoLogo from '@/public/tacoTomatoLogo.png';
 import tacoJsonLogo from '@/public/tacoJsonLogo.png';
@@ -46,6 +47,13 @@ const Layout: React.FC = () => {
             toolName: "taco encoder",
             category: "converter",
             tags: ["taco", "data encoding", "security", "code obfuscation", "encryption", "text obfuscation"]
+        },
+        {
+            logo: tacoCompareLogo,
+            toolLink: "/tools/compare",
+            toolName: "taco compare",
+            category: "other",
+            tags: ["taco", "text compare", "comparator", "diff", "github", "version control"]
         },
         {
             logo: tacoIPLogo,
