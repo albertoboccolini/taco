@@ -1,7 +1,6 @@
 'use client'
 
 import {useState, useEffect} from 'react';
-import AuthenticationResponseDTO from "@/app/components/dtos/drop/AuthenticationResponseDTO";
 import AuthenticationError from "@/app/components/public/errors/AuthenticationError";
 import {NotificationManager} from "@/app/components/public/NotificationManager";
 import GetUserResponseDTO from "@/app/components/dtos/drop/GetUserResponseDTO";
@@ -24,6 +23,7 @@ export const Engine = () => {
 
             if (apiKey) {
                 try {
+                    // TODO: Update endpoints
                     const signInResponse = await fetch('https://api.tacotools.dev/api/get-user', {
                         method: 'GET',
                         mode: 'cors',
@@ -50,7 +50,7 @@ export const Engine = () => {
         };
 
         fetchData().then();
-    }, []);
+    }, [setError]);
 
     const logout = () => {
         localStorage.removeItem("user-api-key");

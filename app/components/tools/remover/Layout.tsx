@@ -15,7 +15,7 @@ const Layout: NextPage = () => {
 
     return (
         <TacoPage title={"taco | remover"}>
-            <TacoCard logo={tacoRemoverLogo} toolName={"taco remover"}>
+            <TacoCard logo={tacoRemoverLogo} toolName={"taco remover"} cardDimension={"md"}>
                 <TacoFileUploader selectedFile={file} accept="image/*" handleFileChange={handleImageChange}/>
                 <div className="block text-center mt-4">
                     <TacoButton type="button" onClick={removeBackground} text="Remove Background"/>

@@ -76,7 +76,7 @@ export const Engine = () => {
         return () => {
             document.removeEventListener('keydown', handleKeyPress);
         };
-    }, [input]);
+    });
 
 
     return {input, result, setInput, handleInputChange, calculateResult, clearInput, buttons};

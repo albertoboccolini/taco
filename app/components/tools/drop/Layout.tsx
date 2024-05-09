@@ -21,7 +21,7 @@ const Layout: NextPage = () => {
     return (
         <TacoPage title={"taco | drop"}>
             {isAuthenticated ?
-                <TacoCard logo={tacoDropLogo} toolName={"taco drop"}>
+                <TacoCard logo={tacoDropLogo} toolName={"taco drop"} cardDimension={"md"}>
                     <TacoFileUploader accept={null} selectedFile={selectedFile} handleFileChange={handleFileChange}/>
                     <div className="block text-center mt-4">
                         <TacoButton type={"button"} onClick={uploadFile} text={"Generate QR"}/>

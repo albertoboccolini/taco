@@ -16,7 +16,7 @@ const Layout: NextPage = () => {
 
     return (
         <TacoPage title={"taco | qrcode"}>
-            <TacoCard logo={tacoQRLogo} toolName={"taco QR"}>
+            <TacoCard logo={tacoQRLogo} toolName={"taco QR"} cardDimension={"md"}>
                 <p className="text-center text-sm text-gray-400">
                     Enter something and press &quot;Generate&quot; to create a QR code.
                 </p>

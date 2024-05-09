@@ -18,7 +18,7 @@ const Layout: NextPage = () => {
     return (
         <TacoPage title={"taco | drop"}>
             {isAuthenticated ?
-                <TacoCard logo={tacoDropLogo} toolName={fileName || "Waiting for file..."}>
+                <TacoCard logo={tacoDropLogo} toolName={fileName || "Waiting for file..."} cardDimension={"md"}>
                     {fileURL ? (
                         <TacoButton type={"button"} text={"Download"} onClick={handleDownload}/>) : null}
                 </TacoCard> : <UnauthenticatedUserWarning/>}

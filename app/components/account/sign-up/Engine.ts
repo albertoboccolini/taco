@@ -58,6 +58,7 @@ export const Engine = () => {
             "password": password
         }
         try {
+            // TODO: Update endpoints
             const signUpResponse = await fetch('https://api.tacotools.dev/api/sign-up', {
                 method: 'POST',
                 mode: 'cors',

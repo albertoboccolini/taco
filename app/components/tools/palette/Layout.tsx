@@ -14,7 +14,7 @@ const Layout: NextPage = () => {
 
     return (
         <TacoPage title={"taco | palette"}>
-            <TacoCard logo={tacoPaletteLogo} toolName={"taco palette"}>
+            <TacoCard logo={tacoPaletteLogo} toolName={"taco palette"} cardDimension={"md"}>
                 <div className="grid grid-cols-1 gap-4 mb-6">
                     <div
                         className="relative flex flex-col items-center justify-center p-4 rounded-md border-none"

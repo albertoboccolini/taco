@@ -1,83 +1,70 @@
 import React from 'react';
-import {FaEye, FaEyeSlash} from "react-icons/fa";
-import TacoButton from "@/app/components/public/TacoButton";
-import ActionButton from "@/app/components/tools/passwords/components/ActionButton";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import TacoButton from "@/app/components/public/TacoButton";
+import {FaEyeSlash, FaEye} from "react-icons/fa";
+import tacoPasswordsLogo from "@/public/tacoPasswordsLogo.png";
+import TacoCard from "@/app/components/public/TacoCard";
+import {Engine} from "@/app/components/tools/passwords/Engine";
 
-const PasswordManager = ({
-                             passwords,
-                             savePasswords,
-                             updatePassword,
-                             addPassword,
-                             deletePassword,
-                             visiblePasswords,
-                             togglePasswordVisibility
-                         }: any) => {
+const PasswordManager = () => {
     const {darkMode} = DarkModeEngine();
+
+    const {
+        passwords,
+        addPassword,
+        updatePassword,
+        visiblePasswords,
+        togglePasswordVisibility,
+        savePassword,
+        deletePassword,
+        updatePasswordToDB
+    } = Engine();
     return (
-        <>
-            <div className="overflow-auto">
-                <div className="min-w-[600px] sm:min-w-0">
-                    <table className="w-full text-sm">
-                        <thead>
-                        <tr className="border-b border-gray-200">
-                            <th className="p-2 text-left">Website</th>
-                            <th className="p-2 text-left">Username</th>
-                            <th className="p-2 text-left">Password</th>
-                            <th className="p-2 text-left">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {passwords.length > 0 ? (
-                            passwords.map((password: any, index: number) => (
-                                <tr key={index}
-                                    className="border-b last:border-b-0 border-gray-200">
-                                    <td className="p-2">
-                                        <input type="text"
-                                               className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} p-2 shadow-md h-8 font-normal rounded-lg w-full`}
-                                               value={password.website}
-                                               onChange={(e) => updatePassword(index, 'website', e.target.value)}/>
-                                    </td>
-                                    <td className="p-2">
-                                        <input type="text" value={password.username}
-                                               className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} p-2 shadow-md h-8 font-normal rounded-lg w-full`}
-                                               onChange={(e) => updatePassword(index, 'username', e.target.value)}/>
-                                    </td>
-                                    <td className="p-2 flex items-center">
-                                        <input type={visiblePasswords[index] ? 'text' : 'password'}
-                                               value={password.password}
-                                               onChange={(e) => updatePassword(index, 'password', e.target.value)}
-                                               className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} p-2 shadow-md h-8 font-normal rounded-lg w-full`}
-                                        />
-                                        <button onClick={() => togglePasswordVisibility(index)}
-                                                className="text-gray-500 ml-2">
-                                            {visiblePasswords[index] ? <FaEyeSlash/> : <FaEye/>}
-                                        </button>
-                                    </td>
-                                    <td className="p-2">
-                                        <div className="flex items-center justify-start space-x-2">
-                                            <ActionButton onClick={() => savePasswords(index)} text={"Save"}/>
-                                            <ActionButton onClick={() => deletePassword(index)} text={"Delete"}/>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan={4}
-                                    className="text-center font-normal text-gray-400 mx-auto p-5">
-                                    No passwords found.
-                                </td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div className="block text-center mt-4">
-                <TacoButton type={"button"} onClick={addPassword} text={"Add Password"}/>
-            </div>
-        </>
+        <TacoCard logo={tacoPasswordsLogo} toolName={"taco passwords"} cardDimension={"8xl"}>
+            {
+                passwords.length > 0 ? (
+                    <div>
+                        {passwords.map((password: any, index: any) => (
+                            <div key={index}
+                                 className={`sm:flex-row flex items-center justify-center h-1/2 sm:gap-y-1 gap-x-4 gap-y-2 flex-col m-4 px-8 py-8 sm:py-2 ${darkMode ? "bg-taco-dark-primary/50" : "bg-gray-100"} rounded-lg`}>
+                                <input placeholder="Website"
+                                       className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} h-1/2 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md px-4 py-2.5 shadow-lg`}
+                                       type="text" value={password.website}
+                                       onChange={(e) => updatePassword(index, 'website', e.target.value)}/>
+                                <input placeholder="Username"
+                                       className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} h-1/2 w-full max-w-xs sm:max-w-sm rounded-md px-4 py-2.5 shadow-lg`}
+                                       type="text" value={password.username}
+                                       onChange={(e: any) => updatePassword(index, 'username', e.target.value)}/>
+                                <div className="relative w-full h-1/2 max-w-2xl my-2">
+                                    <input
+                                        placeholder="Password"
+                                        type={visiblePasswords[index] ? 'text' : 'password'}
+                                        className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} py-2 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md px-4 shadow-lg`}
+                                        value={password.password}
+                                        onChange={(e) => updatePassword(index, 'password', e.target.value)}
+                                    />
+                                    <button onClick={() => togglePasswordVisibility(index)}
+                                            className="absolute inset-y-0 sm:right-0 right-3 pr-4 flex items-center text-gray-500">
+                                        {visiblePasswords[index] ? <FaEyeSlash/> : <FaEye/>}
+                                    </button>
+                                </div>
+                                <div className="flex flex-col w-full justify-center items-center">
+                                    <TacoButton type="button" onClick={() => savePassword(index)} text={"Save"}/>
+                                    <TacoButton type="button" onClick={() => deletePassword(index)} text="Delete"/>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div
+                        className="text-center flex flex-col gap-y-4 justify-center items-center font-normal text-gray-400 mx-auto p-5">
+                        No passwords found.
+                    </div>
+                )
+            }
+            <TacoButton type={"button"} onClick={addPassword} text={"Add Password"}/>
+        </TacoCard>
+
     )
 }
 

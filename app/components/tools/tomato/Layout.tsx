@@ -24,7 +24,7 @@ const Layout: NextPage = () => {
 
     return (
         <TacoPage title={"taco | tomato"}>
-            <TacoCard logo={tacoTomatoLogo} toolName={"taco tomato"}>
+            <TacoCard logo={tacoTomatoLogo} toolName={"taco tomato"} cardDimension={"md"}>
                 <h2 className="text-3xl font-bold">{`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</h2>
                 <p className="text-center text-sm mt-4 text-gray-400">
                     Enter how many tomato&#39;s do you want to do and press start to do some study. Stay on

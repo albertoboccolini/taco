@@ -16,7 +16,7 @@ const Layout: NextPage = () => {
 
     return (
         <TacoPage title={"taco | encoder"}>
-            <TacoCard logo={tacoEncoderLogo} toolName={"taco encoder"}>
+            <TacoCard logo={tacoEncoderLogo} toolName={"taco encoder"} cardDimension={"md"}>
                 <div className="grid gap-2">
                     <div className="flex flex-col gap-1.5">
                         <TacoTextArea value={text} onChange={(e: any) => setText(e.target.value)}

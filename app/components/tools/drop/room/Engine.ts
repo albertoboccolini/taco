@@ -44,6 +44,7 @@ export const Engine = () => {
             if (userApiKey === "") {
                 return setError(new UnauthorizedUser());
             }
+            // TODO: Update endpoints
             const deleteRoomResult = await fetch(`https://api.tacotools.dev/api/delete-rooms`, {
                 method: 'POST',
                 mode: "cors",
@@ -67,6 +68,7 @@ export const Engine = () => {
             try {
                 const userApiKey = localStorage.getItem("user-api-key");
                 if (userApiKey != null) {
+                    // TODO: Update endpoints
                     const getFileResponse = await fetch(`https://api.tacotools.dev/api/get-file?roomID=${roomId}`, {
                         method: 'GET',
                         mode: "cors",
