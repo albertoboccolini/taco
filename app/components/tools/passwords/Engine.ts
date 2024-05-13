@@ -65,7 +65,6 @@ export const Engine = () => {
             return setError(new InvalidParameter(parameter));
         }
         try {
-            successNotification("Password saved successfully.");
             const userApiKey = localStorage.getItem("user-api-key");
             if (userApiKey != null) {
                 // TODO: Update endpoints
@@ -106,11 +105,38 @@ export const Engine = () => {
         setPasswords(newPasswords);
     };
 
-    const deletePassword = (index: number) => {
+    const deletePassword = async (index: number) => {
         const newPasswords = passwords.filter((_, i) => i !== index);
-        // TODO: Delete password from DB with API.
-        setPasswords(newPasswords)
-        fetchPasswords().then();
+        try {
+            const userApiKey = localStorage.getItem("user-api-key");
+            if (userApiKey != null) {
+                // TODO: Update endpoints
+                const response = await fetch("https://taco-api-git-taco-passwords-albertoboccolinis-projects.vercel.app/api/v1/taco-passwords/delete-password", {
+                    method: 'DELETE',
+                    mode: "cors",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userApiKey}`,
+                    },
+                    body: JSON.stringify({
+                        website: passwords[index].website,
+                        username: passwords[index].username,
+                        password: passwords[index].password
+                    })
+                });
+
+                if (response.ok) {
+                    successNotification("Password deleted successfully.");
+                    setPasswords(newPasswords)
+                    fetchPasswords().then();
+                } else {
+                    const errorData = await response.json();
+                    setError(new Error(errorData.message || "Failed to delete password."));
+                }
+            }
+        } catch (error: any) {
+            setError(new Error("Failed to save password: " + error.message));
+        }
     };
 
     return {

@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
-import {NotificationManager} from "@/app/components/public/NotificationManager";
+import React, { useState } from 'react';
+import { NotificationManager } from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
-import {Engine as QRCodeEngine} from "@/app/components/tools/qrcode/Engine";
+import { Engine as QRCodeEngine } from "@/app/components/tools/qrcode/Engine";
 import UploadFileResponseDTO from "@/app/components/dtos/drop/UploadFileResponseDTO";
 import UnauthorizedUser from "@/app/components/public/errors/UnauthorizedUser";
 
 export const Engine = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [roomURL, setRoomURL] = useState<string | null>(null);
-    const {setError} = NotificationManager();
-    const {generateQRCode, setQrCode, qrCode} = QRCodeEngine();
+    const { setError } = NotificationManager();
+    const { generateQRCode, setQrCode, qrCode } = QRCodeEngine();
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
@@ -24,7 +24,7 @@ export const Engine = () => {
             if (userApiKey === "") {
                 return
             }
-            // TODO: Update endpoints
+            // TODO: Update endpoints and DELETE method
             const deleteRoomURL = `https://api.tacotools.dev/api/delete-rooms`;
             await fetch(deleteRoomURL, {
                 method: 'POST',
