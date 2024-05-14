@@ -15,7 +15,7 @@ const Layout: NextPage = () => {
 
     return (
         <TacoPage title={"taco | json"}>
-            <TacoCard logo={tacoJsonLogo} toolName={"taco JSON"}>
+            <TacoCard logo={tacoJsonLogo} toolName={"taco JSON"} cardDimension={"md"}>
                 <TacoTextArea value={input} onChange={handleInputChange} placeholder={"Enter JSON here..."}/>
                 <div className="block text-center mt-4">
                     <TacoButton type="button" onClick={formatAndValidateJSON}

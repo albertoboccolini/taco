@@ -1,18 +1,18 @@
 import {v4 as uuidv4} from 'uuid';
 
 let tools = [
-    {"link": "converter", "name": "converter", "needAuthentication": false},
-    {"link": "qrcode", "name": "QR", "needAuthentication": false},
-    {"link": "drop", "name": "drop", "needAuthentication": true},
-    {"link": "encoder", "name": "encoder", "needAuthentication": false},
-    {"link": "compare", "name": "compare", "needAuthentication": false},
-    {"link": "public-ip", "name": "IP", "needAuthentication": false},
-    {"link": "remover", "name": "remover", "needAuthentication": false},
-    {"link": "tomato", "name": "tomato", "needAuthentication": false},
-    {"link": "passwords", "name": "passwords", "needAuthentication": false},
-    {"link": "json", "name": "JSON", "needAuthentication": false},
-    {"link": "palette", "name": "palette", "needAuthentication": false},
-    {"link": "calc", "name": "calc", "needAuthentication": false}
+    {"link": "converter", "name": "converter"},
+    {"link": "qrcode", "name": "QR"},
+    {"link": "drop", "name": "drop"},
+    {"link": "encoder", "name": "encoder"},
+    {"link": "compare", "name": "compare"},
+    {"link": "public-ip", "name": "IP"},
+    {"link": "remover", "name": "remover"},
+    {"link": "tomato", "name": "tomato"},
+    {"link": "passwords", "name": "passwords"},
+    {"link": "json", "name": "JSON"},
+    {"link": "palette", "name": "palette"},
+    {"link": "calc", "name": "calc"}
 ]
 
 window.localStorage.clear()
@@ -60,11 +60,9 @@ describe('titles check', () => {
     });
     it('tools', () => {
         cy.visit('http://localhost:4000')
+        const userApiKey = uuidv4(); // Mocked user-api-key to access
+        window.localStorage.setItem("user-api-key", userApiKey);
         tools.forEach(tool => {
-            if (tool.needAuthentication) {
-                const userApiKey = uuidv4(); // Mocked user-api-key to access
-                window.localStorage.setItem("user-api-key", userApiKey);
-            }
             cy.get(`a[href*="tools/${tool.link}"]`).click()
             cy.title().should('eq', `taco | ${tool.link}`)
             if (tool.link != "calc") {
@@ -73,11 +71,9 @@ describe('titles check', () => {
                     .should('exist')
                     .and('have.attr', 'alt', `taco ${tool.name}`);
             }
-            if (tool.needAuthentication) {
-                cy.clearLocalStorage()
-            }
             cy.visit('http://localhost:4000')
         });
+        cy.clearLocalStorage()
     });
 });
 

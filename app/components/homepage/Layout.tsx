@@ -81,7 +81,7 @@ const Layout: React.FC = () => {
             toolLink: "/tools/passwords",
             toolName: "taco passwords",
             category: "other",
-            tags: ["taco", "password generator", "security", "strong passwords", "account security", "password manager"]
+            tags: ["taco", "password saver", "security", "strong passwords", "account security", "password manager"]
         },
         {
             logo: tacoJsonLogo,

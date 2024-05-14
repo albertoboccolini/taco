@@ -8,15 +8,16 @@ interface TacoCardProps {
     children: React.ReactNode;
     logo: StaticImageData;
     toolName: string;
+    cardDimension: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl";
 }
 
-const TacoCard: React.FC<TacoCardProps> = ({children, logo, toolName}) => {
+const TacoCard: React.FC<TacoCardProps> = ({children, logo, toolName, cardDimension}) => {
 
     const {darkMode} = DarkModeEngine();
 
     return (
         <div className="text-center p-5 m-auto">
-            <div className="mx-auto max-w-md space-y-8">
+            <div className={`mx-auto max-w-${cardDimension} space-y-8`}>
                 <div
                     className={`${darkMode ? 'bg-taco-dark-secondary text-white' : 'bg-white text-black'} rounded-xl px-8 py-6 shadow-xl`}>
                     <Image src={logo}

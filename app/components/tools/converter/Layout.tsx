@@ -23,7 +23,7 @@ const Layout: NextPage = () => {
 
     return (
         <TacoPage title={"taco | converter"}>
-            <TacoCard logo={tacoConverterLogo} toolName={"taco converter"}>
+            <TacoCard logo={tacoConverterLogo} toolName={"taco converter"} cardDimension={"md"}>
                 <form onSubmit={submitFileForConversion}>
                     <div className="space-y-6">
                         <TacoFileUploader accept={null} selectedFile={selectedFile} handleFileChange={handleFileChange}/>
@@ -31,7 +31,7 @@ const Layout: NextPage = () => {
                             <TacoSelect onChange={handleConversionTypeChange} value={conversionType}
                                         values={["PDF"]}/>
                         </div>
-                        <div className="block text-center mt-4">
+                        <div className="flex flex-col items-center justify-center text-center mt-4">
                             <TacoButton type={"submit"} text={"Convert"}/>
                             <TacoButton type={"button"} onClick={downloadConvertedFile} text={"Download"}/>
                         </div>

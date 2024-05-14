@@ -1,49 +1,14 @@
-import {NotificationManager} from "@/app/components/public/NotificationManager";
-import {useEffect, useState} from "react";
+import { NotificationManager } from "@/app/components/public/NotificationManager";
+import { useCallback, useEffect, useState } from "react";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
-import {Engine as EncodeEngine} from "@/app/components/tools/encoder/Engine";
-import InvalidPassword from "@/app/components/public/errors/InvalidPassword";
+import GetPasswordsResponseDTO from "../../dtos/passwords/GetPasswordsResponseDTO";
 
 export const Engine = () => {
-    const {setError, successNotification} = NotificationManager();
+    const { setError, successNotification } = NotificationManager();
     const [passwords, setPasswords] = useState<Array<{ website: string, username: string, password: string }>>([]);
-    const [mainPassword, setMainPassword] = useState<string>("");
+    const [updatedPasswords, setUpdatedPasswords] = useState<Array<{ website: string, username: string, password: string }>>([]);
     const [visiblePasswords, setVisiblePasswords] = useState<boolean[]>(new Array(passwords.length).fill(false));
-    const [visibleMainPassword, setVisibleMainPassword] = useState<boolean>(false);
-    const {base64Encoder, base64Decoder} = EncodeEngine();
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [localMainPassword, setLocalMainPassword] = useState<string>("");
-    const [isRegistered, setIsRegistered] = useState<boolean>(false);
-
-    const unlockPasswords = () => {
-        setLocalMainPassword(localStorage.getItem('mainPassword') ?? "");
-        if (mainPassword === "") {
-            return setError(new InvalidParameter("Main Password"));
-        }
-        if (localMainPassword === "") {
-            localStorage.setItem('mainPassword', base64Encoder(mainPassword));
-            localStorage.removeItem('passwords');
-            setIsRegistered(true);
-            setPasswords([]);
-            setLocalMainPassword(mainPassword);
-            return setIsAuthenticated(true);
-        }
-        const decodedLocalMainPassword = base64Decoder(localMainPassword)!;
-        if (mainPassword !== decodedLocalMainPassword) {
-            return setError(new InvalidPassword());
-        }
-        setLocalMainPassword(decodedLocalMainPassword);
-        setIsAuthenticated(true);
-        reloadPasswords();
-    };
-
-    const clearStorage = () => {
-        localStorage.removeItem("passwords");
-        localStorage.removeItem("mainPassword");
-        setIsRegistered(false);
-        setLocalMainPassword("");
-        setMainPassword("");
-    }
+    const [editState, setEditState] = useState<boolean[]>(new Array(passwords.length).fill(false));
 
     const togglePasswordVisibility = (index: number) => {
         const updatedVisibility = [...visiblePasswords];
@@ -51,101 +16,193 @@ export const Engine = () => {
         setVisiblePasswords(updatedVisibility);
     };
 
-    const toggleMainPasswordVisibility = () => {
-        setVisibleMainPassword(!visibleMainPassword);
-    }
-
-    const encodePasswords = (passwordsToBeEncoded: Array<{ website: string, username: string, password: string }>) => {
-        return passwordsToBeEncoded.map((password) => ({
-            website: base64Encoder(password.website + "." + mainPassword),
-            username: base64Encoder(password.username + "." + mainPassword),
-            password: base64Encoder(password.password + "." + mainPassword),
-        }));
-    }
-
-    const reloadPasswords = () => {
-        const loadedPasswords = JSON.parse(localStorage.getItem('passwords')! || '[]');
-        const decodedPasswords = loadedPasswords.map((password: any) => ({
-            ...password,
-            website: base64Decoder(password.website)!.toString().replace("." + mainPassword, ""),
-            username: base64Decoder(password.username)!.toString().replace("." + mainPassword, ""),
-            password: base64Decoder(password.password)!.toString().replace("." + mainPassword, ""),
-        }));
-        setLocalMainPassword(localStorage.getItem('mainPassword') ?? "");
-        setPasswords(decodedPasswords);
-    }
+    const fetchPasswords = useCallback(async () => {
+        try {
+            const userApiKey = localStorage.getItem("user-api-key");
+            if (userApiKey != null) {
+                const getPasswordsResponse = await fetch(`https://api.tacotools.dev/api/v1/taco-passwords/get-passwords`, {
+                    method: 'GET',
+                    mode: "cors",
+                    headers: {
+                        'Authorization': `Bearer ${userApiKey}`,
+                    },
+                });
+                if (getPasswordsResponse.status !== 401) {
+                    const getPasswordsResult: GetPasswordsResponseDTO = await getPasswordsResponse.json();
+                    if (getPasswordsResult.data.length > 0) {
+                        setPasswords(getPasswordsResult.data)
+                        setUpdatedPasswords(getPasswordsResult.data)
+                        setEditState(new Array(getPasswordsResult.data.length).fill(true)); // Set all edit states to true
+                    }
+                }
+            }
+        } catch (error) {
+            setError(new Error("Failed to get passwords."))
+        }
+    }, [setError])
 
     useEffect(() => {
-        setIsRegistered(localStorage.getItem('mainPassword') !== null);
-        reloadPasswords();
-    }, []);
+        fetchPasswords().then();
+    }, [fetchPasswords]);
 
     const addPassword = () => {
-        setPasswords([...passwords, {website: '', username: '', password: ''}]);
+        const newPassword = { website: '', username: '', password: '' };
+        setPasswords([...passwords, newPassword]);
+        setUpdatedPasswords([...updatedPasswords, newPassword]);
+        setVisiblePasswords([...visiblePasswords, false]);
+        setEditState([...editState, false]); // Initially false, as it's new and unedited.
     };
 
+
     const checkParameters = (index: number) => {
-        if (mainPassword === "") {
-            return "Main password";
-        }
-        if (passwords[index].website === "") {
+        if (updatedPasswords[index].website === "") {
             return "Website";
         }
-        if (passwords[index].username === "") {
+        if (updatedPasswords[index].username === "") {
             return "Username";
         }
-        if (passwords[index].password === "") {
+        if (updatedPasswords[index].password === "") {
             return "Password";
         }
         return null;
     }
 
-    const savePasswords = (index: number) => {
+    const savePassword = async (index: number) => {
         const parameter = checkParameters(index);
         if (parameter != null) {
             return setError(new InvalidParameter(parameter));
         }
         try {
-            const encodedPasswords = encodePasswords(passwords);
-            localStorage.setItem('passwords', JSON.stringify(encodedPasswords));
-            successNotification("Password saved successfully.");
+            const userApiKey = localStorage.getItem("user-api-key");
+            if (userApiKey != null) {
+                const response = await fetch("https://api.tacotools.dev/api/v1/taco-passwords/add-password", {
+                    method: 'POST',
+                    mode: "cors",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userApiKey}`,
+                    },
+                    body: JSON.stringify({
+                        website: updatedPasswords[index].website,
+                        username: updatedPasswords[index].username,
+                        password: updatedPasswords[index].password
+                    })
+                });
+
+                if (response.ok) {
+                    successNotification("Password saved successfully.");
+                    fetchPasswords().then(); // Refresh the list of passwords after adding new one successfully
+                } else {
+                    const errorData = await response.json();
+                    setError(new Error(errorData.message || "Failed to save password."));
+                }
+            }
         } catch (error: any) {
-            setError(error);
+            setError(new Error("Failed to save password: " + error.message));
         }
     };
 
+
+    const updatePasswordToDB = async (index: number) => {
+        const currentWebsite = passwords[index]['website']
+        const newWebsite = updatedPasswords[index]['website']
+        const currentUsername = passwords[index]['username']
+        const newUsername = updatedPasswords[index]['username']
+        const currentPassword = passwords[index]['password']
+        const newPassword = updatedPasswords[index]['password']
+        const body = JSON.stringify({
+            currentWebsite: currentWebsite,
+            newWebsite: newWebsite,
+            currentUsername: currentUsername,
+            newUsername: newUsername,
+            currentPassword: currentPassword,
+            newPassword: newPassword
+        })
+        const parameter = checkParameters(index);
+        if (parameter != null) {
+            return setError(new InvalidParameter(parameter));
+        }
+        try {
+            const userApiKey = localStorage.getItem("user-api-key");
+            if (userApiKey != null) {
+                const response = await fetch("https://api.tacotools.dev/api/v1/taco-passwords/update-password", {
+                    method: 'PUT',
+                    mode: "cors",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userApiKey}`,
+                    },
+                    body: body
+                });
+
+                if (response.ok) {
+                    successNotification("Password updated successfully.");
+                    fetchPasswords().then();
+                } else {
+                    const errorData = await response.json();
+                    setError(new Error(errorData.message || "Failed to update password."));
+                }
+            }
+        } catch (error: any) {
+            setError(new Error("Failed to update password: " + error.message));
+        }
+    }
+
     const updatePassword = (index: number, field: string, value: string) => {
-        const newPasswords: any = [...passwords];
-        newPasswords[index][field] = value;
-        setPasswords(newPasswords);
+        const newUpdatedPasswords: any = updatedPasswords.map(p => ({ ...p }));
+        newUpdatedPasswords[index][field] = value;
+        setUpdatedPasswords(newUpdatedPasswords);
     };
 
-    const updateMainPassword = (value: string) => {
-        setMainPassword(value);
-    };
 
-    const deletePassword = (index: number) => {
+    const deletePassword = async (index: number) => {
         const newPasswords = passwords.filter((_, i) => i !== index);
-        const encodedPasswords = encodePasswords(newPasswords);
-        localStorage.setItem('passwords', JSON.stringify(encodedPasswords));
-        reloadPasswords();
+        const newUpdatedPasswords = updatedPasswords.filter((_, i) => i !== index);
+        const newVisiblePasswords = visiblePasswords.filter((_, i) => i !== index);
+
+        try {
+            const userApiKey = localStorage.getItem("user-api-key");
+            if (userApiKey != null) {
+                const response = await fetch("https://api.tacotools.dev/api/v1/taco-passwords/delete-password", {
+                    method: 'DELETE',
+                    mode: "cors",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userApiKey}`,
+                    },
+                    body: JSON.stringify({
+                        website: passwords[index].website,
+                        username: passwords[index].username,
+                        password: passwords[index].password
+                    })
+                });
+
+                if (response.ok) {
+                    successNotification("Password deleted successfully.");
+                    setPasswords(newPasswords);
+                    setUpdatedPasswords(newUpdatedPasswords);
+                    setVisiblePasswords(newVisiblePasswords);
+                    fetchPasswords().then();
+                } else {
+                    const errorData = await response.json();
+                    setError(new Error(errorData.message || "Failed to delete password."));
+                }
+            }
+        } catch (error: any) {
+            setError(new Error("Failed to delete password: " + error.message));
+        }
     };
 
     return {
         addPassword,
         updatePassword,
-        savePasswords,
+        savePassword,
         deletePassword,
         passwords,
         visiblePasswords,
         togglePasswordVisibility,
-        mainPassword,
-        updateMainPassword,
-        toggleMainPasswordVisibility,
-        visibleMainPassword,
-        unlockPasswords,
-        isAuthenticated,
-        isRegistered,
-        clearStorage
+        updatePasswordToDB,
+        updatedPasswords,
+        editState,
     };
 }

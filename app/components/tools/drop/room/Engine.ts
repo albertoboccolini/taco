@@ -1,6 +1,6 @@
-import {useSearchParams} from "next/navigation";
-import {useEffect, useState} from "react";
-import {NotificationManager} from "@/app/components/public/NotificationManager";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { NotificationManager } from "@/app/components/public/NotificationManager";
 import GetFileResponseDTO from "@/app/components/dtos/drop/GetFileResponseDTO";
 import UnauthorizedUser from "@/app/components/public/errors/UnauthorizedUser";
 
@@ -11,7 +11,7 @@ export const Engine = () => {
     const [fileURL, setFileURL] = useState<string | null>(null);
     const [fileName, setFileName] = useState<string | null>(null);
 
-    const {setError, successNotification} = NotificationManager();
+    const { setError, successNotification } = NotificationManager();
 
     const handleDownload = async () => {
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -44,8 +44,8 @@ export const Engine = () => {
             if (userApiKey === "") {
                 return setError(new UnauthorizedUser());
             }
-            const deleteRoomResult = await fetch(`https://api.tacotools.dev/api/delete-rooms`, {
-                method: 'POST',
+            const deleteRoomResult = await fetch(`https://api.tacotools.dev/api/v1/taco-drop/delete-rooms`, {
+                method: 'DELETE',
                 mode: "cors",
                 headers: {
                     'Authorization': `Bearer ${userApiKey}`,
@@ -67,7 +67,7 @@ export const Engine = () => {
             try {
                 const userApiKey = localStorage.getItem("user-api-key");
                 if (userApiKey != null) {
-                    const getFileResponse = await fetch(`https://api.tacotools.dev/api/get-file?roomID=${roomId}`, {
+                    const getFileResponse = await fetch(`https://api.tacotools.dev/api/v1/taco-drop/get-file?roomID=${roomId}`, {
                         method: 'GET',
                         mode: "cors",
                         headers: {
