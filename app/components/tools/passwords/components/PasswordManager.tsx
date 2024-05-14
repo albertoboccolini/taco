@@ -17,7 +17,9 @@ const PasswordManager = () => {
         togglePasswordVisibility,
         savePassword,
         deletePassword,
-        updatePasswordToDB
+        updatePasswordToDB,
+        updatedPasswords,
+        editState
     } = Engine();
     return (
         <TacoCard logo={tacoPasswordsLogo} toolName={"taco passwords"} cardDimension={"8xl"}>
@@ -26,15 +28,15 @@ const PasswordManager = () => {
                     <div>
                         {passwords.map((password: any, index: any) => (
                             <div key={index}
-                                className={`sm:flex-row flex items-center justify-center h-1/2 sm:gap-y-1 gap-x-4 gap-y-2 flex-col m-4 px-8 py-8 sm:py-2 ${darkMode ? "bg-taco-dark-primary/50" : "bg-gray-100"} rounded-lg`}>
+                                className={`sm:flex-row flex items-center justify-center h-1/2 sm:gap-y-1 gap-x-4 gap-y-2 flex-col m-4 px-8 py-8 sm:py-2 ${darkMode ? "bg-taco-dark-primary/50" : "bg-white"} shadow-xl rounded-lg`}>
                                 <input placeholder="Website"
                                     className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} h-1/2 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md px-4 py-2.5 shadow-lg`}
-                                    type="text" value={password.website}
+                                    type="text" value={updatedPasswords[index]['website'] != password.website ? updatedPasswords[index]['website'] : password.website}
                                     onChange={(e) => updatePassword(index, 'website', e.target.value)} />
                                 <input placeholder="Username"
                                     className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} h-1/2 w-full max-w-xs sm:max-w-sm rounded-md px-4 py-2.5 shadow-lg`}
                                     autoComplete='off'
-                                    type="text" value={password.username}
+                                    type="text" value={updatedPasswords[index]['username'] != password.username ? updatedPasswords[index]['username'] : password.username}
                                     onChange={(e: any) => updatePassword(index, 'username', e.target.value)} />
                                 <div className="relative w-full h-1/2 max-w-2xl my-2">
                                     <input
@@ -42,7 +44,7 @@ const PasswordManager = () => {
                                         type={visiblePasswords[index] ? 'text' : 'password'}
                                         autoComplete='off'
                                         className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} py-2 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md px-4 shadow-lg`}
-                                        value={password.password}
+                                        value={updatedPasswords[index]['password'] != password.password ? updatedPasswords[index]['password'] : password.password}
                                         onChange={(e) => updatePassword(index, 'password', e.target.value)}
                                     />
                                     <button onClick={() => togglePasswordVisibility(index)}
@@ -51,7 +53,10 @@ const PasswordManager = () => {
                                     </button>
                                 </div>
                                 <div className="flex flex-col w-full justify-center items-center">
-                                    <TacoButton type="button" onClick={() => savePassword(index)} text={"Save"} />
+                                    <TacoButton type="button"
+                                        onClick={() => editState[index] ? updatePasswordToDB(index) : savePassword(index)}
+                                        text={editState[index] ? 'Update' : 'Save'}
+                                    />
                                     <TacoButton type="button" onClick={() => deletePassword(index)} text="Delete" />
                                 </div>
                             </div>

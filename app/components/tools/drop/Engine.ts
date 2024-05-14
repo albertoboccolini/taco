@@ -24,10 +24,9 @@ export const Engine = () => {
             if (userApiKey === "") {
                 return
             }
-            // TODO: Update endpoints and DELETE method
-            const deleteRoomURL = `https://api.tacotools.dev/api/delete-rooms`;
+            const deleteRoomURL = `https://api.tacotools.dev/api/v1/taco-drop/delete-rooms`;
             await fetch(deleteRoomURL, {
-                method: 'POST',
+                method: 'DELETE',
                 mode: "cors",
                 headers: {
                     'Authorization': `Bearer ${userApiKey}`,
@@ -53,8 +52,7 @@ export const Engine = () => {
             if (userApiKey === "") {
                 return setError(new UnauthorizedUser());
             }
-            // TODO: Update endpoints
-            const uploadFileResponse = await fetch('https://api.tacotools.dev/api/upload-file', {
+            const uploadFileResponse = await fetch('https://api.tacotools.dev/api/v1/taco-drop/upload-file', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

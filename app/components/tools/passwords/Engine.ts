@@ -6,7 +6,9 @@ import GetPasswordsResponseDTO from "../../dtos/passwords/GetPasswordsResponseDT
 export const Engine = () => {
     const { setError, successNotification } = NotificationManager();
     const [passwords, setPasswords] = useState<Array<{ website: string, username: string, password: string }>>([]);
+    const [updatedPasswords, setUpdatedPasswords] = useState<Array<{ website: string, username: string, password: string }>>([]);
     const [visiblePasswords, setVisiblePasswords] = useState<boolean[]>(new Array(passwords.length).fill(false));
+    const [editState, setEditState] = useState<boolean[]>(new Array(passwords.length).fill(false));
 
     const togglePasswordVisibility = (index: number) => {
         const updatedVisibility = [...visiblePasswords];
@@ -18,8 +20,7 @@ export const Engine = () => {
         try {
             const userApiKey = localStorage.getItem("user-api-key");
             if (userApiKey != null) {
-                // TODO: Update endpoints
-                const getPasswordsResponse = await fetch(`https://taco-api-git-taco-passwords-albertoboccolinis-projects.vercel.app/api/v1/taco-passwords/get-passwords`, {
+                const getPasswordsResponse = await fetch(`https://api.tacotools.dev/api/v1/taco-passwords/get-passwords`, {
                     method: 'GET',
                     mode: "cors",
                     headers: {
@@ -30,6 +31,8 @@ export const Engine = () => {
                     const getPasswordsResult: GetPasswordsResponseDTO = await getPasswordsResponse.json();
                     if (getPasswordsResult.data.length > 0) {
                         setPasswords(getPasswordsResult.data)
+                        setUpdatedPasswords(getPasswordsResult.data)
+                        setEditState(new Array(getPasswordsResult.data.length).fill(true)); // Set all edit states to true
                     }
                 }
             }
@@ -43,17 +46,22 @@ export const Engine = () => {
     }, [fetchPasswords]);
 
     const addPassword = () => {
-        setPasswords([...passwords, { website: '', username: '', password: '' }]);
+        const newPassword = { website: '', username: '', password: '' };
+        setPasswords([...passwords, newPassword]);
+        setUpdatedPasswords([...updatedPasswords, newPassword]);
+        setVisiblePasswords([...visiblePasswords, false]);
+        setEditState([...editState, false]); // Initially false, as it's new and unedited.
     };
 
+
     const checkParameters = (index: number) => {
-        if (passwords[index].website === "") {
+        if (updatedPasswords[index].website === "") {
             return "Website";
         }
-        if (passwords[index].username === "") {
+        if (updatedPasswords[index].username === "") {
             return "Username";
         }
-        if (passwords[index].password === "") {
+        if (updatedPasswords[index].password === "") {
             return "Password";
         }
         return null;
@@ -67,8 +75,7 @@ export const Engine = () => {
         try {
             const userApiKey = localStorage.getItem("user-api-key");
             if (userApiKey != null) {
-                // TODO: Update endpoints
-                const response = await fetch("https://taco-api-git-taco-passwords-albertoboccolinis-projects.vercel.app/api/v1/taco-passwords/add-password", {
+                const response = await fetch("https://api.tacotools.dev/api/v1/taco-passwords/add-password", {
                     method: 'POST',
                     mode: "cors",
                     headers: {
@@ -76,15 +83,15 @@ export const Engine = () => {
                         'Authorization': `Bearer ${userApiKey}`,
                     },
                     body: JSON.stringify({
-                        website: passwords[index].website,
-                        username: passwords[index].username,
-                        password: passwords[index].password
+                        website: updatedPasswords[index].website,
+                        username: updatedPasswords[index].username,
+                        password: updatedPasswords[index].password
                     })
                 });
 
                 if (response.ok) {
                     successNotification("Password saved successfully.");
-                    fetchPasswords().then(); // Refresh the list of passwords.
+                    fetchPasswords().then(); // Refresh the list of passwords after adding new one successfully
                 } else {
                     const errorData = await response.json();
                     setError(new Error(errorData.message || "Failed to save password."));
@@ -95,23 +102,68 @@ export const Engine = () => {
         }
     };
 
-    const updatePasswordToDB = (index: number) => {
-        // TODO: Update password in DB with API.
-    }
 
-    const updatePassword = (index: number, field: string, value: string) => {
-        const newPasswords: any = [...passwords];
-        newPasswords[index][field] = value;
-        setPasswords(newPasswords);
-    };
-
-    const deletePassword = async (index: number) => {
-        const newPasswords = passwords.filter((_, i) => i !== index);
+    const updatePasswordToDB = async (index: number) => {
+        const currentWebsite = passwords[index]['website']
+        const newWebsite = updatedPasswords[index]['website']
+        const currentUsername = passwords[index]['username']
+        const newUsername = updatedPasswords[index]['username']
+        const currentPassword = passwords[index]['password']
+        const newPassword = updatedPasswords[index]['password']
+        const body = JSON.stringify({
+            currentWebsite: currentWebsite,
+            newWebsite: newWebsite,
+            currentUsername: currentUsername,
+            newUsername: newUsername,
+            currentPassword: currentPassword,
+            newPassword: newPassword
+        })
+        const parameter = checkParameters(index);
+        if (parameter != null) {
+            return setError(new InvalidParameter(parameter));
+        }
         try {
             const userApiKey = localStorage.getItem("user-api-key");
             if (userApiKey != null) {
-                // TODO: Update endpoints
-                const response = await fetch("https://taco-api-git-taco-passwords-albertoboccolinis-projects.vercel.app/api/v1/taco-passwords/delete-password", {
+                const response = await fetch("https://api.tacotools.dev/api/v1/taco-passwords/update-password", {
+                    method: 'PUT',
+                    mode: "cors",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userApiKey}`,
+                    },
+                    body: body
+                });
+
+                if (response.ok) {
+                    successNotification("Password updated successfully.");
+                    fetchPasswords().then();
+                } else {
+                    const errorData = await response.json();
+                    setError(new Error(errorData.message || "Failed to update password."));
+                }
+            }
+        } catch (error: any) {
+            setError(new Error("Failed to update password: " + error.message));
+        }
+    }
+
+    const updatePassword = (index: number, field: string, value: string) => {
+        const newUpdatedPasswords: any = updatedPasswords.map(p => ({ ...p }));
+        newUpdatedPasswords[index][field] = value;
+        setUpdatedPasswords(newUpdatedPasswords);
+    };
+
+
+    const deletePassword = async (index: number) => {
+        const newPasswords = passwords.filter((_, i) => i !== index);
+        const newUpdatedPasswords = updatedPasswords.filter((_, i) => i !== index);
+        const newVisiblePasswords = visiblePasswords.filter((_, i) => i !== index);
+
+        try {
+            const userApiKey = localStorage.getItem("user-api-key");
+            if (userApiKey != null) {
+                const response = await fetch("https://api.tacotools.dev/api/v1/taco-passwords/delete-password", {
                     method: 'DELETE',
                     mode: "cors",
                     headers: {
@@ -127,7 +179,9 @@ export const Engine = () => {
 
                 if (response.ok) {
                     successNotification("Password deleted successfully.");
-                    setPasswords(newPasswords)
+                    setPasswords(newPasswords);
+                    setUpdatedPasswords(newUpdatedPasswords);
+                    setVisiblePasswords(newVisiblePasswords);
                     fetchPasswords().then();
                 } else {
                     const errorData = await response.json();
@@ -135,7 +189,7 @@ export const Engine = () => {
                 }
             }
         } catch (error: any) {
-            setError(new Error("Failed to save password: " + error.message));
+            setError(new Error("Failed to delete password: " + error.message));
         }
     };
 
@@ -147,6 +201,8 @@ export const Engine = () => {
         passwords,
         visiblePasswords,
         togglePasswordVisibility,
-        updatePasswordToDB
+        updatePasswordToDB,
+        updatedPasswords,
+        editState,
     };
 }

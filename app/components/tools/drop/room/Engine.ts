@@ -44,9 +44,8 @@ export const Engine = () => {
             if (userApiKey === "") {
                 return setError(new UnauthorizedUser());
             }
-            // TODO: Update endpoints and DELETE method
-            const deleteRoomResult = await fetch(`https://api.tacotools.dev/api/delete-rooms`, {
-                method: 'POST',
+            const deleteRoomResult = await fetch(`https://api.tacotools.dev/api/v1/taco-drop/delete-rooms`, {
+                method: 'DELETE',
                 mode: "cors",
                 headers: {
                     'Authorization': `Bearer ${userApiKey}`,
@@ -68,8 +67,7 @@ export const Engine = () => {
             try {
                 const userApiKey = localStorage.getItem("user-api-key");
                 if (userApiKey != null) {
-                    // TODO: Update endpoints
-                    const getFileResponse = await fetch(`https://api.tacotools.dev/api/get-file?roomID=${roomId}`, {
+                    const getFileResponse = await fetch(`https://api.tacotools.dev/api/v1/taco-drop/get-file?roomID=${roomId}`, {
                         method: 'GET',
                         mode: "cors",
                         headers: {

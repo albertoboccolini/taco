@@ -23,8 +23,7 @@ export const Engine = () => {
 
             if (apiKey) {
                 try {
-                    // TODO: Update endpoints
-                    const signInResponse = await fetch('https://api.tacotools.dev/api/get-user', {
+                    const signInResponse = await fetch('https://api.tacotools.dev/api/v1/account/get-user', {
                         method: 'GET',
                         mode: 'cors',
                         headers: {
