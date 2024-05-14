@@ -27,7 +27,7 @@ export const Engine = () => {
                         'Authorization': `Bearer ${userApiKey}`,
                     },
                 });
-                if (getPasswordsResponse.status !== 401) {
+                if (getPasswordsResponse.status !== 404) {
                     const getPasswordsResult: GetPasswordsResponseDTO = await getPasswordsResponse.json();
                     if (getPasswordsResult.data.length > 0) {
                         setPasswords(getPasswordsResult.data)

@@ -14,7 +14,7 @@ const Layout: React.FC = () => {
 
     return (
         <TacoPage title={"taco | compare"}>
-            <TacoCard logo={tacoCompareLogo} toolName={"taco compare"} cardDimension={"md"}>
+            <TacoCard logo={tacoCompareLogo} toolName={"taco compare"} cardDimension={"lg"}>
                 <div className="flex-row flex gap-x-4 w-full h-full mb-4">
                     <TacoTextArea
                         value={textA}
