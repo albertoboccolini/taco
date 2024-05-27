@@ -5,7 +5,7 @@ import Layout from "@/app/components/tools/public-ip/Layout";
 const Page: React.FC = () => {
     return (
         <ErrorBoundary>
-            <Layout/>
+            <Layout />
         </ErrorBoundary>
     );
 };

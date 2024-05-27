@@ -1,13 +1,14 @@
 import React from "react";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import TacoInput from "../public/TacoInput";
 
 const SearchBar: React.FC<{ onSearchChange: ((value: string) => void) | null }> = ({
-                                                                                       onSearchChange
-                                                                                   }: any | null) => {
+    onSearchChange
+}: any | null) => {
 
-    const {darkMode} = DarkModeEngine();
+    const { darkMode } = DarkModeEngine();
     const [showSearchBar, setShowSearchBar] = React.useState(false);
     const [searchValue, setSearchValue] = React.useState(""); // State to hold the value of the search input
 
@@ -42,9 +43,10 @@ const SearchBar: React.FC<{ onSearchChange: ((value: string) => void) | null }> 
                             placeholder="Search..."
                             maxLength={30}
                             type="search"
-                            value={searchValue} // Bind the input to searchValue state
+                            value={searchValue}
                             onKeyDown={handleKeyDown}
                             onChange={handleInputChange}
+                            disabled={false}
                         />
                     </div>
                     :
@@ -53,7 +55,7 @@ const SearchBar: React.FC<{ onSearchChange: ((value: string) => void) | null }> 
                             icon={faSearch as any}
                             onClick={() => setShowSearchBar(true)}
                             size="xl"
-                            className={`${darkMode ? 'text-white' : 'fill-white text-black'} hover:scale-125 duration-500 absolute sm:w-auto sm:h-auto z-10`}/>
+                            className={`${darkMode ? 'text-white' : 'fill-white text-black'} hover:scale-125 duration-500 absolute sm:w-auto sm:h-auto z-10`} />
                     </div>
                 }
             </div>

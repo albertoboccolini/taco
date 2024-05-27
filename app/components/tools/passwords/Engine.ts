@@ -91,7 +91,9 @@ export const Engine = () => {
 
                 if (response.ok) {
                     successNotification("Password saved successfully.");
-                    fetchPasswords().then(); // Refresh the list of passwords after adding new one successfully
+                    fetchPasswords().then(() => {
+                        setVisiblePasswords(new Array(passwords.length).fill(false));
+                    }); // Refresh the list of passwords after adding new one successfully
                 } else {
                     const errorData = await response.json();
                     setError(new Error(errorData.message || "Failed to save password."));
@@ -137,7 +139,9 @@ export const Engine = () => {
 
                 if (response.ok) {
                     successNotification("Password updated successfully.");
-                    fetchPasswords().then();
+                    fetchPasswords().then(() => {
+                        setVisiblePasswords(new Array(passwords.length).fill(false));
+                    });
                 } else {
                     const errorData = await response.json();
                     setError(new Error(errorData.message || "Failed to update password."));
@@ -182,7 +186,9 @@ export const Engine = () => {
                     setPasswords(newPasswords);
                     setUpdatedPasswords(newUpdatedPasswords);
                     setVisiblePasswords(newVisiblePasswords);
-                    fetchPasswords().then();
+                    fetchPasswords().then(() => {
+                        setVisiblePasswords(new Array(passwords.length).fill(false));
+                    });
                 } else {
                     const errorData = await response.json();
                     setError(new Error(errorData.message || "Failed to delete password."));

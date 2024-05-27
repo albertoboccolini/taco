@@ -5,7 +5,7 @@ import ErrorBoundary from "@/app/components/public/ErrorBoundary";
 const Page = () => {
     return (
         <ErrorBoundary>
-            <Layout></Layout>
+            <Layout />
         </ErrorBoundary>
     );
 };

@@ -6,7 +6,7 @@ const Page: React.FC = () => {
 
     return (
         <ErrorBoundary>
-            <Layout/>
+            <Layout />
         </ErrorBoundary>
     );
 };

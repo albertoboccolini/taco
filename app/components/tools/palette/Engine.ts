@@ -51,18 +51,6 @@ export const Engine = () => {
         }, 'image/png');
     };
 
-    // Function to check if the color is light or dark based on its brightness
-    const isLight = (color: any) => {
-        const hex = color.replace('#', '');
-        const c_r = parseInt(hex.slice(0, 2), 16);
-        const c_g = parseInt(hex.slice(2, 4), 16);
-        const c_b = parseInt(hex.slice(4, 6), 16);
-        // Calculate the brightness using the luminance formula
-        const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
-        // Determine if the color is light or dark
-        return brightness > 155;
-    };
-
     // Convert a HEX color to its RGB representation
     const hexToRgb = (hex: string): Color => {
         let r: number = 0, g: number = 0, b: number = 0;
@@ -252,6 +240,6 @@ export const Engine = () => {
     };
 
     return {
-        selectedColor, setSelectedColor, generatedColors, handleGenerateColors, isLight, downloadPalette
+        selectedColor, setSelectedColor, generatedColors, handleGenerateColors,  downloadPalette
     }
 };

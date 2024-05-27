@@ -1,11 +1,13 @@
 'use client'
 import React from 'react';
-import {NextPage} from "next";
+import { NextPage } from "next";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import TacoButton from "@/app/components/public/TacoButton";
-import {FaEye, FaEyeSlash} from "react-icons/fa";
-import {Engine} from "@/app/components/account/sign-up/Engine";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Engine } from "@/app/components/account/sign-up/Engine";
 import TacoPage from "@/app/components/public/TacoPage";
+import TacoInput from '../../public/TacoInput';
+import TacoInputPassword from '../../public/TacoInputPassword';
 
 const Layout: NextPage = () => {
 
@@ -22,7 +24,7 @@ const Layout: NextPage = () => {
         togglePasswordVisibility,
         signUp
     } = Engine();
-    const {darkMode} = DarkModeEngine();
+    const { darkMode } = DarkModeEngine();
 
     return (
 
@@ -36,44 +38,42 @@ const Layout: NextPage = () => {
                             We need some of your data, after sign-up process, we can do some great things together.
                         </p>
                         <div className="flex flex-col mt-8 items-center space-y-4">
-                            <input
+                            <TacoInput
                                 placeholder="Name"
-                                onChange={(e) => updateName(e.target.value)}
+                                onChange={(e: any) => updateName(e.target.value)}
                                 value={name}
-                                className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} shadow-md rounded-lg py-2 px-4 font-normal w-full max-w-xs`}
-                                type="text"/>
-                            <input
+                                type="text"
+                                maxLength={256}
+                                disabled={false}
+                                id={"name"}
+                            />
+                            <TacoInput
                                 placeholder="Surname"
-                                onChange={(e) => updateSurname(e.target.value)}
+                                onChange={(e: any) => updateSurname(e.target.value)}
                                 value={surname}
-                                className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} shadow-md rounded-lg py-2 px-4 font-normal w-full max-w-xs`}
-                                type="text"/>
-                            <input
+                                type="text"
+                                maxLength={256}
+                                disabled={false}
+                                id={"Surname"}
+                            />
+                            <TacoInput
                                 placeholder="E-Mail"
-                                onChange={(e) => updateEmail(e.target.value)}
+                                onChange={(e: any) => updateEmail(e.target.value)}
                                 value={email}
-                                className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} shadow-md rounded-lg py-2 px-4 font-normal w-full max-w-xs`}
-                                type="email"/>
-                            <div className="relative w-full max-w-xs">
-                                <input type={visiblePassword ? 'text' : 'password'}
-                                       value={password}
-                                       placeholder="Password"
-                                       onChange={(e) => updatePassword(e.target.value)}
-                                       className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} shadow-md rounded-lg py-2 px-4 font-normal w-full pr-10`}
-                                />
-                                <button onClick={togglePasswordVisibility}
-                                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500">
-                                    {visiblePassword ? <FaEyeSlash/> : <FaEye/>}
-                                </button>
-                            </div>
+                                type="email"
+                                maxLength={256}
+                                disabled={false}
+                                id={"email"}
+                            />
+                            <TacoInputPassword visiblePassword={visiblePassword} value={password} onChange={(e: any) => updatePassword(e.target.value)} onClick={togglePasswordVisibility} />
                         </div>
                         <div className="block text-center mt-4">
-                            <TacoButton type={"button"} onClick={signUp} text={"Sign-up"}/>
+                            <TacoButton type={"button"} onClick={signUp} text={"Sign-up"} />
                         </div>
                         <div className="flex items-center justify-center gap-1 text-sm mt-4"><p
                             className="text-gray-400">Are you already our friend?</p>
                             <button className="text-blue-400 underline" title={"account | sign-in"}
-                                    onClick={() => window.location.href = "/account"}>sign-in
+                                onClick={() => window.location.href = "/account"}>sign-in
                             </button>
                         </div>
                     </div>

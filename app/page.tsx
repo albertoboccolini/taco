@@ -6,7 +6,7 @@ export default function Page() {
     return (
         <main className="text-gray-800 m-0 p-0">
             <ErrorBoundary>
-                <Layout></Layout>
+                <Layout />
             </ErrorBoundary>
         </main>
     );

@@ -5,6 +5,8 @@ import { FaEyeSlash, FaEye } from "react-icons/fa";
 import tacoPasswordsLogo from "@/public/tacoPasswordsLogo.png";
 import TacoCard from "@/app/components/public/TacoCard";
 import { Engine } from "@/app/components/tools/passwords/Engine";
+import TacoInput from '@/app/components/public/TacoInput';
+import TacoInputPassword from '@/app/components/public/TacoInputPassword';
 
 const PasswordManager = () => {
     const { darkMode } = DarkModeEngine();
@@ -29,28 +31,21 @@ const PasswordManager = () => {
                         {passwords.map((password: any, index: any) => (
                             <div key={index}
                                 className={`sm:flex-row flex items-center justify-center h-1/2 sm:gap-y-1 gap-x-4 gap-y-2 flex-col m-4 px-8 py-8 sm:py-2 ${darkMode ? "bg-taco-dark-primary/50" : "bg-white"} shadow-xl rounded-lg`}>
-                                <input placeholder="Website"
-                                    className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} h-1/2 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md px-4 py-2.5 shadow-lg`}
+                                <TacoInput placeholder="Website"
                                     type="text" value={updatedPasswords[index]['website'] != password.website ? updatedPasswords[index]['website'] : password.website}
                                     onChange={(e) => updatePassword(index, 'website', e.target.value)} />
-                                <input placeholder="Username"
-                                    className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} h-1/2 w-full max-w-xs sm:max-w-sm rounded-md px-4 py-2.5 shadow-lg`}
+                                <TacoInput placeholder="Username"
                                     autoComplete='off'
                                     type="text" value={updatedPasswords[index]['username'] != password.username ? updatedPasswords[index]['username'] : password.username}
                                     onChange={(e: any) => updatePassword(index, 'username', e.target.value)} />
-                                <div className="relative w-full h-1/2 max-w-2xl my-2">
-                                    <input
-                                        placeholder="Password"
-                                        type={visiblePasswords[index] ? 'text' : 'password'}
-                                        autoComplete='off'
-                                        className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} py-2 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-md px-4 shadow-lg`}
+                                <div className='w-full mt-4'>
+                                    <TacoInputPassword
+                                        visiblePassword={visiblePasswords[index]}
                                         value={updatedPasswords[index]['password'] != password.password ? updatedPasswords[index]['password'] : password.password}
-                                        onChange={(e) => updatePassword(index, 'password', e.target.value)}
+                                        autoComplete='off'
+                                        onChange={(e: any) => updatePassword(index, 'password', e.target.value)}
+                                        onClick={() => togglePasswordVisibility(index)}
                                     />
-                                    <button onClick={() => togglePasswordVisibility(index)}
-                                        className="absolute inset-y-0 sm:right-0 right-3 pr-4 flex items-center text-gray-500">
-                                        {visiblePasswords[index] ? <FaEyeSlash /> : <FaEye />}
-                                    </button>
                                 </div>
                                 <div className="flex flex-col w-full justify-center items-center">
                                     <TacoButton type="button"
