@@ -1,17 +1,23 @@
 'use client'
 
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import AuthenticationError from "@/app/components/public/errors/AuthenticationError";
-import {NotificationManager} from "@/app/components/public/NotificationManager";
-import GetUserResponseDTO from "@/app/components/dtos/drop/GetUserResponseDTO";
+import { NotificationManager } from "@/app/components/public/NotificationManager";
+import GetUserResponseDTO from "@/app/components/dtos/account/GetUserResponseDTO";
 
 export const Engine = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-    const {setError} = NotificationManager();
+    const { setError } = NotificationManager();
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
     const [apiKey, setApiKey] = useState("");
+    const [password, setPassword] = useState("");
+    const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
+
+    const togglePasswordVisibility = () => {
+        setVisiblePassword(!visiblePassword);
+    }
 
     useEffect(() => {
         const apiKey = localStorage.getItem("user-api-key");
@@ -37,7 +43,8 @@ export const Engine = () => {
                         setName(signInResult.data.name);
                         setSurname(signInResult.data.surname);
                         setEmail(signInResult.data.email);
-                        setApiKey(signInResult.data.api_key);
+                        setApiKey(signInResult.data.apiKey);
+                        setPassword(signInResult.data.password);
                     } else {
                         const signInResult: AuthenticationError = await signInResponse.json();
                         setError(new AuthenticationError(signInResult.message));
@@ -58,7 +65,7 @@ export const Engine = () => {
         window.location.href = "/";
     }
 
-    return {isAuthenticated, logout, name, surname, email, apiKey};
+    return { isAuthenticated, logout, name, surname, email, apiKey, password, togglePasswordVisibility, visiblePassword };
 }
 
 export default Engine;

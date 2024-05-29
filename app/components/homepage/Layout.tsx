@@ -106,12 +106,12 @@ const Layout: React.FC = () => {
         },
     ];
 
-    const {filteredTools, setSearchValue} = SearchEngine(tools);
+    const { filteredTools, setSearchValue } = SearchEngine(tools);
 
     return (
         <div>
             <Header title={"taco | homepage"}
-                    onSearchChange={setSearchValue}/>
+                onSearchChange={setSearchValue} />
             <main className="text-center p-5 m-auto">
                 {filteredTools.map((tool: any, index: any) => (
                     <Tool key={index} logo={tool.logo} toolLink={tool.toolLink} toolName={tool.toolName}></Tool>

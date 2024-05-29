@@ -1,9 +1,16 @@
-import React from "react";
+import React, { ChangeEventHandler } from "react";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
-const TacoSelect = ({onChange, value, values, disabled}: any) => {
+interface TacoSelectProps {
+    onChange: ChangeEventHandler<HTMLSelectElement>
+    value: any
+    values: any
+    disabled?: boolean
+}
 
-    const {darkMode} = DarkModeEngine();
+const TacoSelect: React.FC<TacoSelectProps> = ({ onChange, value, values, disabled }) => {
+
+    const { darkMode } = DarkModeEngine();
 
     return (
         <select

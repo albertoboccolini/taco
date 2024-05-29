@@ -10,7 +10,7 @@ import Engine from "@/app/components/tools/compare/Engine";
 
 const Layout: React.FC = () => {
 
-    const {handleTextChange, computeDiff, textA, textB, diffOutput, renderDiffOutput, darkMode} = Engine();
+    const { handleTextChange, computeDiff, textA, textB, diffOutput, renderDiffOutput, darkMode } = Engine();
 
     return (
         <TacoPage title={"taco | compare"}>
@@ -28,7 +28,7 @@ const Layout: React.FC = () => {
                     />
                 </div>
                 <div className="flex justify-center items-center">
-                    <TacoButton type="button" onClick={computeDiff} text="Compare"/>
+                    <TacoButton type="button" onClick={computeDiff} text="Compare" />
                 </div>
                 <div className="mt-4">
                     {diffOutput ? <div

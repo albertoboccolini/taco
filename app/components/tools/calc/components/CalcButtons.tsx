@@ -1,9 +1,9 @@
 import React from "react";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
-const CalcButtons = ({buttons, handleInputChange, clearInput, calculateResult}: any) => {
+const CalcButtons = ({ buttons, handleInputChange, clearInput, calculateResult }: any) => {
 
-    const {darkMode} = DarkModeEngine();
+    const { darkMode } = DarkModeEngine();
 
     return (
         <>

@@ -1,9 +1,15 @@
-import React from "react";
+import React, { ChangeEventHandler } from "react";
 import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
-const TacoTextArea = ({value, onChange, placeholder}: any) => {
+interface TacoTextAreaProps {
+    onChange: ChangeEventHandler<HTMLTextAreaElement>
+    value: string
+    placeholder?: string
+}
 
-    const {darkMode} = DarkModeEngine();
+const TacoTextArea: React.FC<TacoTextAreaProps> = ({ value, onChange, placeholder }) => {
+
+    const { darkMode } = DarkModeEngine();
 
     return (
         <textarea

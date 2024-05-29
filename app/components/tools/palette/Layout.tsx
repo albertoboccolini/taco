@@ -19,7 +19,7 @@ const Layout: NextPage = () => {
                 <div className="grid grid-cols-1 gap-4 mb-6">
                     <TacoInputColor selectedColor={selectedColor} onChange={(e: any) => setSelectedColor(e.target.value)} />
                     {generatedColors.slice(1).map((color, index) => (
-                        <TacoInputColor key={index} selectedColor={color} disabled={true} />
+                        <TacoInputColor key={index} selectedColor={color} disabled />
                     ))}
                 </div>
                 <TacoButton type={"button"} text={"Generate"} onClick={handleGenerateColors} />
@@ -30,7 +30,3 @@ const Layout: NextPage = () => {
 };
 
 export default Layout;
-
-
-
-

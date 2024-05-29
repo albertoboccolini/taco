@@ -7,13 +7,17 @@ const TacoInputPassword: React.FunctionComponent<{
     value: string,
     onChange?: ChangeEventHandler<HTMLInputElement>,
     onClick?: MouseEventHandler<HTMLButtonElement>,
-    autoComplete?: string
+    autoComplete?: string,
+    disabled?: boolean,
+    maxLength?: number
 }> = ({
     visiblePassword,
     value,
     onChange,
     onClick,
-    autoComplete
+    autoComplete,
+    disabled,
+    maxLength
 }) => {
         const { darkMode } = DarkModeEngine();
 
@@ -23,7 +27,9 @@ const TacoInputPassword: React.FunctionComponent<{
                     value={value}
                     placeholder="Password"
                     onChange={onChange}
+                    disabled={disabled}
                     autoComplete={autoComplete}
+                    maxLength={maxLength}
                     className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} shadow-md rounded-lg py-2 px-4 font-normal w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg pr-10`}
                 />
                 <button onClick={onClick}

@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react';
-import {NextPage} from "next";
-import {Engine} from "@/app/components/tools/converter/Engine";
+import { NextPage } from "next";
+import { Engine } from "@/app/components/tools/converter/Engine";
 import tacoConverterLogo from '@/public/tacoConverterLogo.png';
 import TacoButton from "@/app/components/public/TacoButton";
 import TacoFileUploader from "@/app/components/public/TacoFileUploader";
@@ -26,14 +26,14 @@ const Layout: NextPage = () => {
             <TacoCard logo={tacoConverterLogo} toolName={"taco converter"} cardDimension={"md"}>
                 <form onSubmit={submitFileForConversion}>
                     <div className="space-y-6">
-                        <TacoFileUploader accept={null} selectedFile={selectedFile} handleFileChange={handleFileChange}/>
+                        <TacoFileUploader selectedFile={selectedFile} handleFileChange={handleFileChange} />
                         <div className="flex justify-center mt-4">
                             <TacoSelect onChange={handleConversionTypeChange} value={conversionType}
-                                        values={["PDF"]}/>
+                                values={["PDF"]} />
                         </div>
                         <div className="flex flex-col items-center justify-center text-center mt-4">
-                            <TacoButton type={"submit"} text={"Convert"}/>
-                            <TacoButton type={"button"} onClick={downloadConvertedFile} text={"Download"}/>
+                            <TacoButton type={"submit"} text={"Convert"} />
+                            <TacoButton type={"button"} onClick={downloadConvertedFile} text={"Download"} />
                         </div>
                     </div>
                 </form>
@@ -43,4 +43,3 @@ const Layout: NextPage = () => {
 };
 
 export default Layout;
-

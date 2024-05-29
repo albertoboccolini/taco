@@ -4,7 +4,8 @@ export interface GetUserResponseDTO {
         readonly name: string;
         readonly surname: string;
         readonly email: string;
-        readonly api_key: string;
+        readonly apiKey: string;
+        readonly password: string;
     };
 }
 

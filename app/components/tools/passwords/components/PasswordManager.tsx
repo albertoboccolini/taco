@@ -43,6 +43,7 @@ const PasswordManager = () => {
                                         visiblePassword={visiblePasswords[index]}
                                         value={updatedPasswords[index]['password'] != password.password ? updatedPasswords[index]['password'] : password.password}
                                         autoComplete='off'
+                                        maxLength={30}
                                         onChange={(e: any) => updatePassword(index, 'password', e.target.value)}
                                         onClick={() => togglePasswordVisibility(index)}
                                     />

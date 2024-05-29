@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import {NextPage} from "next";
+import { NextPage } from "next";
 
 ;
 import TacoButton from "@/app/components/public/TacoButton";
@@ -13,14 +13,14 @@ import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
 const Layout: NextPage = () => {
 
-    const {ipDetails, copyPublicIPToClipboard, downloadPDF} = Engine();
-    const {darkMode} = DarkModeEngine();
+    const { ipDetails, copyPublicIPToClipboard, downloadPDF } = Engine();
+    const { darkMode } = DarkModeEngine();
 
     return (
         <TacoPage title={"taco | public-ip"}>
             <TacoCard logo={tacoIPLogo} toolName={"taco IP"} cardDimension={"md"}>
                 <p className="text-center text-sm text-gray-400">
-                    If you don&#39;t see the information correctly, <br/>
+                    If you don&#39;t see the information correctly, <br />
                     try disabling AD Block and refreshing the page.
                 </p>
                 <div
@@ -28,15 +28,15 @@ const Layout: NextPage = () => {
                     {ipDetails ? (
                         Object.entries(ipDetails).filter(([key, _]) => key.toLowerCase() !== 'readme').map(([key, value]) => (
                             <p key={key}
-                               className="capitalize font-semibold">{`${ key === "ip" ? key.toUpperCase() : key.toLowerCase()}: ${value}`}</p>
+                                className="capitalize font-semibold">{`${key === "ip" ? key.toUpperCase() : key.toLowerCase()}: ${value}`}</p>
                         ))
                     ) : (
                         <p className={`${darkMode ? 'bg-taco-dark-primary text-white' : 'bg-white text-black'} font-semibold`}>Loading...</p>
                     )}
                 </div>
                 <div className="block text-center mt-4">
-                    <TacoButton text="Copy IP" onClick={copyPublicIPToClipboard} type="button"/>
-                    <TacoButton text="Download details" onClick={downloadPDF} type="button"/>
+                    <TacoButton text="Copy IP" onClick={copyPublicIPToClipboard} type="button" />
+                    <TacoButton text="Download details" onClick={downloadPDF} type="button" />
                 </div>
             </TacoCard>
         </TacoPage>
@@ -45,4 +45,3 @@ const Layout: NextPage = () => {
 };
 
 export default Layout;
-

@@ -1,14 +1,14 @@
 'use client'
 
 import React from 'react';
-import {NextPage} from "next";
-import {Engine} from "@/app/components/tools/calc/Engine";
+import { NextPage } from "next";
+import { Engine } from "@/app/components/tools/calc/Engine";
 import CalcButtons from "@/app/components/tools/calc/components/CalcButtons";
 import TacoPage from "@/app/components/public/TacoPage";
 
 const Layout: NextPage = () => {
 
-    const {input, result, setInput, handleInputChange, calculateResult, clearInput, buttons} = Engine();
+    const { input, result, setInput, handleInputChange, calculateResult, clearInput, buttons } = Engine();
 
     return (
         <TacoPage title={"taco | calc"}>
@@ -27,7 +27,7 @@ const Layout: NextPage = () => {
                     </div>
                     <div className="grid grid-cols-4 gap-2 mt-4">
                         <CalcButtons buttons={buttons} handleInputChange={handleInputChange} clearInput={clearInput}
-                                     calculateResult={calculateResult}/>
+                            calculateResult={calculateResult} />
                     </div>
                 </div>
             </div>

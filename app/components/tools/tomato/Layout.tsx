@@ -1,6 +1,6 @@
 'use client'
 
-import {NextPage} from "next";
+import { NextPage } from "next";
 import tacoTomatoLogo from "@/public/tacoTomatoLogo.png";
 import TacoButton from "@/app/components/public/TacoButton";
 import React from "react";
@@ -32,11 +32,11 @@ const Layout: NextPage = () => {
                 </p>
                 <div className="flex justify-center mt-4">
                     <TacoSelect onChange={handleTomatoCountChange} value={tomatoCount} disabled={isActive}
-                                values={Array.from({length: 10}, (_, i) => i + 1)}/>
+                        values={Array.from({ length: 10 }, (_, i) => i + 1)} />
                 </div>
                 <div className="block text-center mt-4">
                     <TacoButton type={"button"} onClick={toggleIsActive}
-                                text={isActive ? "Pause" : "Start"}/>
+                        text={isActive ? "Pause" : "Start"} />
                 </div>
                 <div className="text-center mt-4">
                     <p className="text-center text-sm mt-4 text-gray-400">Total Study
@@ -46,4 +46,5 @@ const Layout: NextPage = () => {
         </TacoPage>
     );
 }
-export default Layout
+
+export default Layout;

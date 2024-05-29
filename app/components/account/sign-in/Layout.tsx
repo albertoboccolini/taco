@@ -41,7 +41,7 @@ const Layout: NextPage = () => {
                             id={"e-mail"}
                             maxLength={128}
                         />
-                        <TacoInputPassword visiblePassword={visiblePassword} value={password} onChange={(e: any) => updatePassword(e.target.value)} onClick={togglePasswordVisibility} />
+                        <TacoInputPassword visiblePassword={visiblePassword} maxLength={30} value={password} onChange={(e: any) => updatePassword(e.target.value)} onClick={togglePasswordVisibility} />
                     </div>
                     <div className="block text-center mt-4">
                         <TacoButton type={"button"} onClick={authenticate} text={"Sign-in"} />
@@ -59,5 +59,3 @@ const Layout: NextPage = () => {
 };
 
 export default Layout;
-
-
