@@ -8,15 +8,17 @@ import TacoButton from "@/app/components/public/TacoButton";
 import TacoCard from "@/app/components/public/TacoCard";
 import TacoPage from "@/app/components/public/TacoPage";
 import TacoInput from "../../public/TacoInput";
+import CustomizationEngine from "../../public/CustomizationEngine";
 
 const Layout: NextPage = () => {
   const { string, setString, qrCode, handleGenerate, downloadQRCode } =
     Engine();
+  const { textColor, hexToRgba } = CustomizationEngine();
 
   return (
     <TacoPage title={"taco | qrcode"}>
       <TacoCard logo={tacoQRLogo} toolName={"taco QR"} cardDimension={"md"}>
-        <p className="text-center text-sm text-gray-400">
+        <p className="text-center text-sm" style={{ color: hexToRgba(textColor, 80) }}>
           Enter something and press &quot;Generate&quot; to create a QR code.
         </p>
         <TacoInput

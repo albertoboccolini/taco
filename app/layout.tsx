@@ -6,8 +6,8 @@ import React from "react";
 import { Inter } from "next/font/google";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import { Analytics } from "@vercel/analytics/react";
+import CustomizationEngine from "./components/public/CustomizationEngine";
 
 config.autoAddCss = false;
 
@@ -22,19 +22,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { darkMode } = DarkModeEngine();
+  const { bgColor } = CustomizationEngine();
 
   return (
     <html lang="it">
-      <body
-        className={
-          (darkMode
-            ? "bg-taco-dark-primary text-white"
-            : "bg-white text-black") +
-          " " +
-          inter.className
-        }
-      >
+      <body className={inter.className} style={{ backgroundColor: bgColor }}>
         <Analytics />
         {children}
         <Footer />

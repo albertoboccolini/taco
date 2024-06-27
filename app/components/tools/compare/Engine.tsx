@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import Diff, { diffChars, diffWords } from "diff";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import Diff, { diffChars } from "diff";
 import { NotificationManager } from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 
 const Engine = () => {
-  const { darkMode } = DarkModeEngine();
   const [textA, setTextA] = useState("");
   const [textB, setTextB] = useState("");
   const [diffOutput, setDiffOutput] = useState<Diff.Change[]>();
@@ -40,7 +38,7 @@ const Engine = () => {
         return (
           <span
             key={index}
-            className={`${darkMode ? "bg-green-500 text-black" : "bg-green-300"} m-1 rounded-md p-1 text-center font-semibold`}
+            className={`m-1 rounded-md bg-green-500 p-1 text-center font-semibold`}
           >
             {part.value}
           </span>
@@ -49,7 +47,7 @@ const Engine = () => {
         return (
           <span
             key={index}
-            className={`${darkMode ? "bg-red-500 text-black" : "bg-red-300"} m-1 rounded-md p-1 text-center font-semibold`}
+            className={`m-1 rounded-md bg-red-500 p-1 text-center font-semibold`}
           >
             {part.value}
           </span>
@@ -70,7 +68,6 @@ const Engine = () => {
     textB,
     diffOutput,
     renderDiffOutput,
-    darkMode,
   };
 };
 

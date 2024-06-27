@@ -2,7 +2,7 @@
 
 import Image, { StaticImageData } from "next/image";
 import React from "react";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import CustomizationEngine from "./CustomizationEngine";
 
 interface TacoCardProps {
   children: React.ReactNode;
@@ -28,13 +28,14 @@ const TacoCard: React.FC<TacoCardProps> = ({
   toolName,
   cardDimension,
 }) => {
-  const { darkMode } = DarkModeEngine();
+  const { bgColor, textColor, hexToRgba } = CustomizationEngine();
 
   return (
     <div className="m-auto p-5 text-center">
       <div className={`mx-auto max-w-${cardDimension} space-y-8`}>
         <div
-          className={`${darkMode ? "bg-taco-dark-secondary text-white" : "bg-white text-black"} rounded-xl px-8 py-6 shadow-xl`}
+          className={`rounded-xl px-8 py-6 shadow-xl`}
+          style={{backgroundColor: hexToRgba(bgColor, 20), color: textColor}}
         >
           <Image
             src={logo ?? ""}

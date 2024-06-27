@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler } from "react";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import CustomizationEngine from "./CustomizationEngine";
 
 interface TacoSelectProps {
   onChange: ChangeEventHandler<HTMLSelectElement>;
@@ -14,11 +14,12 @@ const TacoSelect: React.FC<TacoSelectProps> = ({
   values,
   disabled,
 }) => {
-  const { darkMode } = DarkModeEngine();
+  const { bgColor, textColor, hexToRgba } = CustomizationEngine();
 
   return (
     <select
-      className={`${darkMode ? "bg-taco-dark-primary text-white" : "bg-gray-200 text-black"} w-80 rounded-md p-2 shadow-xl`}
+      className={`w-80 rounded-md p-2 shadow-xl`}
+      style={{ backgroundColor: hexToRgba(bgColor, 10), color: textColor }}
       onChange={onChange}
       value={value}
       disabled={disabled}

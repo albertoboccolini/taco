@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 import { NextPage } from "next";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import Engine from "@/app/components/account/Engine";
 import SignInLayout from "@/app/components/account/sign-in/Layout";
 import TacoButton from "@/app/components/public/TacoButton";
 import TacoPage from "@/app/components/public/TacoPage";
 import TacoInput from "../public/TacoInput";
 import TacoInputPassword from "../public/TacoInputPassword";
+import CustomizationEngine from "../public/CustomizationEngine";
 
 const Layout: NextPage = () => {
   const {
@@ -21,7 +21,7 @@ const Layout: NextPage = () => {
     togglePasswordVisibility,
     visiblePassword,
   } = Engine();
-  const { darkMode } = DarkModeEngine();
+  const { bgColor, textColor, hexToRgba } = CustomizationEngine();
 
   return (
     <TacoPage title={isAuthenticated ? "taco | account" : "taco | sign-in"}>
@@ -29,7 +29,8 @@ const Layout: NextPage = () => {
         <div className="m-auto p-5 text-center">
           <div className="mx-auto max-w-md space-y-8">
             <div
-              className={`${darkMode ? "bg-taco-dark-secondary text-white" : "bg-white text-black"} items-center rounded-xl px-8 py-6 shadow-xl`}
+              className={`items-center rounded-xl px-8 py-6 shadow-xl`}
+              style={{ backgroundColor: hexToRgba(bgColor, 20), color: textColor }}
             >
               <h1 className="mb-6 text-2xl font-bold">
                 See your account details

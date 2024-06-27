@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import Header from "@/app/components/public/Header";
+import CustomizationEngine from "./CustomizationEngine";
 
 interface TacoPageProps {
   children: React.ReactNode;
@@ -10,11 +10,12 @@ interface TacoPageProps {
 }
 
 const TacoPage: React.FC<TacoPageProps> = ({ children, title }) => {
-  const { darkMode } = DarkModeEngine();
+  const { bgColor, textColor } = CustomizationEngine();
 
   return (
     <div
-      className={`${darkMode ? "bg-taco-dark-primary" : "bg-white"} m-0 p-0 text-gray-800`}
+      className={`m-0 p-0`}
+      style={{ backgroundColor: bgColor, color: textColor }}
     >
       <Header title={title} onSearchChange={null} />
       <main className="m-auto max-w-4xl px-4 py-10 sm:p-10">{children}</main>

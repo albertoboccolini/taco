@@ -1,12 +1,11 @@
 "use client";
 import React from "react";
 import { NextPage } from "next";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import TacoButton from "@/app/components/public/TacoButton";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Engine } from "@/app/components/account/sign-in/Engine";
 import TacoInput from "../../public/TacoInput";
 import TacoInputPassword from "../../public/TacoInputPassword";
+import CustomizationEngine from "../../public/CustomizationEngine";
 
 const Layout: NextPage = () => {
   const {
@@ -18,16 +17,20 @@ const Layout: NextPage = () => {
     togglePasswordVisibility,
     authenticate,
   } = Engine();
-  const { darkMode } = DarkModeEngine();
+  const { bgColor, textColor, hexToRgba } = CustomizationEngine();
 
   return (
     <div className="m-auto p-5 text-center">
       <div className="mx-auto max-w-md space-y-8">
         <div
-          className={`${darkMode ? "bg-taco-dark-secondary text-white" : "bg-white text-black"} items-center rounded-xl px-8 py-6 shadow-xl`}
+          className={`items-center rounded-xl px-8 py-6 shadow-xl`}
+          style={{ backgroundColor: bgColor, color: textColor }}
         >
           <h1 className="mb-6 text-2xl font-bold">Welcome back to taco</h1>
-          <p className="text-center text-sm text-gray-400">
+          <p
+            className="text-center text-sm"
+            style={{ color: hexToRgba(textColor, 80) }}
+          >
             Please enter your e-mail and password so we can verify everything is
             good and we can back work together.
           </p>
@@ -56,9 +59,11 @@ const Layout: NextPage = () => {
             />
           </div>
           <div className="mt-4 flex items-center justify-center gap-1 text-sm">
-            <p className="text-gray-400">Are you new around there?</p>
+            <p style={{ color: hexToRgba(textColor, 80) }}>
+              Are you new around there?
+            </p>
             <button
-              className="text-blue-400 underline"
+              className={`${textColor == "white" ? "text-blue-300" : "text-blue-500"} underline`}
               title={"account | sign-up"}
               onClick={() => (window.location.href = "/account/sign-up")}
             >

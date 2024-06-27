@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, KeyboardEventHandler } from "react";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import CustomizationEngine from "./CustomizationEngine";
 
 const TacoInput: React.FunctionComponent<{
   id?: string;
@@ -24,13 +24,14 @@ const TacoInput: React.FunctionComponent<{
   checked,
   autoComplete,
 }) => {
-  const { darkMode } = DarkModeEngine();
+  const { bgColor, textColor, hexToRgba } = CustomizationEngine();
 
   return (
     <input
       placeholder={placeholder}
       id={id}
-      className={`${darkMode ? "bg-taco-dark-primary text-white" : "bg-white text-black"} mt-4 w-full max-w-xs rounded-md px-4 py-2 shadow-lg sm:max-w-sm md:max-w-md lg:max-w-lg`}
+      className={`${textColor == "white" ? "placeholder:text-white" : "placeholder:text-black"} mt-4 w-full max-w-xs rounded-md px-4 py-2 shadow-lg sm:max-w-sm md:max-w-md lg:max-w-lg`}
+      style={{ backgroundColor: hexToRgba(bgColor, 10), color: textColor }}
       type={type}
       value={value}
       onChange={onChange}
