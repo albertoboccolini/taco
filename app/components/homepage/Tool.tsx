@@ -1,6 +1,6 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import CustomizationEngine from "../public/CustomizationEngine";
 
 interface ToolProps {
   logo: StaticImageData;
@@ -9,13 +9,14 @@ interface ToolProps {
 }
 
 const Tool: React.FC<ToolProps> = ({ logo, toolLink, toolName }) => {
-  const { darkMode } = DarkModeEngine();
+  const { bgColor, hexToRgba } = CustomizationEngine();
 
   return (
     <>
       <a
         href={toolLink}
-        className={`${darkMode ? "bg-taco-dark-secondary" : "bg-white"} m-4 inline-block rounded-xl text-gray-800 no-underline shadow-xl duration-500 hover:scale-125`}
+        className={`m-4 inline-block rounded-xl no-underline shadow-xl duration-500 hover:scale-125`}
+        style={{ backgroundColor: hexToRgba(bgColor, 10) }}
       >
         <Image
           src={logo}

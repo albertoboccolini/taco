@@ -8,6 +8,7 @@ import Engine from "@/app/components/tools/tomato/Engine";
 import TacoSelect from "@/app/components/public/TacoSelect";
 import TacoCard from "@/app/components/public/TacoCard";
 import TacoPage from "@/app/components/public/TacoPage";
+import CustomizationEngine from "../../public/CustomizationEngine";
 
 const Layout: NextPage = () => {
   const {
@@ -20,6 +21,8 @@ const Layout: NextPage = () => {
     totalStudyTime,
   } = Engine();
 
+  const { textColor, hexToRgba } = CustomizationEngine();
+
   return (
     <TacoPage title={"taco | tomato"}>
       <TacoCard
@@ -28,7 +31,10 @@ const Layout: NextPage = () => {
         cardDimension={"md"}
       >
         <h2 className="text-3xl font-bold">{`${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`}</h2>
-        <p className="mt-4 text-center text-sm text-gray-400">
+        <p
+          className="mt-4 text-center text-sm"
+          style={{ color: hexToRgba(textColor, 80) }}
+        >
           Enter how many tomato&#39;s do you want to do and press start to do
           some study. Stay on this page to allow the timer to advance correctly
           and record your study time.
@@ -49,7 +55,10 @@ const Layout: NextPage = () => {
           />
         </div>
         <div className="mt-4 text-center">
-          <p className="mt-4 text-center text-sm text-gray-400">
+          <p
+            className="mt-4 text-center text-sm"
+            style={{ color: hexToRgba(textColor, 80) }}
+          >
             Total Study Time: {totalStudyTime} minutes
           </p>
         </div>

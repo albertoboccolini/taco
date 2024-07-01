@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler } from "react";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import CustomizationEngine from "./CustomizationEngine";
 
 interface TacoTextAreaProps {
   onChange: ChangeEventHandler<HTMLTextAreaElement>;
@@ -12,11 +12,12 @@ const TacoTextArea: React.FC<TacoTextAreaProps> = ({
   onChange,
   placeholder,
 }) => {
-  const { darkMode } = DarkModeEngine();
+  const { bgColor, textColor, hexToRgba } = CustomizationEngine();
 
   return (
     <textarea
-      className={`${darkMode ? "bg-taco-dark-primary text-white" : "bg-white text-black"} h-64 w-full resize-none rounded-xl px-8 py-6 shadow-xl`}
+      className={`${textColor == "white" ? "placeholder:text-white" : "placeholder:text-black"} h-64 w-full resize-none rounded-xl px-8 py-6 shadow-xl`}
+      style={{ backgroundColor: hexToRgba(bgColor, 10), color: textColor }}
       value={value}
       onChange={onChange}
       placeholder={placeholder}

@@ -1,5 +1,4 @@
 import React from "react";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
 const CalcButtons = ({
   buttons,
@@ -7,8 +6,6 @@ const CalcButtons = ({
   clearInput,
   calculateResult,
 }: any) => {
-  const { darkMode } = DarkModeEngine();
-
   return (
     <>
       {buttons.map((button: any, index: any) => (
@@ -19,7 +16,7 @@ const CalcButtons = ({
             else if (button === "=") calculateResult();
             else handleInputChange(button);
           }}
-          className={`${darkMode ? "bg-taco-dark-button hover:bg-taco-dark-button/60" : "bg-taco-button-bg hover:bg-taco-button-bg/80"} h-12 rounded-full font-bold text-white shadow-lg transition duration-300 ease-in-out hover:shadow-xl`}
+          className={`h-12 rounded-full bg-taco-button-bg font-bold text-white shadow-lg transition duration-300 ease-in-out hover:bg-taco-button-bg/80 hover:shadow-xl`}
         >
           {button}
         </button>

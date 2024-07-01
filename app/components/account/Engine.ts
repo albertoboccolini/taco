@@ -66,7 +66,6 @@ export const Engine = () => {
   const logout = () => {
     localStorage.removeItem("user-api-key");
     localStorage.removeItem("roomID");
-    localStorage.setItem("darkMode", "false");
     window.location.href = "/";
   };
 

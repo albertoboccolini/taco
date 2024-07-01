@@ -1,16 +1,13 @@
 import React from "react";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import TacoButton from "@/app/components/public/TacoButton";
-import { FaEyeSlash, FaEye } from "react-icons/fa";
 import tacoPasswordsLogo from "@/public/tacoPasswordsLogo.png";
 import TacoCard from "@/app/components/public/TacoCard";
 import { Engine } from "@/app/components/tools/passwords/Engine";
 import TacoInput from "@/app/components/public/TacoInput";
 import TacoInputPassword from "@/app/components/public/TacoInputPassword";
+import CustomizationEngine from "@/app/components/public/CustomizationEngine";
 
 const PasswordManager = () => {
-  const { darkMode } = DarkModeEngine();
-
   const {
     passwords,
     addPassword,
@@ -23,6 +20,8 @@ const PasswordManager = () => {
     updatedPasswords,
     editState,
   } = Engine();
+  const { bgColor, textColor, hexToRgba } = CustomizationEngine();
+
   return (
     <TacoCard
       logo={tacoPasswordsLogo}
@@ -34,7 +33,11 @@ const PasswordManager = () => {
           {passwords.map((password: any, index: any) => (
             <div
               key={index}
-              className={`m-4 flex h-1/2 flex-col items-center justify-center gap-x-4 gap-y-2 px-8 py-8 sm:flex-row sm:gap-y-1 sm:py-2 ${darkMode ? "bg-taco-dark-primary/50" : "bg-white"} rounded-lg shadow-xl`}
+              className={`m-4 flex h-1/2 flex-col items-center justify-center gap-x-4 gap-y-2 rounded-lg px-8 py-8 shadow-xl sm:flex-row sm:gap-y-1 sm:py-2`}
+              style={{
+                backgroundColor: bgColor,
+                color: textColor,
+              }}
             >
               <TacoInput
                 placeholder="Website"
@@ -97,7 +100,10 @@ const PasswordManager = () => {
           ))}
         </div>
       ) : (
-        <div className="mx-auto flex flex-col items-center justify-center gap-y-4 p-5 text-center font-normal text-gray-400">
+        <div
+          className="mx-auto flex flex-col items-center justify-center gap-y-4 p-5 text-center font-normal"
+          style={{ color: hexToRgba(textColor, 80) }}
+        >
           No passwords found.
         </div>
       )}

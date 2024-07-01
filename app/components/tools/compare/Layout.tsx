@@ -7,6 +7,7 @@ import TacoTextArea from "@/app/components/public/TacoTextArea";
 import TacoPage from "@/app/components/public/TacoPage";
 import TacoCard from "@/app/components/public/TacoCard";
 import Engine from "@/app/components/tools/compare/Engine";
+import CustomizationEngine from "../../public/CustomizationEngine";
 
 const Layout: React.FC = () => {
   const {
@@ -16,8 +17,9 @@ const Layout: React.FC = () => {
     textB,
     diffOutput,
     renderDiffOutput,
-    darkMode,
   } = Engine();
+
+  const { bgColor, hexToRgba } = CustomizationEngine();
 
   return (
     <TacoPage title={"taco | compare"}>
@@ -44,7 +46,8 @@ const Layout: React.FC = () => {
         <div className="mt-4">
           {diffOutput ? (
             <div
-              className={`${darkMode ? "bg-taco-dark-primary" : "bg-white"} rounded-lg p-4 shadow-xl`}
+              className={`rounded-lg p-4 shadow-xl`}
+              style={{ backgroundColor: hexToRgba(bgColor, 20) }}
             >
               {renderDiffOutput()}
             </div>

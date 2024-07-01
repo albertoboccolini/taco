@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import { NotificationManager } from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 

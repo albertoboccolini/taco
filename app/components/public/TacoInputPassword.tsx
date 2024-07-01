@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, MouseEventHandler } from "react";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import CustomizationEngine from "./CustomizationEngine";
 
 const TacoInputPassword: React.FunctionComponent<{
   visiblePassword: boolean;
@@ -19,7 +19,7 @@ const TacoInputPassword: React.FunctionComponent<{
   disabled,
   maxLength,
 }) => {
-  const { darkMode } = DarkModeEngine();
+  const { bgColor, textColor, hexToRgba } = CustomizationEngine();
 
   return (
     <div className="relative w-full">
@@ -31,11 +31,12 @@ const TacoInputPassword: React.FunctionComponent<{
         disabled={disabled}
         autoComplete={autoComplete}
         maxLength={maxLength}
-        className={`${darkMode ? "bg-taco-dark-primary text-white" : "bg-white text-black"} w-full max-w-xs rounded-lg px-4 py-2 pr-10 font-normal shadow-md sm:max-w-sm md:max-w-md lg:max-w-lg`}
+        className={`${textColor == "white" ? "placeholder:text-white" : "placeholder:text-black"} w-full max-w-xs rounded-lg px-4 py-2 pr-10 font-normal shadow-md sm:max-w-sm md:max-w-md lg:max-w-lg`}
+        style={{ backgroundColor: hexToRgba(bgColor, 10), color: textColor }}
       />
       <button
         onClick={onClick}
-        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500"
+        className="absolute inset-y-0 right-0 flex items-center pr-3"
       >
         {visiblePassword ? <FaEyeSlash /> : <FaEye />}
       </button>

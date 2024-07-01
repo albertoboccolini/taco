@@ -8,21 +8,25 @@ import Engine from "@/app/components/tools/public-ip/Engine";
 import TacoPage from "@/app/components/public/TacoPage";
 import TacoCard from "@/app/components/public/TacoCard";
 import tacoIPLogo from "@/public/tacoIPLogo.png";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import CustomizationEngine from "../../public/CustomizationEngine";
 
 const Layout: NextPage = () => {
   const { ipDetails, copyPublicIPToClipboard, downloadPDF } = Engine();
-  const { darkMode } = DarkModeEngine();
+  const { bgColor, textColor, hexToRgba } = CustomizationEngine();
 
   return (
     <TacoPage title={"taco | public-ip"}>
       <TacoCard logo={tacoIPLogo} toolName={"taco IP"} cardDimension={"md"}>
-        <p className="text-center text-sm text-gray-400">
+        <p
+          className="text-center text-sm"
+          style={{ color: hexToRgba(textColor, 80) }}
+        >
           If you don&#39;t see the information correctly, <br />
           try disabling AD Block and refreshing the page.
         </p>
         <div
-          className={`${darkMode ? "bg-taco-dark-primary text-white" : "bg-white text-black"} mx-0 mt-4 rounded-xl py-8 shadow-xl lg:mx-6`}
+          className={`mx-0 mt-4 rounded-xl py-8 shadow-xl lg:mx-6`}
+          style={{ backgroundColor: hexToRgba(bgColor, 10), color: textColor }}
         >
           {ipDetails ? (
             Object.entries(ipDetails)
@@ -34,11 +38,7 @@ const Layout: NextPage = () => {
                 >{`${key === "ip" ? key.toUpperCase() : key.toLowerCase()}: ${value}`}</p>
               ))
           ) : (
-            <p
-              className={`${darkMode ? "bg-taco-dark-primary text-white" : "bg-white text-black"} font-semibold`}
-            >
-              Loading...
-            </p>
+            <p className={`font-semibold`}>Loading...</p>
           )}
         </div>
         <div className="mt-4 block text-center">

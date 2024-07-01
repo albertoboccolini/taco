@@ -1,15 +1,15 @@
 import { toast } from "react-toastify";
 import AbstractDisplayableError from "@/app/components/public/errors/AbstractDisplayableError";
 import { useEffect, useState } from "react";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
+import CustomizationEngine from "./CustomizationEngine";
 
 export const NotificationManager = () => {
   const [error, setError] = useState<AbstractDisplayableError | null>(null);
-  const { darkMode } = DarkModeEngine();
+  const { bgColor, textColor, hexToRgba } = CustomizationEngine();
 
   const successNotification = (notification: string) => {
     toast.success(notification, {
-      style: darkMode ? { background: "#393939", color: "#FFFFFF" } : {},
+      style: { background: hexToRgba(bgColor, 10), color: textColor },
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -23,7 +23,7 @@ export const NotificationManager = () => {
   useEffect(() => {
     if (error) {
       toast.error(`${error.name}: ${error.message}`, {
-        style: darkMode ? { background: "#393939", color: "#FFFFFF" } : {},
+        style: { background: hexToRgba(bgColor, 10), color: textColor },
         position: "top-right",
         autoClose: false,
         hideProgressBar: true,
@@ -34,7 +34,7 @@ export const NotificationManager = () => {
       });
       setError(null);
     }
-  }, [error, darkMode]);
+  }, [bgColor, error, hexToRgba, textColor]);
 
   return { successNotification, setError };
 };

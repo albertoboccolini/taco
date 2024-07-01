@@ -1,16 +1,14 @@
 import React, { ChangeEventHandler } from "react";
-import DarkModeEngine from "@/app/components/public/DarkModeEngine";
 
 const TacoInputCheckbox: React.FunctionComponent<{
   onChange?: ChangeEventHandler<HTMLInputElement>;
-}> = ({ onChange }) => {
-  const { darkMode } = DarkModeEngine();
-
+  checked: boolean;
+}> = ({ onChange, checked }) => {
   return (
     <label className="inline-flex cursor-pointer items-center">
       <input
         type="checkbox"
-        checked={darkMode}
+        checked={checked}
         onChange={onChange}
         className="peer sr-only"
       />
