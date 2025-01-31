@@ -25,7 +25,7 @@ range of digital tasks without the need to rely on external services.
 3. Start taco with npm in detached mode on port 4000:
 
    ```bash
-   npm run taco
+   npm run dev
    ```
 
 4. Open [http://localhost:4000](http://localhost:4000) with your browser to use taco.
