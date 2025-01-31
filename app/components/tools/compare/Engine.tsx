@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Diff, { diffChars } from "diff";
+import * as Diff from "diff";
 import { NotificationManager } from "@/app/components/public/NotificationManager";
 import InvalidParameter from "@/app/components/public/errors/InvalidParameter";
 
@@ -26,7 +26,7 @@ const Engine = () => {
     } else if (textB === "") {
       return setError(new InvalidParameter("text B"));
     }
-    const diffs = diffChars(textA, textB);
+    const diffs = Diff.diffChars(textA, textB);
     setDiffOutput(diffs);
     renderDiffOutput();
   };
