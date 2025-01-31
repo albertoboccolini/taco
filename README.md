@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="400" height="400" src="logo-white.png" style="text-align: center">
+  <img width="400" height="400" src="public/tacoLogo.png" style="text-align: center">
 </p>
 
 # Taco | Tools All Cloud One
@@ -25,7 +25,7 @@ range of digital tasks without the need to rely on external services.
 3. Start taco with npm in detached mode on port 4000:
 
    ```bash
-   npm run taco
+   npm run dev
    ```
 
 4. Open [http://localhost:4000](http://localhost:4000) with your browser to use taco.

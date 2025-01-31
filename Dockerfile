@@ -1,11 +1,11 @@
-FROM node:20.11.1 AS builder
+FROM node:23.7.0 AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
 
-FROM node:20.11.1 AS runner
+FROM node:23.7.0 AS runner
 WORKDIR /app
 ENV NODE_ENV production
 
