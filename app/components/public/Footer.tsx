@@ -20,7 +20,7 @@ const Footer = () => {
     >
       <div className="flex w-full flex-row items-center justify-between px-4">
         <p className="flex-1 text-center">
-          &copy; 2024 albertoboccolini | taco
+          &copy; {new Date().getFullYear()} albertoboccolini | taco
         </p>
         <div className="relative rounded-full">
           <FontAwesomeIcon

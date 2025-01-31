@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="400" height="400" src="logo-white.png" style="text-align: center">
+  <img width="400" height="400" src="public/tacoLogo.png" style="text-align: center">
 </p>
 
 # Taco | Tools All Cloud One
